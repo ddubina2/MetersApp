@@ -46,7 +46,7 @@ public class DataFetcherBackgroundService : BackgroundService
                     Items = sensorData.Select(x => new SensorDataItem
                     {
                         SensorType = x.SensorType,
-                        Location = x.Location,
+                        LocationType = x.LocationType,
                         Payload = x.Payload,
                     })
                 }, cancellationToken);

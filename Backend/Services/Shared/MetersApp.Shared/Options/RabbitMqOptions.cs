@@ -1,4 +1,4 @@
-﻿namespace DataIngestor.Core.Options;
+﻿namespace MetersApp.Shared.Options;
 
 public class RabbitMqOptions
 {

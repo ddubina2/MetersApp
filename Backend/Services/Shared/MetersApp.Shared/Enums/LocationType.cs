@@ -1,6 +1,6 @@
 ﻿namespace MetersApp.Shared.Enums;
 
-public enum Location
+public enum LocationType
 {
     Unknown = 0,
     Office,

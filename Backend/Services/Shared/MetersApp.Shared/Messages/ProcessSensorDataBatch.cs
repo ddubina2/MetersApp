@@ -12,7 +12,7 @@ public class SensorDataItem
 {
     public SensorType SensorType { get; set; }
 
-    public Location Location { get; set; }
+    public LocationType LocationType { get; set; }
 
     public JsonElement Payload { get; set; }
 }

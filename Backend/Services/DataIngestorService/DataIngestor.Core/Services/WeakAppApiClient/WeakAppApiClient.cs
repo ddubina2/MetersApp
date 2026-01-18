@@ -94,8 +94,8 @@ public class WeakAppApiClient : IWeakAppApiClient
 
                 var nameString = nameProp.GetString()?.Replace(" ", "",
                     StringComparison.InvariantCultureIgnoreCase);
-                if (!Enum.TryParse<Location>(nameString, true, out var location) ||
-                    location == Location.Unknown)
+                if (!Enum.TryParse<LocationType>(nameString, true, out var location) ||
+                    location == LocationType.Unknown)
                 {
                     _logger.LogWarning("Unknown Location: {Location}, skipping...", nameString);
                     continue;
@@ -104,7 +104,7 @@ public class WeakAppApiClient : IWeakAppApiClient
                 sensorDataList.Add(new SensorData
                 {
                     SensorType = sensorType,
-                    Location = location,
+                    LocationType = location,
                     Payload = payloadProp.Clone()
                 });
             }

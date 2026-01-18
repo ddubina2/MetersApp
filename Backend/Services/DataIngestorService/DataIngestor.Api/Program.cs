@@ -1,6 +1,6 @@
 using DataIngestor.Core;
-using DataIngestor.Core.Options;
 using MassTransit;
+using MetersApp.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
