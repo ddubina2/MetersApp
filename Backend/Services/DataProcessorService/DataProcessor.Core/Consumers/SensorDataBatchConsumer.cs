@@ -17,11 +17,16 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
     };
     private readonly DataProcessorDbContext _dbContext;
     private readonly ILogger<SensorDataBatchConsumer> _logger;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public SensorDataBatchConsumer(DataProcessorDbContext dbContext, ILogger<SensorDataBatchConsumer> logger)
+    public SensorDataBatchConsumer(
+        DataProcessorDbContext dbContext,
+        ILogger<SensorDataBatchConsumer> logger,
+        IPublishEndpoint publishEndpoint)
     {
         _dbContext = dbContext;
         _logger = logger;
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task Consume(ConsumeContext<ProcessSensorDataBatch> context)
@@ -62,6 +67,11 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
         }
 
         await _dbContext.SaveChangesAsync(context.CancellationToken);
+
+        await _publishEndpoint.Publish(new NewSensorDataEvent
+        {
+            Items = context.Message.Items,
+        });
     }
 
     private static async Task AddReadingAsync<TReading>(
