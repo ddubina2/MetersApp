@@ -2,9 +2,10 @@
 
 namespace GraphQLGateway.Core.Dto;
 
-public record EnergyReadingDto(
-    Guid Id,
-    LocationType LocationId,
-    DateTime Timestamp,
-    float Energy
-);
+public class EnergyReadingDto
+{
+    public Guid Id { get; set; }
+    public LocationType LocationId { get; set; }
+    public DateTime Timestamp { get; set; }
+    public float Energy { get; set; }
+}

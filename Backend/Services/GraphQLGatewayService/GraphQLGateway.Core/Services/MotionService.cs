@@ -18,11 +18,12 @@ public class MotionService : IMotionService
     {
         return _dbContext.MotionReadings
             .AsNoTracking()
-            .Select(x => new MotionReadingDto(
-                x.Id,
-                x.LocationId,
-                x.Timestamp,
-                x.MotionDetected
-            ));
+            .Select(x => new MotionReadingDto
+            {
+                Id = x.Id,
+                LocationId = x.LocationId,
+                Timestamp = x.Timestamp,
+                MotionDetected = x.MotionDetected
+            });
     }
 }

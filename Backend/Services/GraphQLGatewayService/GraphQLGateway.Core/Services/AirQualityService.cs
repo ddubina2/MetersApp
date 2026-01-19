@@ -7,16 +7,16 @@ namespace GraphQLGateway.Core.Services;
 
 public class AirQualityService : IAirQualityService
 {
-    private readonly AppDbContext _db;
+    private readonly AppDbContext _dbContext;
 
-    public AirQualityService(AppDbContext db)
+    public AirQualityService(AppDbContext dbContext)
     {
-        _db = db;
+        _dbContext = dbContext;
     }
 
     public IQueryable<AirQualityReadingDto> GetReadings()
     {
-        return _db.AirQualityReadings
+        return _dbContext.AirQualityReadings
             .AsNoTracking()
             .Select(x => new AirQualityReadingDto
             {

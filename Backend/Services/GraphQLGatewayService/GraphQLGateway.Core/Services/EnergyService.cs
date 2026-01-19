@@ -18,12 +18,13 @@ public class EnergyService : IEnergyService
     {
         return _db.EnergyReadings
             .AsNoTracking()
-            .Select(x => new EnergyReadingDto(
-                x.Id,
-                x.LocationId,
-                x.Timestamp,
-                x.Energy
-            ));
+            .Select(x => new EnergyReadingDto
+            {
+                Id = x.Id,
+                LocationId = x.LocationId,
+                Timestamp = x.Timestamp,
+                Energy = x.Energy
+            });
     }
 
     public IQueryable<EnergyAggregationDto> GetEnergyByDay()
@@ -35,11 +36,11 @@ public class EnergyService : IEnergyService
                 x.LocationId,
                 Day = x.Timestamp.Date
             })
-            .Select(g => new EnergyAggregationDto(
-                g.Key.LocationId,
-                g.Key.Day,
-                g.Sum(x => x.Energy)
-            ));
+            .Select(g => new EnergyAggregationDto
+            {
+                Location = g.Key.LocationId,
+                Day = g.Key.Day,
+                TotalEnergy = g.Sum(x => x.Energy)
+            });
     }
 }
-

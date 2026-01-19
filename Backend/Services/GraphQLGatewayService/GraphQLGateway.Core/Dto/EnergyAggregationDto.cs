@@ -2,8 +2,9 @@
 
 namespace GraphQLGateway.Core.Dto;
 
-public record EnergyAggregationDto(
-    LocationType Location,
-    DateTime Day,
-    float TotalEnergy
-);
+public class EnergyAggregationDto
+{
+    public LocationType Location { get; set; }
+    public DateTime Day { get; set; }
+    public float TotalEnergy { get; set; }
+}
