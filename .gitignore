@@ -367,3 +367,4 @@ FodyWeavers.xsd
 
 Backend/Services/DataIngestorService/DataIngestor.Api/appsettings.Development.json
 Backend/Services/DataProcessorService/DataProcessor.Api/appsettings.Development.json
+Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/appsettings.Development.json

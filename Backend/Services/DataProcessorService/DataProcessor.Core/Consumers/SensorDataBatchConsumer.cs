@@ -64,12 +64,11 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
         await _dbContext.SaveChangesAsync(context.CancellationToken);
     }
 
-    private async Task AddReadingAsync<TReading>(
+    private static async Task AddReadingAsync<TReading>(
         JsonElement payload,
         LocationType location,
         DbSet<TReading> dbSet,
-        CancellationToken ct)
-        where TReading : MeterBaseEntity
+        CancellationToken ct) where TReading : MeterBaseEntity
     {
         var reading = payload.Deserialize<TReading>(JsonSerializerOptions);
 
