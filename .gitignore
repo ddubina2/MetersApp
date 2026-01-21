@@ -369,3 +369,27 @@ Backend/Services/DataIngestorService/DataIngestor.Api/appsettings.Development.js
 Backend/Services/DataProcessorService/DataProcessor.Api/appsettings.Development.json
 Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/appsettings.Development.json
 Backend/Services/NotificationsService/Notifications.Api/appsettings.Development.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+tsconfig.tsbuildinfo
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+**/.vscode/*
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sw?
+
