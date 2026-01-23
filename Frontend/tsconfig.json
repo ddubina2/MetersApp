@@ -31,5 +31,5 @@
   },
   "references": [{ "path": "./tsconfig.node.json" }],
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "src/shared/graphql/generated.ts"]
+  "exclude": ["node_modules", "dist", "src/shared/graphql/"]
 }
