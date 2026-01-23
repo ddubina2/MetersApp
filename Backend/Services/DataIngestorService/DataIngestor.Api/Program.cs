@@ -1,38 +1,50 @@
 using DataIngestor.Core;
 using MassTransit;
 using MetersApp.Shared.Options;
+using Serilog;
+using Serilog.Events;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+    .WriteTo.Console()
+    .CreateLogger();
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
-builder.Services.AddMassTransit(x =>
+try
 {
-    var options = builder.Configuration.GetSection(nameof(RabbitMqOptions)).Get<RabbitMqOptions>();
-    x.UsingRabbitMq((context,cfg) =>
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Services.AddSerilog();
+
+    builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
+    builder.Services.AddMassTransit(x =>
     {
-        cfg.Host(options?.Host, "/", h => {
-            h.Username(options?.UserName ?? "");
-            h.Password(options?.Password ?? "");
+        var options = builder.Configuration.GetSection(nameof(RabbitMqOptions)).Get<RabbitMqOptions>();
+        x.UsingRabbitMq((context,cfg) =>
+        {
+            cfg.Host(options?.Host, "/", h => {
+                h.Username(options?.UserName ?? "");
+                h.Password(options?.Password ?? "");
+            });
+
+            cfg.ConfigureEndpoints(context);
         });
-
-        cfg.ConfigureEndpoints(context);
     });
-});
 
-builder.Services.ConfigureCoreServices(builder.Configuration);
+    builder.Services.ConfigureCoreServices(builder.Configuration);
 
-var app = builder.Build();
+    var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
+    app.UseSerilogRequestLogging();
+
+    await app.RunAsync();
 }
-
-app.UseHttpsRedirection();
-
-app.Run();
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    await Log.CloseAndFlushAsync();
+}

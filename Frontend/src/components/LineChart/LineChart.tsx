@@ -10,6 +10,12 @@ export const LineChart: FC<LineChartProps> = ({
   isAnimationActive = true,
 }) => {
 
+  const COLORS = [
+    '#7996E0',
+    '#82ca9d',
+    '#E0C879'
+  ];
+
   const dataKeys = dataset[0]
   ? Object.keys(dataset[0]).filter(k => k !== 'name')
   : [];
@@ -56,11 +62,14 @@ export const LineChart: FC<LineChartProps> = ({
             tickLine={false}
           />
           <Tooltip />
-          {dataKeys[0] ? <Line isAnimationActive={isAnimationActive} dataKey={dataKeys[0]} stroke='#7996E0' dot={false} /> : null}
-
-          {dataKeys[1] ? <Line isAnimationActive={isAnimationActive} dataKey={dataKeys[1]} stroke='#82ca9d' dot={false} /> : null}
-
-          {dataKeys[2] ? <Line isAnimationActive={isAnimationActive} dataKey={dataKeys[2]} stroke='#E0C879' dot={false} /> : null}
+          {dataKeys.map((dataKey, index) => (
+            <Line
+              key={`${dataKey}-key`}
+              isAnimationActive={isAnimationActive}
+              dataKey={dataKeys[index]}
+              stroke={COLORS[index]}
+              dot={false}
+            />))}
         </ComposedChart>
       </ResponsiveContainer>
     </div>

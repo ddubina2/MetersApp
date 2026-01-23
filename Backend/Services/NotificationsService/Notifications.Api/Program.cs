@@ -4,6 +4,8 @@ using MetersApp.Shared.Options;
 using Notifications.Api.SignalR;
 using Notifications.Core.Consumers;
 using Notifications.Core.Interfaces;
+using Serilog;
+using Serilog.Events;
 
 namespace Notifications.Api;
 
@@ -11,62 +13,74 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+            .WriteTo.Console()
+            .CreateLogger();
 
-        builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
-        builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
-        builder.Services.AddCors(options =>
+        try
         {
-            options.AddPolicy("AllowFrontend", policy =>
-            {
-                var corsOptions = builder.Configuration.GetSection(nameof(CorsOptions)).Get<CorsOptions>();
-                policy.WithOrigins(corsOptions?.AllowedOrigins ?? [])
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            });
-        });
+            var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddSignalR()
-            .AddJsonProtocol(options =>
-            {
-                options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
-        builder.Services.AddMassTransit(x =>
-        {
-            var options = builder.Configuration.GetSection(nameof(RabbitMqOptions)).Get<RabbitMqOptions>();
+            builder.Services.AddSerilog();
 
-            x.AddConsumer<NewSensorDataEventConsumer>();
-            x.UsingRabbitMq((context,cfg) =>
+            builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
+            builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
+            builder.Services.AddCors(options =>
             {
-                cfg.Host(options?.Host, "/", h => {
-                    h.Username(options?.UserName ?? "");
-                    h.Password(options?.Password ?? "");
-                });
-
-                cfg.ReceiveEndpoint(e =>
+                options.AddPolicy("AllowFrontend", policy =>
                 {
-                    e.ConfigureConsumer<NewSensorDataEventConsumer>(context);
+                    var corsOptions = builder.Configuration.GetSection(nameof(CorsOptions)).Get<CorsOptions>();
+                    policy.WithOrigins(corsOptions?.AllowedOrigins ?? [])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
-        });
 
-        builder.Services.AddScoped<ISensorBroadcaster, SignalRSensorBroadcaster>();
+            builder.Services.AddSignalR()
+                .AddJsonProtocol(options =>
+                {
+                    options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
 
-        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-        builder.Services.AddOpenApi();
+            builder.Services.AddMassTransit(x =>
+            {
+                var options = builder.Configuration.GetSection(nameof(RabbitMqOptions)).Get<RabbitMqOptions>();
 
-        var app = builder.Build();
+                x.AddConsumer<NewSensorDataEventConsumer>();
+                x.UsingRabbitMq((context,cfg) =>
+                {
+                    cfg.Host(options?.Host, "/", h => {
+                        h.Username(options?.UserName ?? "");
+                        h.Password(options?.Password ?? "");
+                    });
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapOpenApi();
+                    cfg.ReceiveEndpoint(e =>
+                    {
+                        e.ConfigureConsumer<NewSensorDataEventConsumer>(context);
+                    });
+                });
+            });
+
+            builder.Services.AddScoped<ISensorBroadcaster, SignalRSensorBroadcaster>();
+
+            var app = builder.Build();
+
+            app.UseSerilogRequestLogging();
+            app.UseCors("AllowFrontend");
+            app.MapHub<SensorHub>("/hubs/sensors");
+            app.Run();
         }
-
-        app.UseCors("AllowFrontend");
-        app.UseHttpsRedirection();
-        app.MapHub<SensorHub>("/hubs/sensors");
-        app.Run();
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Application terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 }
