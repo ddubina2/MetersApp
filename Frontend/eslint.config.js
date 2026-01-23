@@ -8,7 +8,17 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 import reactA11Y from 'eslint-plugin-jsx-a11y';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', '.vscode', 'eslint.config.js', 'postcss.config.js', 'tailwind.config.js', 'src/shared/graphql'] },
+  { ignores: [
+    'dist',
+    'node_modules',
+    '.vscode',
+    'eslint.config.js',
+    'postcss.config.js',
+    'tailwind.config.js',
+    'vite.config.*',
+    'codegen.*',
+    'src/shared/graphql',
+  ] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
@@ -21,7 +31,7 @@ export default tseslint.config(
       ecmaVersion: 'latest',
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ['./tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
