@@ -28,6 +28,9 @@ jobs:
           cache: pnpm
           cache-dependency-path: Frontend/pnpm-lock.yaml
 
+      - name: Approve build scripts
+        run: pnpm approve-builds
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
