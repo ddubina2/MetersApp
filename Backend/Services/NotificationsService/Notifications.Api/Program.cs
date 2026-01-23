@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using MassTransit;
 using MetersApp.Shared.Options;
 using Notifications.Api.SignalR;
@@ -12,9 +13,25 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddSignalR();
-        builder.Services.AddScoped<ISensorBroadcaster, SignalRSensorBroadcaster>();
         builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
+        builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontend", policy =>
+            {
+                var corsOptions = builder.Configuration.GetSection(nameof(CorsOptions)).Get<CorsOptions>();
+                policy.WithOrigins(corsOptions?.AllowedOrigins ?? [])
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
+
+        builder.Services.AddSignalR()
+            .AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
         builder.Services.AddMassTransit(x =>
         {
             var options = builder.Configuration.GetSection(nameof(RabbitMqOptions)).Get<RabbitMqOptions>();
@@ -34,6 +51,8 @@ public class Program
             });
         });
 
+        builder.Services.AddScoped<ISensorBroadcaster, SignalRSensorBroadcaster>();
+
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
@@ -45,8 +64,9 @@ public class Program
             app.MapOpenApi();
         }
 
+        app.UseCors("AllowFrontend");
         app.UseHttpsRedirection();
-
+        app.MapHub<SensorHub>("/hubs/sensors");
         app.Run();
     }
 }

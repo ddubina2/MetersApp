@@ -27,6 +27,7 @@ public class NewSensorDataEventConsumer : IConsumer<NewSensorDataEvent>
                 {
                     LocationType =  i.LocationType,
                     SensorType = i.SensorType,
+                    Timestamp = i.Timestamp,
                     Payload =  i.Payload,
                 })
             }, context.CancellationToken);

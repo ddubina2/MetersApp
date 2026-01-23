@@ -7,15 +7,13 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["GraphQLGatewayService/GraphQLGateway.Api/GraphQLGateway.Api.csproj", "GraphQLGatewayService/GraphQLGateway.Api/"]
-RUN dotnet restore "GraphQLGatewayService/GraphQLGateway.Api/GraphQLGateway.Api.csproj"
 COPY . .
-WORKDIR "/src/GraphQLGatewayService/GraphQLGateway.Api"
-RUN dotnet build "./GraphQLGateway.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+WORKDIR /src/Services/GraphQLGatewayService/GraphQLGateway.Api
+RUN dotnet build GraphQLGateway.Api.csproj -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./GraphQLGateway.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish GraphQLGateway.Api.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
