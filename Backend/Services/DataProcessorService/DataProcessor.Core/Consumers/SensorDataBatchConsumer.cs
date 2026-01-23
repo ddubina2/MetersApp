@@ -26,7 +26,7 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
     {
         _dbContext = dbContext;
         _logger = logger;
-        _publishEndpoint = publishEndpoint
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task Consume(ConsumeContext<ProcessSensorDataBatch> context)
