@@ -1,0 +1,25 @@
+name: SonarCloud analysis
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: read
+
+jobs:
+  Analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.2.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args:
+            -Dsonar.projectKey=roga-kopyta-GmbH_MetersApp
+            -Dsonar.organization=roga-kopyta-gmbh
+            -Dsonar.sources=Backend/Services,Frontend/src
+          projectBaseDir: .
