@@ -48,6 +48,7 @@ public class DataFetcherBackgroundService : BackgroundService
                         SensorType = x.SensorType,
                         LocationType = x.LocationType,
                         Payload = x.Payload,
+                        Timestamp = DateTime.UtcNow
                     })
                 }, cancellationToken);
             }

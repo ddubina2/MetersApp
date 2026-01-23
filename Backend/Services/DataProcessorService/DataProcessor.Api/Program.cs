@@ -1,5 +1,6 @@
 using DataProcessor.Core.Consumers;
 using DataProcessor.Data;
+using DataProcessor.Data.Extensions;
 using MassTransit;
 using MetersApp.Shared.Constants;
 using MetersApp.Shared.Options;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DataProcessor.Api;
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,8 @@ public class Program
 
         var app = builder.Build();
 
+        await app.MigrateDbAsync<DataProcessorDbContext>();
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -50,6 +53,6 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.Run();
+        await app.RunAsync();
     }
 }

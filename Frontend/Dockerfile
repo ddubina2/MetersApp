@@ -1,10 +1,14 @@
 FROM node:23.11.0-alpine3.21 AS build
 
 # Preparations
+ARG VITE_API_BASE_URL
+ARG VITE_SENSORS_HUB_URL
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_SENSORS_HUB_URL=$VITE_SENSORS_HUB_URL
+
 RUN corepack enable
 WORKDIR /app
-#ENV VITE_API_BASE_URL $API_BASE_URL
-#ARG VITE_API_BASE_URL
+
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile --ignore-scripts

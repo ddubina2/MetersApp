@@ -14,5 +14,7 @@ public class SensorDataItem
 
     public LocationType LocationType { get; set; }
 
+    public DateTime Timestamp { get; set; }
+
     public JsonElement Payload { get; set; }
 }

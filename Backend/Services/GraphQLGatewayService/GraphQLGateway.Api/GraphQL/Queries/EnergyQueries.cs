@@ -6,7 +6,7 @@ namespace GraphQLGateway.Api.GraphQL.Queries;
 [ExtendObjectType(Name = "Query")]
 public class EnergyQueries
 {
-    [UsePaging]
+    [UsePaging(IncludeTotalCount = true, MaxPageSize = 100)]
     [UseFiltering]
     [UseSorting]
     public IQueryable<EnergyReadingDto> EnergyReadings(

@@ -2,6 +2,7 @@ using GraphQLGateway.Api.GraphQL.Queries;
 using GraphQLGateway.Api.GraphQL.Types;
 using GraphQLGateway.Core;
 using GraphQLGateway.Data;
+using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphQLGateway.Api;
@@ -12,6 +13,18 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontend", policy =>
+            {
+                var corsOptions = builder.Configuration.GetSection(nameof(CorsOptions)).Get<CorsOptions>();
+                policy.WithOrigins(corsOptions?.AllowedOrigins ?? [])
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+
         builder.Services
             .AddGraphQLServer()
             .AddQueryType(d => d.Name("Query"))
@@ -21,7 +34,11 @@ public class Program
             .AddTypeExtension<MotionQueries>()
             .AddFiltering()
             .AddSorting()
-            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);;
+            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
+            .ModifyCostOptions(options =>
+            {
+                options.MaxFieldCost = 5_000;
+            });;
 
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -41,8 +58,8 @@ public class Program
             app.MapOpenApi();
         }
 
+        app.UseCors("AllowFrontend");
         app.UseHttpsRedirection();
-
         app.MapGraphQL();
         app.Run();
     }

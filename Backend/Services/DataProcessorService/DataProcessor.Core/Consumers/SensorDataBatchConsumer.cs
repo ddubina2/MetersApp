@@ -39,6 +39,7 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
                     await AddReadingAsync(
                         item.Payload,
                         item.LocationType,
+                        item.Timestamp,
                         _dbContext.AirQualityReadings,
                         context.CancellationToken);
                     break;
@@ -47,6 +48,7 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
                     await AddReadingAsync(
                         item.Payload,
                         item.LocationType,
+                        item.Timestamp,
                         _dbContext.EnergyReadings,
                         context.CancellationToken);
                     break;
@@ -55,6 +57,7 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
                     await AddReadingAsync(
                         item.Payload,
                         item.LocationType,
+                        item.Timestamp,
                         _dbContext.MotionReadings,
                         context.CancellationToken);
                     break;
@@ -77,6 +80,7 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
     private static async Task AddReadingAsync<TReading>(
         JsonElement payload,
         LocationType location,
+        DateTime timestamp,
         DbSet<TReading> dbSet,
         CancellationToken ct) where TReading : MeterBaseEntity
     {
@@ -88,7 +92,7 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
         }
 
         reading.LocationId = location;
-        reading.Timestamp = DateTime.UtcNow;
+        reading.Timestamp = timestamp;
 
         await dbSet.AddAsync(reading, ct);
     }
