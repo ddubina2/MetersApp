@@ -21,9 +21,10 @@ export default tseslint.config(
       ecmaVersion: 'latest',
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ['./tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
+      ignorePatterns: ['codegen.*', 'vite.config.*'],
     },
     plugins: {
       react,
