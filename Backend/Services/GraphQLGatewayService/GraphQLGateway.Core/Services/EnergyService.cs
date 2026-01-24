@@ -26,21 +26,4 @@ public class EnergyService : IEnergyService
                 Energy = x.Energy
             });
     }
-
-    public IQueryable<EnergyAggregationDto> GetEnergyByDay()
-    {
-        return _db.EnergyReadings
-            .AsNoTracking()
-            .GroupBy(x => new
-            {
-                x.LocationId,
-                Day = x.Timestamp.Date
-            })
-            .Select(g => new EnergyAggregationDto
-            {
-                Location = g.Key.LocationId,
-                Day = g.Key.Day,
-                TotalEnergy = g.Sum(x => x.Energy)
-            });
-    }
 }
