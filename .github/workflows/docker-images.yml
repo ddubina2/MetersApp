@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
-          file: Services/DataProcessorService/DataProcessor.Api/Dockerfile
+          file: ./Backend/Services/DataProcessorService/DataProcessor.Api/Dockerfile
           push: false
           # tags: |
           #   metersacr.azurecr.io/dataprocessor:latest
@@ -61,7 +61,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
-          file: Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile
+          file: ./Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile
           push: false
           # tags: |
           #   metersacr.azurecr.io/graphqlgateway:latest
@@ -71,7 +71,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
-          file: Services/NotificationsService/Notifications.Api/Dockerfile
+          file: ./Backend/Services/NotificationsService/Notifications.Api/Dockerfile
           push: false
           # tags: |
           #   metersacr.azurecr.io/notifications:latest
