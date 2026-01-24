@@ -28,7 +28,7 @@ jobs:
 
       # ---------- Backend services ----------
       - name: Build & push WeakApp API
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./Backend/WeakApp
           file: ./Backend/WeakApp/Dockerfile
@@ -38,7 +38,7 @@ jobs:
           #   metersacr.azurecr.io/weakappapi:${{ github.sha }}
 
       - name: Build & push DataIngestor
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./Backend
           file: ./Backend/Services/DataIngestorService/DataIngestor.Api/Dockerfile
@@ -48,7 +48,7 @@ jobs:
           #   metersacr.azurecr.io/dataingestor:${{ github.sha }}
 
       - name: Build & push DataProcessor
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./Backend
           file: ./Backend/Services/DataProcessorService/DataProcessor.Api/Dockerfile
@@ -58,7 +58,7 @@ jobs:
           #   metersacr.azurecr.io/dataprocessor:${{ github.sha }}
 
       - name: Build & push GraphQL Gateway
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./Backend
           file: ./Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile
@@ -68,7 +68,7 @@ jobs:
           #   metersacr.azurecr.io/graphqlgateway:${{ github.sha }}
 
       - name: Build & push Notifications
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./Backend
           file: ./Backend/Services/NotificationsService/Notifications.Api/Dockerfile
@@ -79,7 +79,7 @@ jobs:
 
       # ---------- Frontend ----------
       - name: Build & push Frontend
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./Frontend
           push: false
