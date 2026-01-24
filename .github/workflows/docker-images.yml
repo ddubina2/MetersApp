@@ -1,0 +1,90 @@
+name: Build & Push Docker Images
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Azure login
+      # - name: Login to Azure
+      #   uses: azure/login@v2
+      #   with:
+      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      #     client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+      # # Login to ACR
+      # - name: Login to ACR
+      #   run: az acr login --name ${{ secrets.ACR_NAME }}
+
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v3
+
+      # ---------- Backend services ----------
+      - name: Build & push WeakApp API
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Backend/WeakApp
+          push: false
+          # tags: |
+          #   metersacr.azurecr.io/weakappapi:latest
+          #   metersacr.azurecr.io/weakappapi:${{ github.sha }}
+
+      - name: Build & push DataIngestor
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Backend
+          file: Services/DataIngestorService/DataIngestor.Api/Dockerfile
+          push: false
+          # tags: |
+          #   metersacr.azurecr.io/dataingestor:latest
+          #   metersacr.azurecr.io/dataingestor:${{ github.sha }}
+
+      - name: Build & push DataProcessor
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Backend
+          file: Services/DataProcessorService/DataProcessor.Api/Dockerfile
+          push: false
+          # tags: |
+          #   metersacr.azurecr.io/dataprocessor:latest
+          #   metersacr.azurecr.io/dataprocessor:${{ github.sha }}
+
+      - name: Build & push GraphQL Gateway
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Backend
+          file: Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile
+          push: false
+          # tags: |
+          #   metersacr.azurecr.io/graphqlgateway:latest
+          #   metersacr.azurecr.io/graphqlgateway:${{ github.sha }}
+
+      - name: Build & push Notifications
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Backend
+          file: Services/NotificationsService/Notifications.Api/Dockerfile
+          push: false
+          # tags: |
+          #   metersacr.azurecr.io/notifications:latest
+          #   metersacr.azurecr.io/notifications:${{ github.sha }}
+
+      # ---------- Frontend ----------
+      - name: Build & push Frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Frontend
+          push: false
+          build-args: |
+            VITE_API_BASE_URL=https://api.example.com
+            VITE_SENSORS_HUB_URL=https://hub.example.com
+          # tags: |
+          #   metersacr.azurecr.io/frontend:latest
+          #   metersacr.azurecr.io/frontend:${{ github.sha }}
