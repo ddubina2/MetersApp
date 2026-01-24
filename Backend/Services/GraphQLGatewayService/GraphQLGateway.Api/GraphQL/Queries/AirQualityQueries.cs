@@ -3,7 +3,7 @@ using GraphQLGateway.Core.Interfaces;
 
 namespace GraphQLGateway.Api.GraphQL.Queries;
 
-[ExtendObjectType(Name = "Query")]
+[ExtendObjectType("AirQualityReadings")]
 public class AirQualityQueries
 {
     [UsePaging(IncludeTotalCount = true, MaxPageSize = 100)]

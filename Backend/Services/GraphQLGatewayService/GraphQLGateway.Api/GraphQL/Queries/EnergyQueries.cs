@@ -3,7 +3,7 @@ using GraphQLGateway.Core.Interfaces;
 
 namespace GraphQLGateway.Api.GraphQL.Queries;
 
-[ExtendObjectType(Name = "Query")]
+[ExtendObjectType("EnergyReadings")]
 public class EnergyQueries
 {
     [UsePaging(IncludeTotalCount = true, MaxPageSize = 100)]
@@ -12,9 +12,4 @@ public class EnergyQueries
     public IQueryable<EnergyReadingDto> EnergyReadings(
         [Service] IEnergyService service)
         => service.GetReadings();
-
-    [UsePaging]
-    public IQueryable<EnergyAggregationDto> EnergyByDay(
-        [Service] IEnergyService service)
-        => service.GetEnergyByDay();
 }
