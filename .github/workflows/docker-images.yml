@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
-          file: Services/DataIngestorService/DataIngestor.Api/Dockerfile
+          file: ./Backend/Services/DataIngestorService/DataIngestor.Api/Dockerfile
           push: false
           # tags: |
           #   metersacr.azurecr.io/dataingestor:latest
