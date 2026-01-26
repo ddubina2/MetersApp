@@ -13,8 +13,9 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true,
     };
+
     private readonly DataProcessorDbContext _dbContext;
     private readonly ILogger<SensorDataBatchConsumer> _logger;
     private readonly IPublishEndpoint _publishEndpoint;

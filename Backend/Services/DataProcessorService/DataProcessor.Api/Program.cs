@@ -40,11 +40,11 @@ public class Program
 
                 x.AddConsumer<SensorDataBatchConsumer>();
 
-                x.UsingRabbitMq((context,cfg) =>
+                x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host(options?.Host, "/", h => {
-                        h.Username(options?.UserName ?? "");
-                        h.Password(options?.Password ?? "");
+                        h.Username(options?.UserName ?? string.Empty);
+                        h.Password(options?.Password ?? string.Empty);
                     });
 
                     cfg.ReceiveEndpoint(QueueNames.ProcessSensorDataQueue, e =>
