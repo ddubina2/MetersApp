@@ -21,11 +21,12 @@ try
     builder.Services.AddMassTransit(x =>
     {
         var options = builder.Configuration.GetSection(nameof(RabbitMqOptions)).Get<RabbitMqOptions>();
-        x.UsingRabbitMq((context,cfg) =>
+        x.UsingRabbitMq((context, cfg) =>
         {
-            cfg.Host(options?.Host, "/", h => {
-                h.Username(options?.UserName ?? "");
-                h.Password(options?.Password ?? "");
+            cfg.Host(options?.Host, "/", h =>
+            {
+                h.Username(options?.UserName ?? string.Empty);
+                h.Password(options?.Password ?? string.Empty);
             });
 
             cfg.ConfigureEndpoints(context);

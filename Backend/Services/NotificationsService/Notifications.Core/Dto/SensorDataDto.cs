@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-using MetersApp.Shared.Enums;
-
 namespace Notifications.Core.Dto;
+
+using System.Text.Json;
+using MetersApp.Shared.Enums;
 
 public class SensorDataDto
 {

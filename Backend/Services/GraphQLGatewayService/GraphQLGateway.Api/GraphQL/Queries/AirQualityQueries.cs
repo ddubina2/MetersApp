@@ -1,7 +1,7 @@
-﻿using GraphQLGateway.Core.Dto;
-using GraphQLGateway.Core.Interfaces;
-
 namespace GraphQLGateway.Api.GraphQL.Queries;
+
+using GraphQLGateway.Core.Dto;
+using GraphQLGateway.Core.Interfaces;
 
 [ExtendObjectType("AirQualityReadings")]
 public class AirQualityQueries

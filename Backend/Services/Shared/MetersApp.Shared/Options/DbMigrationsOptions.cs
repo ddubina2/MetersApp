@@ -1,4 +1,4 @@
-﻿namespace MetersApp.Shared.Options;
+namespace MetersApp.Shared.Options;
 
 public class DbMigrationsOptions
 {

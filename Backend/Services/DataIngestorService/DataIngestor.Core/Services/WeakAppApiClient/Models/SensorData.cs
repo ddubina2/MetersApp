@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-using MetersApp.Shared.Enums;
-
 namespace DataIngestor.Core.Services.WeakAppApiClient.Models;
+
+using System.Text.Json;
+using MetersApp.Shared.Enums;
 
 public class SensorData
 {

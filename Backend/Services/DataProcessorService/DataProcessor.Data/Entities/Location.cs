@@ -1,6 +1,6 @@
-﻿using MetersApp.Shared.Enums;
-
 namespace DataProcessor.Data.Entities;
+
+using MetersApp.Shared.Enums;
 
 public class Location
 {

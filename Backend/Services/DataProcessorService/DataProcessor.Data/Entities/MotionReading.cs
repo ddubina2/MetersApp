@@ -1,4 +1,4 @@
-﻿namespace DataProcessor.Data.Entities;
+namespace DataProcessor.Data.Entities;
 
 public class MotionReading : MeterBaseEntity
 {

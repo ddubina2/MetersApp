@@ -1,4 +1,4 @@
-﻿namespace MetersApp.Shared.Constants;
+namespace MetersApp.Shared.Constants;
 
 public static class QueueNames
 {

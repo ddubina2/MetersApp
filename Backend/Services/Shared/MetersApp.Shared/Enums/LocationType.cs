@@ -1,4 +1,4 @@
-﻿namespace MetersApp.Shared.Enums;
+namespace MetersApp.Shared.Enums;
 
 public enum LocationType
 {
@@ -8,5 +8,5 @@ public enum LocationType
     Kitchen,
     LivingRoom,
     Corridor,
-    Garage
+    Garage,
 }

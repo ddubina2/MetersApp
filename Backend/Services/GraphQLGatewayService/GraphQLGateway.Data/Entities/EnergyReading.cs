@@ -1,4 +1,4 @@
-﻿namespace GraphQLGateway.Data.Entities;
+namespace GraphQLGateway.Data.Entities;
 
 public class EnergyReading : MeterBaseEntity
 {

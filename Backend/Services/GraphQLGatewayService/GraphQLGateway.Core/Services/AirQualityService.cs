@@ -1,9 +1,9 @@
-﻿using GraphQLGateway.Core.Dto;
+namespace GraphQLGateway.Core.Services;
+
+using GraphQLGateway.Core.Dto;
 using GraphQLGateway.Core.Interfaces;
 using GraphQLGateway.Data;
 using Microsoft.EntityFrameworkCore;
-
-namespace GraphQLGateway.Core.Services;
 
 public class AirQualityService : IAirQualityService
 {
@@ -25,7 +25,7 @@ public class AirQualityService : IAirQualityService
                 Timestamp = x.Timestamp,
                 Co2 = x.Co2,
                 Pm25 = x.Pm25,
-                Humidity = x.Humidity
+                Humidity = x.Humidity,
             });
     }
 }

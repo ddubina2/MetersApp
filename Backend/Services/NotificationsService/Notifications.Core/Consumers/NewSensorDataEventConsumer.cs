@@ -1,10 +1,10 @@
-﻿using MassTransit;
+namespace Notifications.Core.Consumers;
+
+using MassTransit;
 using MetersApp.Shared.Messages;
 using Microsoft.Extensions.Logging;
 using Notifications.Core.Dto;
 using Notifications.Core.Interfaces;
-
-namespace Notifications.Core.Consumers;
 
 public class NewSensorDataEventConsumer : IConsumer<NewSensorDataEvent>
 {
@@ -21,16 +21,18 @@ public class NewSensorDataEventConsumer : IConsumer<NewSensorDataEvent>
     {
         try
         {
-            await _sensorBroadcaster.BroadcastAsync(new SensorDataDto
-            {
-                Items = context.Message.Items.Select(i => new SensorDataItemDto
+            await _sensorBroadcaster.BroadcastAsync(
+                new SensorDataDto
                 {
-                    LocationType =  i.LocationType,
-                    SensorType = i.SensorType,
-                    Timestamp = i.Timestamp,
-                    Payload =  i.Payload,
-                })
-            }, context.CancellationToken);
+                    Items = context.Message.Items.Select(i => new SensorDataItemDto
+                    {
+                        LocationType = i.LocationType,
+                        SensorType = i.SensorType,
+                        Timestamp = i.Timestamp,
+                        Payload = i.Payload,
+                    }),
+                },
+                context.CancellationToken);
         }
         catch (Exception ex)
         {

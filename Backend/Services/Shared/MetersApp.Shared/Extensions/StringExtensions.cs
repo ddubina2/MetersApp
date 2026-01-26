@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using System.Text;
-
 namespace MetersApp.Shared.Extensions;
+
+using System.Globalization;
+using System.Text;
 
 public static class StringExtensions
 {
@@ -21,7 +21,7 @@ public static class StringExtensions
         foreach (var word in words)
         {
             sb.Append(char.ToUpper(word[0], CultureInfo.InvariantCulture));
-            
+
             if (word.Length > 1)
             {
                 sb.Append(word[1..].ToLower(CultureInfo.InvariantCulture));

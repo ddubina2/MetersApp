@@ -1,9 +1,9 @@
-﻿using GraphQLGateway.Core.Dto;
+namespace GraphQLGateway.Core.Services;
+
+using GraphQLGateway.Core.Dto;
 using GraphQLGateway.Core.Interfaces;
 using GraphQLGateway.Data;
 using Microsoft.EntityFrameworkCore;
-
-namespace GraphQLGateway.Core.Services;
 
 public class EnergyService : IEnergyService
 {
@@ -23,7 +23,7 @@ public class EnergyService : IEnergyService
                 Id = x.Id,
                 LocationId = x.LocationId,
                 Timestamp = x.Timestamp,
-                Energy = x.Energy
+                Energy = x.Energy,
             });
     }
 }

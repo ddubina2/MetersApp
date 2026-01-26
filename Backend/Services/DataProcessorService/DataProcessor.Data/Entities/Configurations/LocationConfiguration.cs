@@ -1,8 +1,8 @@
-﻿using MetersApp.Shared.Enums;
+namespace DataProcessor.Data.Entities.Configurations;
+
+using MetersApp.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace DataProcessor.Data.Entities.Configurations;
 
 public class LocationConfiguration : IEntityTypeConfiguration<Location>
 {
@@ -16,8 +16,7 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
                 new Location { Id = LocationType.Kitchen },
                 new Location { Id = LocationType.LivingRoom },
                 new Location { Id = LocationType.Corridor },
-                new Location { Id = LocationType.Garage }
-            );
+                new Location { Id = LocationType.Garage });
 
         location
             .HasMany<AirQualityReading>(l => l.AirQualityReadings)

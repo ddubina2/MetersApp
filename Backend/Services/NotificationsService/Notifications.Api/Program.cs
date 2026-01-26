@@ -1,3 +1,5 @@
+namespace Notifications.Api;
+
 using System.Text.Json.Serialization;
 using MassTransit;
 using MetersApp.Shared.Options;
@@ -6,8 +8,6 @@ using Notifications.Core.Consumers;
 using Notifications.Core.Interfaces;
 using Serilog;
 using Serilog.Events;
-
-namespace Notifications.Api;
 
 public class Program
 {
@@ -51,11 +51,12 @@ public class Program
                 var options = builder.Configuration.GetSection(nameof(RabbitMqOptions)).Get<RabbitMqOptions>();
 
                 x.AddConsumer<NewSensorDataEventConsumer>();
-                x.UsingRabbitMq((context,cfg) =>
+                x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(options?.Host, "/", h => {
-                        h.Username(options?.UserName ?? "");
-                        h.Password(options?.Password ?? "");
+                    cfg.Host(options?.Host, "/", h =>
+                    {
+                        h.Username(options?.UserName ?? string.Empty);
+                        h.Password(options?.Password ?? string.Empty);
                     });
 
                     cfg.ReceiveEndpoint(e =>

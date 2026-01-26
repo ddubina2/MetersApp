@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
 #nullable disable
 
 namespace DataProcessor.Data.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     /// <inheritdoc />
     public partial class Initial : Migration
     {
@@ -15,7 +15,7 @@ namespace DataProcessor.Data.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -31,7 +31,7 @@ namespace DataProcessor.Data.Migrations
                     Pm25 = table.Column<int>(type: "integer", nullable: false),
                     Humidity = table.Column<int>(type: "integer", nullable: false),
                     LocationId = table.Column<int>(type: "integer", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -51,7 +51,7 @@ namespace DataProcessor.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Energy = table.Column<float>(type: "real", nullable: false),
                     LocationId = table.Column<int>(type: "integer", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -71,7 +71,7 @@ namespace DataProcessor.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     MotionDetected = table.Column<bool>(type: "boolean", nullable: false),
                     LocationId = table.Column<int>(type: "integer", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -94,7 +94,7 @@ namespace DataProcessor.Data.Migrations
                     3,
                     4,
                     5,
-                    6
+                    6,
                 });
 
             migrationBuilder.CreateIndex(
