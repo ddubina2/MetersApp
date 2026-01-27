@@ -4,6 +4,7 @@ using GraphQLGateway.Api.GraphQL.Queries;
 using GraphQLGateway.Api.GraphQL.Types;
 using GraphQLGateway.Core;
 using GraphQLGateway.Data;
+using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -62,6 +63,7 @@ public class Program
 
             var app = builder.Build();
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseSerilogRequestLogging();
             app.UseCors("AllowFrontend");
             app.MapGraphQL();

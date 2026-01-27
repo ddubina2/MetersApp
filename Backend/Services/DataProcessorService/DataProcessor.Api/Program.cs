@@ -5,6 +5,7 @@ using DataProcessor.Data;
 using DataProcessor.Data.Extensions;
 using MassTransit;
 using MetersApp.Shared.Constants;
+using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -56,6 +57,7 @@ public class Program
 
             var app = builder.Build();
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseSerilogRequestLogging();
 
             var dbMigrationsOptions = app.Configuration.GetSection(nameof(DbMigrationsOptions)).Get<DbMigrationsOptions>();

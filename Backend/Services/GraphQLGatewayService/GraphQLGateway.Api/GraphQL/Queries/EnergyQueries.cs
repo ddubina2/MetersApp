@@ -3,7 +3,7 @@ namespace GraphQLGateway.Api.GraphQL.Queries;
 using GraphQLGateway.Core.Dto;
 using GraphQLGateway.Core.Interfaces;
 
-[ExtendObjectType("EnergyReadings")]
+[ExtendObjectType("Query")]
 public class EnergyQueries
 {
     [UsePaging(IncludeTotalCount = true, MaxPageSize = 100)]
