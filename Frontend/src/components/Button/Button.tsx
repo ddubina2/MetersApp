@@ -30,7 +30,7 @@ export const Button: FC<ButtonProps> = ({
       className={twMerge(styles({ intent }), className)}
       {...props}
     >
-      {text ? text : children}
+      {text ?? children}
     </button>
   );
 };
