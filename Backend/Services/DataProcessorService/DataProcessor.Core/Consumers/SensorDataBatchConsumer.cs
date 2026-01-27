@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+namespace DataProcessor.Core.Consumers;
+
+using System.Text.Json;
 using DataProcessor.Data;
 using DataProcessor.Data.Entities;
 using MassTransit;
@@ -7,14 +9,13 @@ using MetersApp.Shared.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace DataProcessor.Core.Consumers;
-
 public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true,
     };
+
     private readonly DataProcessorDbContext _dbContext;
     private readonly ILogger<SensorDataBatchConsumer> _logger;
     private readonly IPublishEndpoint _publishEndpoint;
@@ -82,7 +83,8 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
         LocationType location,
         DateTime timestamp,
         DbSet<TReading> dbSet,
-        CancellationToken ct) where TReading : MeterBaseEntity
+        CancellationToken ct)
+        where TReading : MeterBaseEntity
     {
         var reading = payload.Deserialize<TReading>(JsonSerializerOptions);
 

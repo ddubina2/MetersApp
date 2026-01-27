@@ -1,3 +1,5 @@
+namespace GraphQLGateway.Api;
+
 using GraphQLGateway.Api.GraphQL.Queries;
 using GraphQLGateway.Api.GraphQL.Types;
 using GraphQLGateway.Core;
@@ -6,8 +8,6 @@ using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-
-namespace GraphQLGateway.Api;
 
 public class Program
 {
@@ -51,11 +51,10 @@ public class Program
                 .ModifyCostOptions(options =>
                 {
                     options.MaxFieldCost = 5_000;
-                });;
+                });
 
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-            );
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.ConfigureCoreServices(builder.Configuration);
 

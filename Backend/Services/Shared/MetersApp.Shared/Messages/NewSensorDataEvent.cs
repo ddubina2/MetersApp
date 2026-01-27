@@ -1,4 +1,4 @@
-﻿namespace MetersApp.Shared.Messages;
+namespace MetersApp.Shared.Messages;
 
 public class NewSensorDataEvent
 {

@@ -1,4 +1,6 @@
-﻿using DataIngestor.Core.Interfaces;
+namespace DataIngestor.Core.Services;
+
+using DataIngestor.Core.Interfaces;
 using DataIngestor.Core.Options;
 using MassTransit;
 using MetersApp.Shared.Constants;
@@ -7,8 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-namespace DataIngestor.Core.Services;
 
 public class DataFetcherBackgroundService : BackgroundService
 {
@@ -41,16 +41,18 @@ public class DataFetcherBackgroundService : BackgroundService
             {
                 var sensorData = await weakAppClient.GetSensorDataAsync(cancellationToken);
 
-                await endpoint.Send(new ProcessSensorDataBatch
-                {
-                    Items = sensorData.Select(x => new SensorDataItem
+                await endpoint.Send(
+                    new ProcessSensorDataBatch
                     {
-                        SensorType = x.SensorType,
-                        LocationType = x.LocationType,
-                        Payload = x.Payload,
-                        Timestamp = DateTime.UtcNow
-                    })
-                }, cancellationToken);
+                        Items = sensorData.Select(x => new SensorDataItem
+                        {
+                            SensorType = x.SensorType,
+                            LocationType = x.LocationType,
+                            Payload = x.Payload,
+                            Timestamp = DateTime.UtcNow,
+                        }),
+                    },
+                    cancellationToken);
             }
             catch (Exception ex)
             {

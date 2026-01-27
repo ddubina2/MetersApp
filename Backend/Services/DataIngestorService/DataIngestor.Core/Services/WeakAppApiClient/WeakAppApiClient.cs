@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+namespace DataIngestor.Core.Services.WeakAppApiClient;
+
+using System.Text.Json;
 using DataIngestor.Core.Interfaces;
 using DataIngestor.Core.Options;
 using DataIngestor.Core.Services.WeakAppApiClient.Models;
@@ -8,8 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
-
-namespace DataIngestor.Core.Services.WeakAppApiClient;
 
 public class WeakAppApiClient : IWeakAppApiClient
 {
@@ -37,8 +37,8 @@ public class WeakAppApiClient : IWeakAppApiClient
                 onRetry: (outcome, timespan, retryAttempt, context) =>
                 {
                     var reason = outcome.Exception?.Message ?? "empty/corrupted data";
-                    _logger.LogWarning("Retry {RetryAttempt} after {Delay}s due to: {Reason}",
-                        retryAttempt, timespan.TotalSeconds, reason);
+                    _logger.LogWarning(
+                        "Retry {RetryAttempt} after {Delay}s due to: {Reason}", retryAttempt, timespan.TotalSeconds, reason);
                 });
     }
 
@@ -92,8 +92,7 @@ public class WeakAppApiClient : IWeakAppApiClient
                     continue;
                 }
 
-                var nameString = nameProp.GetString()?.Replace(" ", "",
-                    StringComparison.InvariantCultureIgnoreCase);
+                var nameString = nameProp.GetString()?.Replace(" ", string.Empty, StringComparison.InvariantCultureIgnoreCase);
                 if (!Enum.TryParse<LocationType>(nameString, true, out var location) ||
                     location == LocationType.Unknown)
                 {
@@ -105,7 +104,7 @@ public class WeakAppApiClient : IWeakAppApiClient
                 {
                     SensorType = sensorType,
                     LocationType = location,
-                    Payload = payloadProp.Clone()
+                    Payload = payloadProp.Clone(),
                 });
             }
 

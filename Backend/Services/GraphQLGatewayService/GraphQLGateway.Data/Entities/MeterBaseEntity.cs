@@ -1,6 +1,6 @@
-﻿using MetersApp.Shared.Enums;
-
 namespace GraphQLGateway.Data.Entities;
+
+using MetersApp.Shared.Enums;
 
 public class MeterBaseEntity
 {

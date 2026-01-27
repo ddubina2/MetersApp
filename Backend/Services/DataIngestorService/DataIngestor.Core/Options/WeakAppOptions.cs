@@ -1,4 +1,4 @@
-﻿namespace DataIngestor.Core.Options;
+namespace DataIngestor.Core.Options;
 
 public class WeakAppOptions
 {

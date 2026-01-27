@@ -1,0 +1,34 @@
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+max_line_length = 120
+
+# Disable XML documentation requirement
+dotnet_diagnostic.SA1600.severity = none
+dotnet_diagnostic.SA1602.severity = none
+dotnet_diagnostic.SA0001.severity = none
+dotnet_diagnostic.SA1615.severity = none
+dotnet_diagnostic.SA1611.severity = none
+
+# Disable file header requirement
+dotnet_diagnostic.SA1633.severity = none
+dotnet_diagnostic.SA1636.severity = none
+
+# Do not enforce constructor-before-property order
+dotnet_diagnostic.SA1201.severity = none
+
+# C# style rules
+csharp_new_line_before_open_brace = all
+csharp_prefer_braces = true:warning
+dotnet_style_qualification_for_field = false:warning
+dotnet_style_qualification_for_property = false:warning
+dotnet_style_qualification_for_method = false:warning
+dotnet_style_qualification_for_event = false:warning
+dotnet_diagnostic.SA1309.severity = none
+dotnet_diagnostic.SA1101.severity = none
+dotnet_diagnostic.SA1402.severity = none

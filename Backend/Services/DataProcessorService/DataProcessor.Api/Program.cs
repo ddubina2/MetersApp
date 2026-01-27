@@ -1,3 +1,5 @@
+namespace DataProcessor.Api;
+
 using DataProcessor.Core.Consumers;
 using DataProcessor.Data;
 using DataProcessor.Data.Extensions;
@@ -7,8 +9,6 @@ using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-
-namespace DataProcessor.Api;
 
 public class Program
 {
@@ -30,8 +30,7 @@ public class Program
             builder.Services.Configure<DbMigrationsOptions>(builder.Configuration.GetSection(nameof(DbMigrationsOptions)));
 
             builder.Services.AddDbContext<DataProcessorDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-            );
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
             builder.Services.AddMassTransit(x =>
@@ -40,11 +39,12 @@ public class Program
 
                 x.AddConsumer<SensorDataBatchConsumer>();
 
-                x.UsingRabbitMq((context,cfg) =>
+                x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(options?.Host, "/", h => {
-                        h.Username(options?.UserName ?? "");
-                        h.Password(options?.Password ?? "");
+                    cfg.Host(options?.Host, "/", h =>
+                    {
+                        h.Username(options?.UserName ?? string.Empty);
+                        h.Password(options?.Password ?? string.Empty);
                     });
 
                     cfg.ReceiveEndpoint(QueueNames.ProcessSensorDataQueue, e =>

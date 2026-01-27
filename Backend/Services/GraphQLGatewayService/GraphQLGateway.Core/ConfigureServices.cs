@@ -1,9 +1,9 @@
-﻿using GraphQLGateway.Core.Interfaces;
+namespace GraphQLGateway.Core;
+
+using GraphQLGateway.Core.Interfaces;
 using GraphQLGateway.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-namespace GraphQLGateway.Core;
 
 public static class ConfigureServices
 {

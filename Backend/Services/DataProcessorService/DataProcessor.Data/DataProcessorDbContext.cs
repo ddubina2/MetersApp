@@ -1,7 +1,7 @@
-﻿using DataProcessor.Data.Entities;
-using Microsoft.EntityFrameworkCore;
-
 namespace DataProcessor.Data;
+
+using DataProcessor.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class DataProcessorDbContext : DbContext
 {
@@ -13,7 +13,8 @@ public class DataProcessorDbContext : DbContext
 
     public DbSet<MotionReading> MotionReadings { get; set; }
 
-    public DataProcessorDbContext(DbContextOptions<DataProcessorDbContext> options) : base(options)
+    public DataProcessorDbContext(DbContextOptions<DataProcessorDbContext> options)
+        : base(options)
     {
     }
 

@@ -1,6 +1,6 @@
-﻿using Notifications.Core.Dto;
-
 namespace Notifications.Core.Interfaces;
+
+using Notifications.Core.Dto;
 
 public interface ISensorBroadcaster
 {

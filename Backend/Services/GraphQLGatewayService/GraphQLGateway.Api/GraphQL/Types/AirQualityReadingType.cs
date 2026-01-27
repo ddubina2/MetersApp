@@ -1,6 +1,6 @@
-﻿using GraphQLGateway.Core.Dto;
-
 namespace GraphQLGateway.Api.GraphQL.Types;
+
+using GraphQLGateway.Core.Dto;
 
 public class AirQualityReadingType : ObjectType<AirQualityReadingDto>
 {
