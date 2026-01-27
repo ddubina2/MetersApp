@@ -3,7 +3,7 @@ namespace GraphQLGateway.Api.GraphQL.Queries;
 using GraphQLGateway.Core.Dto;
 using GraphQLGateway.Core.Interfaces;
 
-[ExtendObjectType("MotionReadings")]
+[ExtendObjectType("Query")]
 public class MotionQueries
 {
     [UsePaging(IncludeTotalCount = true, MaxPageSize = 100)]

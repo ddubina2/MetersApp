@@ -2,6 +2,7 @@ namespace Notifications.Api;
 
 using System.Text.Json.Serialization;
 using MassTransit;
+using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Notifications.Api.SignalR;
 using Notifications.Core.Consumers;
@@ -70,6 +71,7 @@ public class Program
 
             var app = builder.Build();
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseSerilogRequestLogging();
             app.UseCors("AllowFrontend");
             app.MapHub<SensorHub>("/hubs/sensors");

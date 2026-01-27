@@ -1,5 +1,6 @@
 using DataIngestor.Core;
 using MassTransit;
+using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Serilog;
 using Serilog.Events;
@@ -37,6 +38,7 @@ try
 
     var app = builder.Build();
 
+    app.UseMiddleware<ExceptionMiddleware>();
     app.UseSerilogRequestLogging();
 
     await app.RunAsync();
