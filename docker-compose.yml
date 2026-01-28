@@ -75,6 +75,8 @@ services:
       RabbitMqOptions__Host: ${RABBITMQ_HOST}
       RabbitMqOptions__UserName: ${RABBITMQ_USER}
       RabbitMqOptions__Password: ${RABBITMQ_PASSWORD}
+      DbMigrationsOptions__RunOnStartup: ${MIGRATE_DB_ON_STARTUP}
+      DbMigrationsOptions__MaxRetries: ${MIGRATION_MAX_RETRIES}
     depends_on:
       - postgres
       - rabbitmq
