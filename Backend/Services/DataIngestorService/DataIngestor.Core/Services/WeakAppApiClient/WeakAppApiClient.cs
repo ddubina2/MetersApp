@@ -16,16 +16,13 @@ public class WeakAppApiClient : IWeakAppApiClient
     private readonly HttpClient _httpClient;
     private readonly ILogger<WeakAppApiClient> _logger;
     private readonly AsyncRetryPolicy<List<SensorData>> _retryPolicy;
-    private readonly WeakAppOptions _weakAppOptions;
 
     public WeakAppApiClient(
         HttpClient httpClient,
-        ILogger<WeakAppApiClient> logger,
-        IOptions<WeakAppOptions> weakAppOptions)
+        ILogger<WeakAppApiClient> logger)
     {
         _httpClient = httpClient;
         _logger = logger;
-        _weakAppOptions = weakAppOptions.Value;
 
         _retryPolicy = Policy<List<SensorData>>
             .Handle<HttpRequestException>()
