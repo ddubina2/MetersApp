@@ -17,10 +17,10 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          distribution: 'zulu'
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
         with:
@@ -48,6 +48,24 @@ jobs:
           ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"MetersApp_Backend" /o:"roga-kopyta-gmbh" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
           dotnet build Backend/Services/MetersApp.sln
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+    sonar-frontend:
+      name: Analyze Frontend
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Analyze Frontend
+          uses: SonarSource/sonarqube-scan-action@v6
+          with:
+            args: >
+              -Dsonar.projectKey=MetersApp_Frontend
+              -Dsonar.organization=roga-kopyta-gmbh
+          env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
   # sonar-frontend:
   #   name: SonarCloud Scan - Frontend
