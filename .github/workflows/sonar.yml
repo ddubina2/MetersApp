@@ -1,0 +1,75 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  sonar-backend:
+    name: SonarCloud Scan - Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Setup .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build C# projects
+        run: dotnet build Backend/Services/MetersApp.sln
+
+      - name: Run Backend Tests and Generate Coverage
+        run: dotnet test Backend/Services/MetersApp.sln --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
+      - name: SonarCloud Scan - Backend
+        uses: SonarSource/sonarcloud-github-action@v4
+        with:
+          organization: roga-kopyta-gmbh
+          projectKey: MetersApp_Backend
+          projectName: MetersApp_Backend
+          extraProperties: |
+            sonar.sources=Backend/Services/MetersApp.sln
+            sonar.exclusions=**/bin/**,**/obj/**
+            sonar.cs.opencover.reportsPaths=./TestResults/**/*.xml
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  # sonar-frontend:
+  #   name: SonarCloud Scan - Frontend
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+
+  #     # Setup Node.js
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 20
+
+  #     - name: Install dependencies and build
+  #       run: |
+  #         cd path/to/frontend
+  #         npm install
+  #         npm run build
+  #         npm run test -- --coverage --coverageReporters=lcov
+
+  #     - name: SonarCloud Scan - Frontend
+  #       uses: SonarSource/sonarcloud-github-action@v2
+  #       with:
+  #         organization: your-org
+  #         projectKey: ${{ secrets.SONAR_FRONTEND_PROJECT_KEY }}
+  #         projectName: Frontend
+  #         extraProperties: |
+  #           sonar.sources=path/to/frontend/src
+  #           sonar.exclusions=**/node_modules/**
+  #           sonar.javascript.lcov.reportPaths=path/to/frontend/coverage/lcov.info
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
