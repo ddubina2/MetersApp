@@ -54,7 +54,7 @@ export default tseslint.config(
       "no-console": ['warn', { 'allow': ['warn', 'error'] }],
       "no-mixed-spaces-and-tabs": 'error',
       'eol-last': ['error', 'always'],
-      "no-multi-spaces": ["error"],
+      'no-multi-spaces': ['error', { ignoreEOLComments: false }],
       "no-multiple-empty-lines": ["error", { "max": 1 }],
       'object-curly-spacing': ['error', 'always'],
       'react/jsx-boolean-value': 2,
@@ -65,7 +65,6 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports', disallowTypeAnnotations: false }],
       'react/jsx-equals-spacing': 2,
-      'no-multi-spaces': 'error',
       'no-trailing-spaces': 'error',
       'brace-style': ['error', '1tbs', { allowSingleLine: true }],
       'react/jsx-curly-spacing': ['error', { when: 'never' }],
@@ -85,18 +84,8 @@ export default tseslint.config(
       'tailwindcss/enforces-shorthand': ['error'],
       'tailwindcss/no-contradicting-classname': ['error'],
       'react/jsx-curly-brace-presence': [2, { props: 'never', children: 'never' }],
-      quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }],
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-      "react/jsx-indent-props": [
-        "error",
-        {
-          indentMode: 2,
-          ignoreTernaryOperator: true,
-        },
-      ],
+      'quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false } ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true } ],
     },
   },
 );

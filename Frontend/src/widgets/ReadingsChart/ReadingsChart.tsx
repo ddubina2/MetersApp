@@ -1,8 +1,7 @@
 import { LineChart } from '@components/LineChart';
 import type { LineChartData } from '@components/LineChart/types';
 import { LocationType } from '@shared/graphql/__generated__/graphql';
-import type { SensorData } from '@shared/hooks/useSensorsHub';
-import { SensorType } from '@shared/hooks/useSensorsHub';
+import { SensorType, type SensorData } from '@shared/hooks/useSensorsHub';
 import { useSensorsHub } from '@shared/hooks/useSensorsHub';
 import { toChartTime } from '@shared/utils/formatDateTime';
 import { Loadable } from '@widgets/Loadable/Loadable';
@@ -13,7 +12,6 @@ type ReadingsChartProps<T> = {
   sensorType: SensorType
   isLoading: boolean;
   isError?: boolean;
-  className?: string;
   withGradient?: boolean;
   initialData?: T[];
 };
@@ -81,7 +79,7 @@ export const ReadingsChart = <T, >({
 
   useSensorsHub({ onNewDataAvailable });
 
-  return (<>
+  return (
     <Loadable isLoading={isLoading} error={isError} containerClassName='min-h-[234px] min-w-[200px]'>
       <LineChart
         withGradient={withGradient}
@@ -89,7 +87,6 @@ export const ReadingsChart = <T, >({
         dataset={[...liveData].reverse()}
         isAnimationActive={isAnimationActive}
       />
-    </Loadable>
-  </>);
+    </Loadable>);
 };
 
