@@ -46,13 +46,19 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
 
       - name: Build and analyze
+        shell: powershell
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"MetersApp_Backend" /o:"roga-kopyta-gmbh" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin `
+            /k:"MetersApp_Backend" `
+            /o:"roga-kopyta-gmbh" `
+            /d:sonar.token="$env:SONAR_TOKEN"
+
           dotnet build Backend/Services/MetersApp.sln
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner end `
+            /d:sonar.token="$env:SONAR_TOKEN"
 
   sonar-frontend:
     name: Analyze Frontend
@@ -63,7 +69,7 @@ jobs:
           fetch-depth: 0
 
       - name: Analyze Frontend
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9
         with:
           args: >
             -Dsonar.projectKey=MetersApp_Frontend
