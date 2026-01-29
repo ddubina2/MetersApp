@@ -13,8 +13,8 @@ jobs:
     name: SonarCloud Scan - Backend
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v5
+      - name: Checkout code
+        uses: actions/checkout@v5
 
       # Setup .NET
       - name: Setup .NET
@@ -29,7 +29,7 @@ jobs:
           ls -la
           echo "Recursive file listing:"
           ls -R
-          
+
       - name: Build C# projects
         run: dotnet build Backend/Services/MetersApp.sln
 
