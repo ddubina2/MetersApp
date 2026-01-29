@@ -10,10 +10,10 @@ WORKDIR /src
 COPY . .
 
 WORKDIR /src/Services/GraphQLGatewayService/GraphQLGateway.Api
-RUN dotnet build GraphQLGateway.Api.csproj -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build GraphQLGateway.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish
-RUN dotnet publish GraphQLGateway.Api.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish GraphQLGateway.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
