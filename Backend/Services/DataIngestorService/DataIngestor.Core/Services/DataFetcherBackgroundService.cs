@@ -26,7 +26,7 @@ public class DataFetcherBackgroundService : BackgroundService
         _weakAppOptions = weakAppOptions.Value;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using var scope = _serviceProvider.CreateScope();
         using PeriodicTimer timer = new(TimeSpan.FromSeconds(_weakAppOptions.RequestIntervalSec));
@@ -35,11 +35,11 @@ public class DataFetcherBackgroundService : BackgroundService
             .GetRequiredService<ISendEndpointProvider>()
             .GetSendEndpoint(new Uri($"queue:{QueueNames.ProcessSensorDataQueue}"));
 
-        while (await timer.WaitForNextTickAsync(cancellationToken))
+        while (await timer.WaitForNextTickAsync(stoppingToken))
         {
             try
             {
-                var sensorData = await weakAppClient.GetSensorDataAsync(cancellationToken);
+                var sensorData = await weakAppClient.GetSensorDataAsync(stoppingToken);
 
                 await endpoint.Send(
                     new ProcessSensorDataBatch
@@ -52,7 +52,7 @@ public class DataFetcherBackgroundService : BackgroundService
                             Timestamp = DateTime.UtcNow,
                         }),
                     },
-                    cancellationToken);
+                    stoppingToken);
             }
             catch (Exception ex)
             {

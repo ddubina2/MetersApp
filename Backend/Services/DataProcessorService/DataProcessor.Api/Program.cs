@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 
-public class Program
+public static class Program
 {
     public static async Task Main(string[] args)
     {

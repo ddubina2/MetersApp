@@ -10,10 +10,10 @@ WORKDIR /src
 COPY . .
 
 WORKDIR /src/Services/NotificationsService/Notifications.Api
-RUN dotnet build Notifications.Api.csproj -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build Notifications.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish
-RUN dotnet publish Notifications.Api.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish Notifications.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

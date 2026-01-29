@@ -71,41 +71,50 @@ public class WeakAppApiClient : IWeakAppApiClient
                 return sensorDataList;
             }
 
-            foreach (var element in root.EnumerateArray())
-            {
-                if (!element.TryGetProperty("type", out var typeProp) ||
-                    !element.TryGetProperty("name", out var nameProp) ||
-                    !element.TryGetProperty("payload", out var payloadProp))
-                {
-                    _logger.LogWarning("Skipping malformed sensor object.");
-                    continue;
-                }
-
-                var typeString = typeProp.GetString()?.SnakeToPascalCase();
-                if (!Enum.TryParse<SensorType>(typeString, true, out var sensorType)
-                    || sensorType == SensorType.Unknown)
-                {
-                    _logger.LogWarning("Unknown SensorType: {Type}, skipping...", typeString);
-                    continue;
-                }
-
-                var nameString = nameProp.GetString()?.Replace(" ", string.Empty, StringComparison.InvariantCultureIgnoreCase);
-                if (!Enum.TryParse<LocationType>(nameString, true, out var location) ||
-                    location == LocationType.Unknown)
-                {
-                    _logger.LogWarning("Unknown Location: {Location}, skipping...", nameString);
-                    continue;
-                }
-
-                sensorDataList.Add(new SensorData
-                {
-                    SensorType = sensorType,
-                    LocationType = location,
-                    Payload = payloadProp.Clone(),
-                });
-            }
+            sensorDataList.AddRange(GetData(root));
 
             return sensorDataList;
         });
+    }
+
+    private List<SensorData> GetData(JsonElement root)
+    {
+        var result = new List<SensorData>();
+
+        foreach (var element in root.EnumerateArray())
+        {
+            if (!element.TryGetProperty("type", out var typeProp) ||
+                !element.TryGetProperty("name", out var nameProp) ||
+                !element.TryGetProperty("payload", out var payloadProp))
+            {
+                _logger.LogWarning("Skipping malformed sensor object.");
+                continue;
+            }
+
+            var typeString = typeProp.GetString()?.SnakeToPascalCase();
+            if (!Enum.TryParse<SensorType>(typeString, true, out var sensorType)
+                || sensorType == SensorType.Unknown)
+            {
+                _logger.LogWarning("Unknown SensorType: {Type}, skipping...", typeString);
+                continue;
+            }
+
+            var nameString = nameProp.GetString()?.Replace(" ", string.Empty, StringComparison.InvariantCultureIgnoreCase);
+            if (!Enum.TryParse<LocationType>(nameString, true, out var location) ||
+                location == LocationType.Unknown)
+            {
+                _logger.LogWarning("Unknown Location: {Location}, skipping...", nameString);
+                continue;
+            }
+
+            result.Add(new SensorData
+            {
+                SensorType = sensorType,
+                LocationType = location,
+                Payload = payloadProp.Clone(),
+            });
+        }
+
+        return result;
     }
 }
