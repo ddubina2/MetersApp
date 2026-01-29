@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 
-public static class Program
+public class Program
 {
     public static void Main(string[] args)
     {
