@@ -26,9 +26,7 @@ services:
     - "15672:15672"
 
   weakappapi:
-    build:
-      context: ./Backend/WeakApp
-      dockerfile: Dockerfile
+    image: regen31/weakapp:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
