@@ -63,7 +63,6 @@ public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
                         context.CancellationToken);
                     break;
 
-                case SensorType.Unknown:
                 default:
                     _logger.LogWarning("Unknown sensor type: {SensorType}", item.SensorType);
                     break;
