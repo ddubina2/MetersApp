@@ -51,6 +51,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ${{ runner.temp }}\scanner\dotnet-sonarscanner begin `
+            /d:sonar.sources=Backend/Services/MetersApp `
             /k:"MetersApp_Backend" `
             /o:"roga-kopyta-gmbh" `
             /d:sonar.token="$env:SONAR_TOKEN"
@@ -72,6 +73,7 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9
         with:
           args: >
+            -Dsonar.sources=Frontend
             -Dsonar.projectKey=MetersApp_Frontend
             -Dsonar.organization=roga-kopyta-gmbh
         env:
