@@ -22,6 +22,14 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+      - name: Debug repo structure
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in current directory:"
+          ls -la
+          echo "Recursive file listing:"
+          ls -R
+          
       - name: Build C# projects
         run: dotnet build Backend/Services/MetersApp.sln
 
