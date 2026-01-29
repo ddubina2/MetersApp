@@ -1,9 +1,9 @@
 import { lazy } from 'react';
-import type { Route } from './types';
+import type { BaseRoute } from './types';
 
 const Home = lazy(() => import('@pages/home'));
 
-export const ROUTES: Route[] = [
+export const ROUTES: BaseRoute[] = [
   {
     path: '/',
     content: Home,

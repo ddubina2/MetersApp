@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Typography } from '@components/Typography';
-import type { FC } from 'react';
-import { useEffect, useId, useRef, useState, useTransition } from 'react';
+import { useEffect, useId, useRef, useState, useTransition, type FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import type { TabsProps } from './types';
-import React from 'react';
 
 export const Tabs: FC<TabsProps> = ({
   items,
@@ -24,10 +22,10 @@ export const Tabs: FC<TabsProps> = ({
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [, startTransition] = useTransition();
   const preSelectedItem = items.findIndex(item => item.title === currentTab);
-  const [openTab, setOpenTab] = useState(preSelectedItem !== -1 ? preSelectedItem : 0);
+  const [openTab, setOpenTab] = useState(preSelectedItem === -1 ? 0 : preSelectedItem);
 
   useEffect(() => {
-    setOpenTab(preSelectedItem !== -1 ? preSelectedItem : 0);
+    setOpenTab(preSelectedItem === -1 ? 0 : preSelectedItem);
   }, [items]);
 
   const selectTab = (tabIndex: number) => {
@@ -36,15 +34,14 @@ export const Tabs: FC<TabsProps> = ({
   };
 
   useEffect(() => {
-    selectTab(preSelectedItem !== -1 ? preSelectedItem : 0);
+    selectTab(preSelectedItem === -1 ? 0 : preSelectedItem);
   }, [currentTab]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     let keyHandled = false;
     const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(`[role="tab"][id^="tab-${tabListId}-"]`))
       .filter(link => !link.disabled);
-    const currentIndex = tabs.findIndex(link => link.getAttribute('data-index') === event.currentTarget.getAttribute('data-index'));
-
+    const currentIndex = tabs.findIndex(link => link.dataset.index === event.currentTarget.dataset.index);
     const focusTabAt = (index: number) => {
       const element = tabs[index];
       if (element)
@@ -108,7 +105,7 @@ export const Tabs: FC<TabsProps> = ({
             aria-selected={openTab === index}
             aria-controls={`tabpanel-${index}-${tabListId}`}
             tabIndex={openTab === index ? undefined : -1}
-            key={index}
+            key={`tab-${item.title}`}
             disabled={disabled || item.disabled}
             data-index={index}
             data-completed={item.completed ? 'true' : 'false'}
