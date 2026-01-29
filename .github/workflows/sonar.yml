@@ -18,15 +18,18 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache SonarQube Cloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v4
@@ -34,12 +37,14 @@ jobs:
           path: ${{ runner.temp }}\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
+
       - name: Install SonarQube Cloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
+
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -49,53 +54,19 @@ jobs:
           dotnet build Backend/Services/MetersApp.sln
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-    sonar-frontend:
-      name: Analyze Frontend
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
+  sonar-frontend:
+    name: Analyze Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-        - name: Analyze Frontend
-          uses: SonarSource/sonarqube-scan-action@v6
-          with:
-            args: >
-              -Dsonar.projectKey=MetersApp_Frontend
-              -Dsonar.organization=roga-kopyta-gmbh
-          env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-
-  # sonar-frontend:
-  #   name: SonarCloud Scan - Frontend
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-  #     # Setup Node.js
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 20
-
-  #     - name: Install dependencies and build
-  #       run: |
-  #         cd path/to/frontend
-  #         npm install
-  #         npm run build
-  #         npm run test -- --coverage --coverageReporters=lcov
-
-  #     - name: SonarCloud Scan - Frontend
-  #       uses: SonarSource/sonarcloud-github-action@v2
-  #       with:
-  #         organization: your-org
-  #         projectKey: ${{ secrets.SONAR_FRONTEND_PROJECT_KEY }}
-  #         projectName: Frontend
-  #         extraProperties: |
-  #           sonar.sources=path/to/frontend/src
-  #           sonar.exclusions=**/node_modules/**
-  #           sonar.javascript.lcov.reportPaths=path/to/frontend/coverage/lcov.info
-  #       env:
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Analyze Frontend
+        uses: SonarSource/sonarqube-scan-action@v6
+        with:
+          args: >
+            -Dsonar.projectKey=MetersApp_Frontend
+            -Dsonar.organization=roga-kopyta-gmbh
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
