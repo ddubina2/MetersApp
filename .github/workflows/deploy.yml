@@ -56,6 +56,10 @@ jobs:
 
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
+            export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+            export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+
             export RABBITMQ_HOST=${{ secrets.RABBITMQ_HOST }}
             export RABBITMQ_USER=${{ secrets.RABBITMQ_USER }}
             export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}

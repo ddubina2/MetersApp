@@ -1,29 +1,26 @@
 services:
-  # postgres:
-  #   image: postgres:18
-  #   restart: unless-stopped
-  #   environment:
-  #     POSTGRES_DB: ${POSTGRES_DB}
-  #     POSTGRES_USER: ${POSTGRES_USER}
-  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-  #   volumes:
-  #     - meters_app_postgres_data:/var/lib/postgresql
-  #   networks:
-  #     - backend
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - meters_app_postgres_data:/var/lib/postgresql
+    networks:
+      - backend
 
-  # rabbitmq:
-  #   image: masstransit/rabbitmq
-  #   restart: unless-stopped
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-  #     RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-  #   volumes:
-  #     - meters_app_rabbitmq_data:/var/lib/rabbitmq
-  #   networks:
-  #     - backend
-  #   ports:
-  #   - "5672:5672"
-  #   - "15672:15672"
+  rabbitmq:
+    image: masstransit/rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    volumes:
+      - meters_app_rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - backend
 
   weakappapi:
     image: regen31/weakapp:latest
