@@ -108,10 +108,13 @@ services:
   frontend:
     image: ghcr.io/dendubina-org/meters-app-frontend:latest
     restart: unless-stopped
+    depends_on:
+      - graphqlgateway
+      - notifications
     networks:
       - frontend
     ports:
-    - "3000:80"
+      - "3000:80"
 
 networks:
   backend:
