@@ -101,17 +101,13 @@ services:
       - backend
       - frontend
 
-  # frontend:
-  #   build:
-  #     context: ./Frontend
-  #     args:
-  #       VITE_API_BASE_URL: ${VITE_API_BASE_URL}
-  #       VITE_SENSORS_HUB_URL: ${VITE_SENSORS_HUB_URL}
-  #   restart: unless-stopped
-  #   networks:
-  #     - frontend
-  #   ports:
-  #   - "3000:80"
+  frontend:
+    image: ghcr.io/dendubina-org/meters-app-frontend:latest
+    restart: unless-stopped
+    networks:
+      - frontend
+    ports:
+    - "3000:80"
 
 networks:
   backend:
