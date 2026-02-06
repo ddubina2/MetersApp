@@ -132,5 +132,5 @@ networks:
     internal: false
 
 volumes:
-  postgres_data:
-  rabbitmq_data:
+  meters_app_postgres_data:
+  meters_app_rabbitmq_data:
