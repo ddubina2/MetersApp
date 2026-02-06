@@ -25,26 +25,24 @@ services:
   #   - "5672:5672"
   #   - "15672:15672"
 
-  # weakappapi:
-  #   image: regen31/weakapp:latest
-  #   restart: unless-stopped
-  #   environment:
-  #     ASPNETCORE_ENVIRONMENT: Production
-  #     ASPNETCORE_URLS: http://+:8080
-  #   depends_on:
-  #     - postgres
-  #     - rabbitmq
-  #   networks:
-  #     - backend
-  #   ports:
-  #     - "8081:8080"
+  weakappapi:
+    image: regen31/weakapp:latest
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - backend
 
   dataingestor:
     image: ghcr.io/dendubina-org/meters-app-data-ingestor:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8080
+      ASPNETCORE_URLS: http://+:8081
       RabbitMqOptions__Host: ${RABBITMQ_HOST}
       RabbitMqOptions__UserName: ${RABBITMQ_USER}
       RabbitMqOptions__Password: ${RABBITMQ_PASSWORD}
@@ -56,8 +54,6 @@ services:
     #   - rabbitmq
     networks:
       - backend
-    ports:
-      - "8082:8080"
 
   # dataprocessor:
   #   build:
