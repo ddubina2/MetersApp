@@ -5,6 +5,7 @@ using DataProcessor.Data;
 using DataProcessor.Data.Extensions;
 using MassTransit;
 using MetersApp.Shared.Constants;
+using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ public static class Program
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddSerilog();
+            builder.Services.ConfigureTelemetry("data-processor", "DataProcessor.Metrics");
 
             builder.Services.Configure<DbMigrationsOptions>(builder.Configuration.GetSection(nameof(DbMigrationsOptions)));
 
@@ -66,6 +68,8 @@ public static class Program
                 await app.MigrateDbAsync<DataProcessorDbContext>(
                     dbMigrationsOptions.MaxRetries, dbMigrationsOptions.DelaySeconds);
             }
+
+            app.MapPrometheusScrapingEndpoint();
 
             await app.RunAsync();
         }

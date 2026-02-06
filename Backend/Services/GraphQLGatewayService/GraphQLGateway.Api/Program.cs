@@ -4,6 +4,7 @@ using GraphQLGateway.Api.GraphQL.Queries;
 using GraphQLGateway.Api.GraphQL.Types;
 using GraphQLGateway.Core;
 using GraphQLGateway.Data;
+using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ public class Program
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddSerilog();
+            builder.Services.ConfigureTelemetry("graphql-gateway", "GraphQlGateway.Metrics");
 
             builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
             builder.Services.AddCors(options =>
@@ -67,6 +69,7 @@ public class Program
             app.UseSerilogRequestLogging();
             app.UseCors("AllowFrontend");
             app.MapGraphQL();
+            app.MapPrometheusScrapingEndpoint();
             app.Run();
         }
         catch (Exception ex)
