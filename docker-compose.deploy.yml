@@ -83,6 +83,8 @@ services:
     networks:
       - backend
       - frontend
+    ports:
+      8084:8084
 
   notifications:
     image: ghcr.io/dendubina-org/meters-app-notifications:latest
@@ -100,6 +102,8 @@ services:
     networks:
       - backend
       - frontend
+    ports:
+      8085:8085
 
   frontend:
     image: ghcr.io/dendubina-org/meters-app-frontend:latest
