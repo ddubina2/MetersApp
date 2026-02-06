@@ -52,7 +52,7 @@ jobs:
           script: |
             set -euo pipefail
 
-            cd /opt/meters-app
+            cd ~/meters-app
 
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
