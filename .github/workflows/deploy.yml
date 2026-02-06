@@ -39,10 +39,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
-          source: |
-            docker-compose.yml
-            docker-compose.deploy.yml
-          target: /opt/meters-app
+          source: docker-compose.deploy.yml
+          target: ~/meters-app
 
       - name: Deploy on server with docker compose
         uses: appleboy/ssh-action@v1.0.3
