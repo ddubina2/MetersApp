@@ -11,57 +11,54 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
       # ---------- Backend services ----------
 
-      - name: Build & push DataIngestor
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
-        with:
-          context: ./Backend
-          file: ./Backend/Services/DataIngestorService/DataIngestor.Api/Dockerfile
-          push: false
-          # tags: |
-          #   metersacr.azurecr.io/dataingestor:latest
-          #   metersacr.azurecr.io/dataingestor:${{ github.sha }}
+      - name: Build and push Data Ingestor
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-data-ingestor
+          TAG=${{ github.sha }}
+          docker build -f ./Backend/Services/DataIngestorService/DataIngestor.Api/Dockerfile -t $IMAGE_NAME:$TAG .
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
 
-      - name: Build & push DataProcessor
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
+      - name: Copy docker compose files to server
+        uses: appleboy/scp-action@v0.1.7
         with:
-          context: ./Backend
-          file: ./Backend/Services/DataProcessorService/DataProcessor.Api/Dockerfile
-          push: false
-          # tags: |
-          #   metersacr.azurecr.io/dataprocessor:latest
-          #   metersacr.azurecr.io/dataprocessor:${{ github.sha }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          source: |
+            docker-compose.yml
+            docker-compose.deploy.yml
+          target: /opt/meters-app
 
-      - name: Build & push GraphQL Gateway
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
+      - name: Deploy on server with docker compose
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          context: ./Backend
-          file: ./Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile
-          push: false
-          # tags: |
-          #   metersacr.azurecr.io/graphqlgateway:latest
-          #   metersacr.azurecr.io/graphqlgateway:${{ github.sha }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          script: |
+            set -euo pipefail
 
-      - name: Build & push Notifications
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
-        with:
-          context: ./Backend
-          file: ./Backend/Services/NotificationsService/Notifications.Api/Dockerfile
-          push: false
-          # tags: |
-          #   metersacr.azurecr.io/notifications:latest
-          #   metersacr.azurecr.io/notifications:${{ github.sha }}
+            cd /opt/meters-app
 
-      # ---------- Frontend ----------
-      - name: Build & push Frontend
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
-        with:
-          context: ./Frontend
-          push: false
-          build-args: |
-            VITE_API_BASE_URL=https://api.example.com
-            VITE_SENSORS_HUB_URL=https://hub.example.com
-          # tags: |
-          #   metersacr.azurecr.io/frontend:latest
-          #   metersacr.azurecr.io/frontend:${{ github.sha }}
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            export ASPNETCORE_ENVIRONMENT=Production
+            export ASPNETCORE_URLS=http://0.0.0.0:8080
+
+            docker compose -f docker-compose.deploy.yml pull
+            docker compose -f docker-compose.deploy.yml up -d
+
+            docker image prune -f
