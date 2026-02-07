@@ -22,7 +22,7 @@ services:
     networks:
       - backend
 
-  weakappapi:
+  weakapp-api:
     image: regen31/weakapp:latest
     restart: unless-stopped
     environment:
@@ -34,7 +34,7 @@ services:
     networks:
       - backend
 
-  dataingestor:
+  data-ingestor:
     image: ghcr.io/dendubina-org/meters-app-data-ingestor:latest
     restart: unless-stopped
     environment:
@@ -52,7 +52,7 @@ services:
     networks:
       - backend
 
-  dataprocessor:
+  data-processor:
     image: ghcr.io/dendubina-org/meters-app-data-processor:latest
     restart: unless-stopped
     environment:
@@ -70,7 +70,7 @@ services:
     networks:
       - backend
 
-  graphqlgateway:
+  graphql-gateway:
     image: ghcr.io/dendubina-org/meters-app-graph-ql-gateway:latest
     restart: unless-stopped
     environment:
