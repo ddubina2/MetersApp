@@ -109,7 +109,7 @@ services:
     image: ghcr.io/dendubina-org/meters-app-frontend:latest
     restart: unless-stopped
     depends_on:
-      - graphqlgateway
+      - graphql-gateway
       - notifications
     networks:
       - frontend
