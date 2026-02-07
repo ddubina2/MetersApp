@@ -22,7 +22,7 @@ cd MetersApp
 
 2. Start all services:
 ```bash
-docker compose up
+docker compose up -d
 ```
 
 3. Access the application:
@@ -31,11 +31,6 @@ docker compose up
 - **RabbitMQ Management**: http://localhost:15672 (guest/guest)
 - **Prometheus**: http://localhost:9090/targets
 - **Grafana**: http://localhost:5000 (admin/admin)
-
-### Running in Detached Mode
-```bash
-docker compose up -d
-```
 
 ### Stopping the Application
 ```bash
