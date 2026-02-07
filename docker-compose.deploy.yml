@@ -156,3 +156,4 @@ networks:
 volumes:
   meters_app_postgres_data:
   meters_app_rabbitmq_data:
+  meters_app_grafana-data:
