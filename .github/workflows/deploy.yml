@@ -1,0 +1,134 @@
+name: Build & Push & Deploy Docker Images
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  deploy:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      # ---------- Backend services ----------
+
+      - name: Build and push Data Ingestor
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-data-ingestor
+          TAG=${{ github.sha }}
+          docker build \
+            -t $IMAGE_NAME:$TAG \
+            -f Backend/Services/DataIngestorService/DataIngestor.Api/Dockerfile \
+            Backend
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
+
+      - name: Build and push Data Processor
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-data-processor
+          TAG=${{ github.sha }}
+          docker build \
+            -t $IMAGE_NAME:$TAG \
+            -f Backend/Services/DataProcessorService/DataProcessor.Api/Dockerfile \
+            Backend
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
+
+      - name: Build and push GraphQL Gateway
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-graph-ql-gateway
+          TAG=${{ github.sha }}
+          docker build \
+            -t $IMAGE_NAME:$TAG \
+            -f Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile \
+            Backend
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
+
+      - name: Build and push Notifications
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-notifications
+          TAG=${{ github.sha }}
+          docker build \
+            -t $IMAGE_NAME:$TAG \
+            -f Backend/Services/NotificationsService/Notifications.Api/Dockerfile \
+            Backend
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
+
+      # ---------- Frontend ----------
+      - name: Build & push Frontend
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-frontend
+          TAG=${{ github.sha }}
+          docker build \
+            -t $IMAGE_NAME:$TAG \
+            -f Frontend/Dockerfile \
+            --build-arg VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }} \
+            --build-arg VITE_SENSORS_HUB_URL=${{ vars.VITE_SENSORS_HUB_URL }} \
+            Frontend
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
+
+      - name: Copy config files to server
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          source: docker-compose.deploy.yml,prometheus.yml
+          target: ~/meters-app
+
+      - name: Deploy on server with docker compose
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          script: |
+            set -euo pipefail
+
+            cd ~/meters-app
+
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+            export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+
+            export RABBITMQ_HOST=${{ secrets.RABBITMQ_HOST }}
+            export RABBITMQ_USER=${{ secrets.RABBITMQ_USER }}
+            export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
+
+            export WEAKAPP_API_KEY=${{ secrets.WEAKAPP_API_KEY }}
+            export WEAKAPP_BASE_URL=${{ secrets.WEAKAPP_BASE_URL }}
+            export WEAKAPP_REQUEST_INTERVAL=${{ vars.WEAKAPP_REQUEST_INTERVAL }}
+
+            export MIGRATE_DB_ON_STARTUP=${{ vars.MIGRATE_DB_ON_STARTUP }}
+            export MIGRATION_MAX_RETRIES=${{ vars.MIGRATION_MAX_RETRIES }}
+
+            export CORS_ALLOWED_ORIGINS=${{ vars.CORS_ALLOWED_ORIGINS }}
+
+            docker compose -f docker-compose.deploy.yml pull
+            docker compose -f docker-compose.deploy.yml up -d
+
+            docker image prune -f

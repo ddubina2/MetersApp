@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:18
+    image: postgres:18-alpine
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -22,7 +22,7 @@ services:
     networks:
       - backend
 
-  weakapp-api:
+  weakappapi:
     image: regen31/weakapp:latest
     restart: unless-stopped
     environment:
@@ -34,10 +34,8 @@ services:
     networks:
       - backend
 
-  data-ingestor:
-    build:
-      context: ./Backend
-      dockerfile: Services/DataIngestorService/DataIngestor.Api/Dockerfile
+  dataingestor:
+    image: ghcr.io/dendubina-org/meters-app-data-ingestor:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -54,10 +52,8 @@ services:
     networks:
       - backend
 
-  data-processor:
-    build:
-      context: ./Backend
-      dockerfile: Services/DataProcessorService/DataProcessor.Api/Dockerfile
+  dataprocessor:
+    image: ghcr.io/dendubina-org/meters-app-data-processor:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -74,10 +70,8 @@ services:
     networks:
       - backend
 
-  graphql-gateway:
-    build:
-      context: ./Backend
-      dockerfile: Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile
+  graphqlgateway:
+    image: ghcr.io/dendubina-org/meters-app-graph-ql-gateway:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -93,9 +87,7 @@ services:
       - "8084:8084"
 
   notifications:
-    build:
-      context: ./Backend
-      dockerfile: Services/NotificationsService/Notifications.Api/Dockerfile
+    image: ghcr.io/dendubina-org/meters-app-notifications:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -114,16 +106,15 @@ services:
       - "8085:8085"
 
   frontend:
-    build:
-      context: ./Frontend
-      args:
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
-        VITE_SENSORS_HUB_URL: ${VITE_SENSORS_HUB_URL}
+    image: ghcr.io/dendubina-org/meters-app-frontend:latest
     restart: unless-stopped
+    depends_on:
+      - graphqlgateway
+      - notifications
     networks:
       - frontend
     ports:
-    - "3000:80"
+      - "3000:80"
 
   prometheus:
     image: prom/prometheus:latest

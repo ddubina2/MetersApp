@@ -2,6 +2,7 @@ namespace Notifications.Api;
 
 using System.Text.Json.Serialization;
 using MassTransit;
+using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Notifications.Api.SignalR;
@@ -26,6 +27,7 @@ public static class Program
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddSerilog();
+            builder.Services.ConfigureTelemetry("notifications", "Notifications.Metrics");
 
             builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
             builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
@@ -75,6 +77,7 @@ public static class Program
             app.UseSerilogRequestLogging();
             app.UseCors("AllowFrontend");
             app.MapHub<SensorHub>("/hubs/sensors");
+            app.MapPrometheusScrapingEndpoint();
             app.Run();
         }
         catch (Exception ex)

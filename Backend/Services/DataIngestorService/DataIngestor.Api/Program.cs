@@ -1,5 +1,6 @@
 using DataIngestor.Core;
 using MassTransit;
+using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Serilog;
@@ -17,6 +18,7 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddSerilog();
+    builder.Services.ConfigureTelemetry("data-ingestor", "DataIngestor.Metrics");
 
     builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
     builder.Services.AddMassTransit(x =>
@@ -40,6 +42,8 @@ try
 
     app.UseMiddleware<ExceptionMiddleware>();
     app.UseSerilogRequestLogging();
+
+    app.MapPrometheusScrapingEndpoint();
 
     await app.RunAsync();
 }

@@ -1,6 +1,51 @@
 # MetersApp
 
-A real-time sensor data monitoring application that collects, processes, and visualizes data from IoT sensors deployed across multiple locations.
+## Quick Start
+
+1. Access the deployed application:
+- **Frontend**: http://89.22.226.142:3000
+- **GraphQL Playground**: http://89.22.226.142:8084/graphql
+- **Prometheus**: http://89.22.226.142:9090/targets
+- **Grafana**: http://89.22.226.142:5000 (admin/admin)
+
+### Running the Application
+
+### Prerequisites
+- Docker and Docker Compose installed
+- Git
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd MetersApp
+```
+
+2. Start all services:
+```bash
+docker compose up
+```
+
+3. Access the application:
+- **Frontend**: http://localhost:3000
+- **GraphQL Playground**: http://localhost:8084/graphql
+- **RabbitMQ Management**: http://localhost:15672 (guest/guest)
+- **Prometheus**: http://localhost:9090/targets
+- **Grafana**: http://localhost:5000 (admin/admin)
+
+### Running in Detached Mode
+```bash
+docker compose up -d
+```
+
+### Stopping the Application
+```bash
+docker compose down
+```
+
+To clear everything:
+```bash
+docker compose down --rmi all -v
+```
 
 ## Backend Services
 
@@ -36,45 +81,6 @@ A real-time sensor data monitoring application that collects, processes, and vis
 ### Infrastructure
 - **PostgreSQL 18** - Primary database
 - **RabbitMQ** - Message broker (MassTransit image)
-
-## Quick Start
-
-### Prerequisites
-- Docker and Docker Compose installed
-- Git
-
-### Running the Application
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd MetersApp
-```
-
-2. Start all services:
-```bash
-docker compose up
-```
-
-3. Access the application:
-- **Frontend**: http://localhost:3000
-- **GraphQL Playground**: http://localhost:8084/graphql
-- **RabbitMQ Management**: http://localhost:15672 (guest/guest)
-
-### Running in Detached Mode
-```bash
-docker compose up -d
-```
-
-### Stopping the Application
-```bash
-docker compose down
-```
-
-To remove volumes (clears database data):
-```bash
-docker compose down -v
-```
 
 ## Development
 
