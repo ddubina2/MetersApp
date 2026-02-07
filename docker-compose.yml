@@ -151,6 +151,8 @@ services:
     networks:
       - backend
       - frontend
+    volumes:
+      - meters_app_grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
 
@@ -163,3 +165,4 @@ networks:
 volumes:
   meters_app_postgres_data:
   meters_app_rabbitmq_data:
+  meters_app_grafana-data:
