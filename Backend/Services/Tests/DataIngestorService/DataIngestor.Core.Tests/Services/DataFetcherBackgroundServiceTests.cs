@@ -498,7 +498,7 @@ public class DataFetcherBackgroundServiceTests
         fetchCount.Should().BeGreaterThanOrEqualTo(1);
     }
 
-    private IServiceProvider CreateServiceProvider()
+    private ServiceProvider CreateServiceProvider()
     {
         var services = new ServiceCollection();
         services.AddSingleton(_mockApiClient.Object);
