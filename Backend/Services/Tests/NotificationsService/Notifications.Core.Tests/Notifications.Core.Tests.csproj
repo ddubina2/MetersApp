@@ -22,7 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\DataIngestorService\DataIngestor.Core\DataIngestor.Core.csproj" />
+      <ProjectReference Include="..\..\..\NotificationsService\Notifications.Core\Notifications.Core.csproj" />
+      <ProjectReference Include="..\..\..\NotificationsService\Notifications.Api\Notifications.Api.csproj" />
     </ItemGroup>
 
 </Project>

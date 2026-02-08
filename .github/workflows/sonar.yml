@@ -54,9 +54,20 @@ jobs:
             /d:sonar.exclusions=Frontend/**,**/node_modules/**,**/bin/**,**/obj/** `
             /k:"MetersApp_Backend" `
             /o:"roga-kopyta-gmbh" `
-            /d:sonar.token="$env:SONAR_TOKEN"
+            /d:sonar.token="$env:SONAR_TOKEN" `
+            /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" `
+            /d:sonar.cs.vstest.reportsPaths="**/*.trx"
 
           dotnet build Backend/Services/MetersApp.sln
+          
+          # Run tests with coverage
+          dotnet test Backend/Services/MetersApp.sln `
+            --no-build `
+            --logger trx `
+            --results-directory ./TestResults `
+            /p:CollectCoverage=true `
+            /p:CoverletOutputFormat=opencover `
+            /p:CoverletOutput=./coverage.opencover.xml
 
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end `
             /d:sonar.token="$env:SONAR_TOKEN"
