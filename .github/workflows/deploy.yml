@@ -128,6 +128,7 @@ jobs:
 
             export CORS_ALLOWED_ORIGINS=${{ vars.CORS_ALLOWED_ORIGINS }}
 
+            docker compose -f docker-compose.deploy.yml down
             docker compose -f docker-compose.deploy.yml pull
             docker compose -f docker-compose.deploy.yml up -d
 
