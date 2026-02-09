@@ -32,3 +32,4 @@ dotnet_style_qualification_for_event = false:warning
 dotnet_diagnostic.SA1309.severity = none
 dotnet_diagnostic.SA1101.severity = none
 dotnet_diagnostic.SA1402.severity = none
+resharper_redundant_name_qualifier_highlighting=none
