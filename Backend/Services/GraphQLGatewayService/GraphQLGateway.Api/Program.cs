@@ -27,7 +27,10 @@ public class Program
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddSerilog();
-            builder.Services.ConfigureTelemetry("graphql-gateway", "GraphQlGateway.Metrics");
+            builder.Services.ConfigureTelemetry(
+                builder.Environment,
+                "graphql-gateway",
+                "GraphQlGateway.Metrics");
 
             builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
             builder.Services.AddCors(options =>
@@ -69,7 +72,12 @@ public class Program
             app.UseSerilogRequestLogging();
             app.UseCors("AllowFrontend");
             app.MapGraphQL();
-            app.MapPrometheusScrapingEndpoint();
+
+            if (app.Environment.IsProduction())
+            {
+                app.MapPrometheusScrapingEndpoint();
+            }
+
             app.Run();
         }
         catch (Exception ex)

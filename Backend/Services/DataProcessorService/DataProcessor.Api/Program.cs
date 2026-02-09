@@ -28,7 +28,10 @@ public static class Program
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddSerilog();
-            builder.Services.ConfigureTelemetry("data-processor", "DataProcessor.Metrics");
+            builder.Services.ConfigureTelemetry(
+                builder.Environment,
+                "data-processor",
+                "DataProcessor.Metrics");
 
             builder.Services.Configure<DbMigrationsOptions>(builder.Configuration.GetSection(nameof(DbMigrationsOptions)));
 
@@ -69,7 +72,10 @@ public static class Program
                     dbMigrationsOptions.MaxRetries, dbMigrationsOptions.DelaySeconds);
             }
 
-            app.MapPrometheusScrapingEndpoint();
+            if (app.Environment.IsProduction())
+            {
+                app.MapPrometheusScrapingEndpoint();
+            }
 
             await app.RunAsync();
         }

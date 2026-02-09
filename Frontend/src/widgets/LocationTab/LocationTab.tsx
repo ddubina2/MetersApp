@@ -79,7 +79,7 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
           />
         ))}
       </div>
-      <Typography text='Air Quality' />
+      <Typography text='Air Quality' weight='bold' className='mt-2' />
       <ReadingsChart<AirQualityReadingDto>
         locationType={type}
         sensorType={SensorType.AirQuality}
@@ -94,7 +94,7 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
             })}
       />
 
-      <Typography text='Motion' />
+      <Typography text='Motion' weight='bold' />
       <ReadingsChart<MotionReadingDto>
         locationType={type}
         sensorType={SensorType.Motion}
@@ -108,7 +108,7 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
             })}
       />
 
-      <Typography text='Energy' />
+      <Typography text='Energy' weight='bold' />
       <ReadingsChart<EnergyReadingDto>
         locationType={type}
         sensorType={SensorType.Energy}
