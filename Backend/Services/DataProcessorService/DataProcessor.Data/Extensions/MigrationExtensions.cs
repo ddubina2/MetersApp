@@ -1,9 +1,9 @@
-namespace DataProcessor.Data.Extensions;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
+namespace DataProcessor.Data.Extensions;
 
 public static class MigrationExtensions
 {

@@ -1,5 +1,3 @@
-namespace GraphQLGateway.Api;
-
 using GraphQLGateway.Api.GraphQL.Queries;
 using GraphQLGateway.Api.GraphQL.Types;
 using GraphQLGateway.Core;
@@ -10,6 +8,8 @@ using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+
+namespace GraphQLGateway.Api;
 
 public class Program
 {

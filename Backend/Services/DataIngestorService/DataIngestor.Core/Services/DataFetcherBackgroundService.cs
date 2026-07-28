@@ -1,5 +1,3 @@
-namespace DataIngestor.Core.Services;
-
 using DataIngestor.Core.Interfaces;
 using DataIngestor.Core.Options;
 using MassTransit;
@@ -9,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
+namespace DataIngestor.Core.Services;
 
 public class DataFetcherBackgroundService : BackgroundService
 {

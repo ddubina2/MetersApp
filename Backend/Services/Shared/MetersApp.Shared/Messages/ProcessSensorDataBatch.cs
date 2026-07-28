@@ -1,7 +1,7 @@
-namespace MetersApp.Shared.Messages;
-
 using System.Text.Json;
 using MetersApp.Shared.Enums;
+
+namespace MetersApp.Shared.Messages;
 
 public class ProcessSensorDataBatch
 {

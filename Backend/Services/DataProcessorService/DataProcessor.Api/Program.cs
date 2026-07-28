@@ -1,5 +1,3 @@
-namespace DataProcessor.Api;
-
 using DataProcessor.Core.Consumers;
 using DataProcessor.Data;
 using DataProcessor.Data.Extensions;
@@ -11,6 +9,8 @@ using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+
+namespace DataProcessor.Api;
 
 public static class Program
 {

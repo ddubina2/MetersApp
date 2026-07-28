@@ -1,11 +1,11 @@
-﻿namespace MetersApp.Shared.Middlewares;
-
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
+namespace MetersApp.Shared.Middlewares;
 
 public class ExceptionMiddleware
 {

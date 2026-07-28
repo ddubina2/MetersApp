@@ -1,7 +1,7 @@
-namespace MetersApp.Shared.Extensions;
-
 using System.Globalization;
 using System.Text;
+
+namespace MetersApp.Shared.Extensions;
 
 public static class StringExtensions
 {

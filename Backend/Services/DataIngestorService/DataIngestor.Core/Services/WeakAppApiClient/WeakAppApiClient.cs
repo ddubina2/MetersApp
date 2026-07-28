@@ -1,5 +1,3 @@
-namespace DataIngestor.Core.Services.WeakAppApiClient;
-
 using System.Text.Json;
 using DataIngestor.Core.Interfaces;
 using DataIngestor.Core.Options;
@@ -10,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
+
+namespace DataIngestor.Core.Services.WeakAppApiClient;
 
 public class WeakAppApiClient : IWeakAppApiClient
 {

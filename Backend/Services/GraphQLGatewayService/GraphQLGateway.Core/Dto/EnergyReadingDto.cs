@@ -1,6 +1,6 @@
-namespace GraphQLGateway.Core.Dto;
-
 using MetersApp.Shared.Enums;
+
+namespace GraphQLGateway.Core.Dto;
 
 public class EnergyReadingDto
 {

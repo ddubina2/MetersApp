@@ -1,12 +1,12 @@
-﻿namespace GraphQLGateway.Api.IntegrationTests.Infrastructure;
-
-using GraphQLGateway.Api.IntegrationTests.TestData;
+﻿using GraphQLGateway.Api.IntegrationTests.TestData;
 using GraphQLGateway.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+
+namespace GraphQLGateway.Api.IntegrationTests.Infrastructure;
 
 public class GraphqlWebAppFactory : WebApplicationFactory<Program>
 {

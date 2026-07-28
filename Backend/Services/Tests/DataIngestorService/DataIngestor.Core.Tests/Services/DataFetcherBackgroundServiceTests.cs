@@ -1,5 +1,3 @@
-namespace DataIngestor.Core.Tests.Services;
-
 using System.Text.Json;
 using DataIngestor.Core.Interfaces;
 using DataIngestor.Core.Options;
@@ -11,8 +9,9 @@ using MetersApp.Shared.Enums;
 using MetersApp.Shared.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Options;
 using Moq;
+
+namespace DataIngestor.Core.Tests.Services;
 
 public class DataFetcherBackgroundServiceTests
 {
@@ -55,7 +54,7 @@ public class DataFetcherBackgroundServiceTests
             .Callback(() => iterationCompleted.TrySetResult())
             .Returns(Task.CompletedTask);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",
@@ -128,7 +127,7 @@ public class DataFetcherBackgroundServiceTests
             })
             .Returns(Task.CompletedTask);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",
@@ -171,7 +170,7 @@ public class DataFetcherBackgroundServiceTests
             .Callback(() => iterationCompleted.TrySetResult())
             .Returns(Task.CompletedTask);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",
@@ -233,7 +232,7 @@ public class DataFetcherBackgroundServiceTests
             .Callback(() => iterationCompleted.TrySetResult())
             .Returns(Task.CompletedTask);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",
@@ -288,7 +287,7 @@ public class DataFetcherBackgroundServiceTests
             })
             .Returns(Task.CompletedTask);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",
@@ -345,7 +344,7 @@ public class DataFetcherBackgroundServiceTests
             })
             .ReturnsAsync(_mockSendEndpoint.Object);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",
@@ -407,7 +406,7 @@ public class DataFetcherBackgroundServiceTests
             })
             .Returns(Task.CompletedTask);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",
@@ -464,7 +463,7 @@ public class DataFetcherBackgroundServiceTests
             .Setup(x => x.Send(It.IsAny<ProcessSensorDataBatch>(), It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
 
-        var options = Options.Create(new WeakAppOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new WeakAppOptions
         {
             BaseUrl = "https://test-api",
             ApiKey = "test-key",

@@ -1,5 +1,3 @@
-namespace DataProcessor.Core.Tests.Consumers;
-
 using System.Text.Json;
 using DataProcessor.Core.Consumers;
 using DataProcessor.Data;
@@ -10,6 +8,8 @@ using MetersApp.Shared.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+
+namespace DataProcessor.Core.Tests.Consumers;
 
 public class SensorDataBatchConsumerTests
 {

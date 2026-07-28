@@ -1,5 +1,3 @@
-namespace Notifications.Api;
-
 using System.Text.Json.Serialization;
 using MassTransit;
 using MetersApp.Shared.Extensions;
@@ -10,6 +8,8 @@ using Notifications.Core.Consumers;
 using Notifications.Core.Interfaces;
 using Serilog;
 using Serilog.Events;
+
+namespace Notifications.Api;
 
 public static class Program
 {

@@ -1,11 +1,11 @@
-namespace DataIngestor.Core;
-
 using DataIngestor.Core.Interfaces;
 using DataIngestor.Core.Options;
 using DataIngestor.Core.Services;
 using DataIngestor.Core.Services.WeakAppApiClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+namespace DataIngestor.Core;
 
 public static class ConfigureServices
 {

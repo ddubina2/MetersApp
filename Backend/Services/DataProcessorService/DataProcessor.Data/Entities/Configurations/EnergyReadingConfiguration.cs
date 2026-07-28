@@ -1,7 +1,7 @@
-namespace DataProcessor.Data.Entities.Configurations;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace DataProcessor.Data.Entities.Configurations;
 
 public class EnergyReadingConfiguration : IEntityTypeConfiguration<EnergyReading>
 {

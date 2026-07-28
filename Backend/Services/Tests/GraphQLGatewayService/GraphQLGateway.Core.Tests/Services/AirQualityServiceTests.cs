@@ -1,5 +1,3 @@
-namespace GraphQLGateway.Core.Tests.Services;
-
 using FluentAssertions;
 using GraphQLGateway.Core.Dto;
 using GraphQLGateway.Core.Services;
@@ -7,6 +5,8 @@ using GraphQLGateway.Data;
 using GraphQLGateway.Data.Entities;
 using MetersApp.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
+
+namespace GraphQLGateway.Core.Tests.Services;
 
 public class AirQualityServiceTests
 {

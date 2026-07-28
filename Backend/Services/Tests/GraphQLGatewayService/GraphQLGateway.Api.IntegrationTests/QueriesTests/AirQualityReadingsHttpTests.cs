@@ -1,9 +1,9 @@
-﻿namespace GraphQLGateway.Api.IntegrationTests.QueriesTests;
-
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using System.Text.Json;
 using FluentAssertions;
 using GraphQLGateway.Api.IntegrationTests.Infrastructure;
+
+namespace GraphQLGateway.Api.IntegrationTests.QueriesTests;
 
 public class AirQualityReadingsHttpTests : IClassFixture<GraphqlWebAppFactory>
 {
