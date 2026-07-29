@@ -1,6 +1,7 @@
 using DataCleaner.Api.Models;
 using DataCleaner.Core;
-using DataCleaner.Core.Interfaces;
+using DataCleaner.Core.Services.NextCleanupDateStorage;
+using DataCleaner.Core.Services.SensorDataCleanup;
 using DataCleaner.Data;
 using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
@@ -54,6 +55,18 @@ public static class Program
                 await cleanupService.DeleteOldSensorDataAsync(request.OlderThan, cancellationToken);
 
                 return Results.NoContent();
+            });
+
+            app.MapGet("/api/sensor-data/next-cleanup", async (
+                INextCleanupDateStorage storage,
+                CancellationToken cancellationToken) =>
+            {
+                var response = new NextCleanupResponse
+                {
+                    DateTime = await storage.Get(),
+                };
+
+                return Results.Ok(response);
             });
 
             if (app.Environment.IsProduction())

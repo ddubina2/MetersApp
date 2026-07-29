@@ -1,6 +1,7 @@
-using DataCleaner.Core.Interfaces;
+using DataCleaner.Core.BackgroundJobs;
 using DataCleaner.Core.Options;
-using DataCleaner.Core.Services;
+using DataCleaner.Core.Services.NextCleanupDateStorage;
+using DataCleaner.Core.Services.SensorDataCleanup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,9 +13,12 @@ public static class ConfigureServices
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddMemoryCache();
         services.Configure<DataCleanerOptions>(configuration.GetSection(nameof(DataCleanerOptions)));
+        services.AddHostedService<SensorDataCleanupBackgroundJob>();
+
         services.AddScoped<ISensorDataCleanupService, SensorDataCleanupService>();
-        services.AddHostedService<SensorDataCleanupBackgroundService>();
+        services.AddScoped<INextCleanupDateStorage, CacheNextCleanupDateStorage>();
 
         return services;
     }

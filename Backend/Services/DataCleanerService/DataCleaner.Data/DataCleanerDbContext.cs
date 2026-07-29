@@ -17,9 +17,4 @@ public class DataCleanerDbContext : DbContext
         : base(options)
     {
     }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataCleanerDbContext).Assembly);
-    }
 }
