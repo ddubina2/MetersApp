@@ -54,6 +54,20 @@ services:
     networks:
       - backend
 
+  data-cleaner:
+    build:
+      context: ./Backend
+      dockerfile: Services/DataCleanerService/DataCleaner.Api/Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8082
+      ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
   data-processor:
     build:
       context: ./Backend
@@ -139,6 +153,7 @@ services:
       - frontend
     depends_on:
       - data-ingestor
+      - data-cleaner
       - data-processor
       - graphql-gateway
       - notifications
