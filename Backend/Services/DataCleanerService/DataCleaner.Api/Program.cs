@@ -1,4 +1,6 @@
+using DataCleaner.Api.Models;
 using DataCleaner.Core;
+using DataCleaner.Core.Interfaces;
 using DataCleaner.Data;
 using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
@@ -38,6 +40,21 @@ public static class Program
 
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseSerilogRequestLogging();
+
+            app.MapPost("/api/sensor-data/cleanup", async (
+                CleanupSensorDataRequest request,
+                ISensorDataCleanupService cleanupService,
+                CancellationToken cancellationToken) =>
+            {
+                if (request.OlderThan > DateTime.UtcNow)
+                {
+                    return Results.BadRequest("Date cannot be in the future.");
+                }
+
+                await cleanupService.DeleteOldSensorDataAsync(request.OlderThan, cancellationToken);
+
+                return Results.NoContent();
+            });
 
             if (app.Environment.IsProduction())
             {
