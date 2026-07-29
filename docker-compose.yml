@@ -63,6 +63,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://+:8082
       ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      DataCleanerOptions__RunIntervalHours: ${DATA_CLEANER_RUN_INTERVAL_HOURS}
+      DataCleanerOptions__RetentionDays: ${DATA_CLEANER_RETENTION_DAYS}
     depends_on:
       - postgres
     networks:

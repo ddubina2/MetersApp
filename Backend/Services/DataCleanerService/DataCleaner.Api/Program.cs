@@ -1,3 +1,4 @@
+using DataCleaner.Core;
 using DataCleaner.Data;
 using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
@@ -30,6 +31,8 @@ public static class Program
 
             builder.Services.AddDbContext<DataCleanerDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.ConfigureCoreServices(builder.Configuration);
 
             var app = builder.Build();
 
