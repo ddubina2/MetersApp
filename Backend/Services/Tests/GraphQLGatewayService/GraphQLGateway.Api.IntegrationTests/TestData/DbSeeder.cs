@@ -1,7 +1,7 @@
-﻿namespace GraphQLGateway.Api.IntegrationTests.TestData;
-
-using GraphQLGateway.Data;
+﻿using GraphQLGateway.Data;
 using GraphQLGateway.Data.Entities;
+
+namespace GraphQLGateway.Api.IntegrationTests.TestData;
 
 public static class DbSeeder
 {

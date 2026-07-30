@@ -1,8 +1,8 @@
-namespace DataProcessor.Data.Entities.Configurations;
-
 using MetersApp.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace DataProcessor.Data.Entities.Configurations;
 
 public class LocationConfiguration : IEntityTypeConfiguration<Location>
 {

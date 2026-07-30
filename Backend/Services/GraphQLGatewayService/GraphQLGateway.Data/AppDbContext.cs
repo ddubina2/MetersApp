@@ -1,7 +1,7 @@
-namespace GraphQLGateway.Data;
-
 using GraphQLGateway.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+
+namespace GraphQLGateway.Data;
 
 public class AppDbContext : DbContext
 {

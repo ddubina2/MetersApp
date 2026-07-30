@@ -54,6 +54,22 @@ services:
     networks:
       - backend
 
+  data-cleaner:
+    build:
+      context: ./Backend
+      dockerfile: Services/DataCleanerService/DataCleaner.Api/Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8082
+      ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      DataCleanerOptions__RunIntervalHours: ${DATA_CLEANER_RUN_INTERVAL_HOURS}
+      DataCleanerOptions__RetentionDays: ${DATA_CLEANER_RETENTION_DAYS}
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
   data-processor:
     build:
       context: ./Backend
@@ -128,6 +144,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
+    profiles: ["monitoring"]
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
@@ -139,6 +156,7 @@ services:
       - frontend
     depends_on:
       - data-ingestor
+      - data-cleaner
       - data-processor
       - graphql-gateway
       - notifications
@@ -146,6 +164,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
+    profiles: ["monitoring"]
     ports:
       - "5000:3000"
     networks:

@@ -370,6 +370,7 @@ Backend/Services/DataIngestorService/DataIngestor.Api/appsettings.Development.js
 Backend/Services/DataProcessorService/DataProcessor.Api/appsettings.Development.json
 Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/appsettings.Development.json
 Backend/Services/NotificationsService/Notifications.Api/appsettings.Development.json
+Backend/Services/DataCleanerService/DataCleaner.Api/appsettings.Development.json
 
 # Logs
 logs

@@ -1,11 +1,11 @@
-namespace DataIngestor.Core.Tests.Services;
-
 using System.Net;
 using System.Text;
 using DataIngestor.Core.Services.WeakAppApiClient;
 using FluentAssertions;
 using MetersApp.Shared.Enums;
 using Microsoft.Extensions.Logging.Abstractions;
+
+namespace DataIngestor.Core.Tests.Services;
 
 public class WeakAppApiClientTests
 {

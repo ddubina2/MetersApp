@@ -1,6 +1,6 @@
-namespace DataIngestor.Core.Interfaces;
-
 using DataIngestor.Core.Services.WeakAppApiClient.Models;
+
+namespace DataIngestor.Core.Interfaces;
 
 public interface IWeakAppApiClient
 {

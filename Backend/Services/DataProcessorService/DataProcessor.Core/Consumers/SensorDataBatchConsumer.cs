@@ -1,5 +1,3 @@
-namespace DataProcessor.Core.Consumers;
-
 using System.Text.Json;
 using DataProcessor.Data;
 using DataProcessor.Data.Entities;
@@ -8,6 +6,8 @@ using MetersApp.Shared.Enums;
 using MetersApp.Shared.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
+namespace DataProcessor.Core.Consumers;
 
 public class SensorDataBatchConsumer : IConsumer<ProcessSensorDataBatch>
 {

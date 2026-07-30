@@ -1,7 +1,7 @@
-namespace GraphQLGateway.Api.GraphQL.Queries;
-
 using GraphQLGateway.Core.Dto;
 using GraphQLGateway.Core.Interfaces;
+
+namespace GraphQLGateway.Api.GraphQL.Queries;
 
 [ExtendObjectType("Query")]
 public class EnergyQueries

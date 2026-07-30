@@ -1,10 +1,10 @@
-﻿namespace MetersApp.Shared.Extensions;
-
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
+
+namespace MetersApp.Shared.Extensions;
 
 public static class ServiceCollectionExtensions
 {

@@ -1,10 +1,10 @@
+using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
 #nullable disable
 
 namespace DataProcessor.Data.Migrations
 {
-    using System;
-    using Microsoft.EntityFrameworkCore.Migrations;
-
     /// <inheritdoc />
     public partial class Initial : Migration
     {

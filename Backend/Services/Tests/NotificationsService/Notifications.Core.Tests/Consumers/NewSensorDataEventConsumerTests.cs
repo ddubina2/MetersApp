@@ -1,5 +1,3 @@
-namespace Notifications.Core.Tests.Consumers;
-
 using System.Text.Json;
 using FluentAssertions;
 using MassTransit;
@@ -10,6 +8,8 @@ using Moq;
 using Notifications.Core.Consumers;
 using Notifications.Core.Dto;
 using Notifications.Core.Interfaces;
+
+namespace Notifications.Core.Tests.Consumers;
 
 public class NewSensorDataEventConsumerTests
 {

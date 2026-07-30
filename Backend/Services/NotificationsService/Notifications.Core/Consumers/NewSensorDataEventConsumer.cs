@@ -1,10 +1,10 @@
-namespace Notifications.Core.Consumers;
-
 using MassTransit;
 using MetersApp.Shared.Messages;
 using Microsoft.Extensions.Logging;
 using Notifications.Core.Dto;
 using Notifications.Core.Interfaces;
+
+namespace Notifications.Core.Consumers;
 
 public class NewSensorDataEventConsumer : IConsumer<NewSensorDataEvent>
 {

@@ -1,5 +1,3 @@
-namespace Notifications.Core.Tests.SignalR;
-
 using System.Text.Json;
 using FluentAssertions;
 using MetersApp.Shared.Enums;
@@ -7,6 +5,8 @@ using Microsoft.AspNetCore.SignalR;
 using Moq;
 using Notifications.Api.SignalR;
 using Notifications.Core.Dto;
+
+namespace Notifications.Core.Tests.SignalR;
 
 public class SignalRSensorBroadcasterTests
 {

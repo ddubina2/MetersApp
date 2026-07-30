@@ -1,9 +1,9 @@
-namespace GraphQLGateway.Core.Services;
-
 using GraphQLGateway.Core.Dto;
 using GraphQLGateway.Core.Interfaces;
 using GraphQLGateway.Data;
 using Microsoft.EntityFrameworkCore;
+
+namespace GraphQLGateway.Core.Services;
 
 public class EnergyService : IEnergyService
 {

@@ -1,8 +1,8 @@
-namespace Notifications.Api.SignalR;
-
 using Microsoft.AspNetCore.SignalR;
 using Notifications.Core.Dto;
 using Notifications.Core.Interfaces;
+
+namespace Notifications.Api.SignalR;
 
 public class SignalRSensorBroadcaster : ISensorBroadcaster
 {

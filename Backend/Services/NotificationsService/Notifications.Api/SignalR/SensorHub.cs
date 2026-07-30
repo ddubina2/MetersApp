@@ -1,6 +1,6 @@
-namespace Notifications.Api.SignalR;
-
 using Microsoft.AspNetCore.SignalR;
+
+namespace Notifications.Api.SignalR;
 
 public class SensorHub : Hub
 {

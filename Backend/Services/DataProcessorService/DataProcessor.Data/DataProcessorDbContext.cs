@@ -1,7 +1,7 @@
-namespace DataProcessor.Data;
-
 using DataProcessor.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+
+namespace DataProcessor.Data;
 
 public class DataProcessorDbContext : DbContext
 {
