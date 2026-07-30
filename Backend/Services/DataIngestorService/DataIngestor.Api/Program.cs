@@ -4,13 +4,9 @@ using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Serilog;
-using Serilog.Events;
 
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
-    .WriteTo.Console()
+    .ConfigureMetersAppLogging()
     .CreateLogger();
 
 try

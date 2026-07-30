@@ -7,7 +7,6 @@ using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Events;
 
 namespace DataCleaner.Api;
 
@@ -16,10 +15,7 @@ public static class Program
     public static async Task Main(string[] args)
     {
         Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
-            .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
-            .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
-            .WriteTo.Console()
+            .ConfigureMetersAppLogging()
             .CreateLogger();
 
         try

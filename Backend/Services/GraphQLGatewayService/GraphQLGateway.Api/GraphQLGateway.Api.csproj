@@ -12,7 +12,6 @@
         <PackageReference Include="HotChocolate.Data" Version="16.5.1" />
         <PackageReference Include="HotChocolate.Data.EntityFramework" Version="16.5.1" />
         <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     </ItemGroup>
 
     <ItemGroup>
