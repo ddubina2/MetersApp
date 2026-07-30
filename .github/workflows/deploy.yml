@@ -72,6 +72,18 @@ jobs:
           docker push $IMAGE_NAME:$TAG
           docker push $IMAGE_NAME:latest
 
+      - name: Build and push Data Cleaner
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-data-cleaner
+          TAG=${{ github.sha }}
+          docker build \
+            -t $IMAGE_NAME:$TAG \
+            -f Backend/Services/DataCleanerService/DataCleaner.Api/Dockerfile \
+            Backend
+          docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
+
       # ---------- Frontend ----------
       - name: Build & push Frontend
         run: |
@@ -125,6 +137,9 @@ jobs:
 
             export MIGRATE_DB_ON_STARTUP=${{ vars.MIGRATE_DB_ON_STARTUP }}
             export MIGRATION_MAX_RETRIES=${{ vars.MIGRATION_MAX_RETRIES }}
+
+            export DATA_CLEANER_RUN_INTERVAL_MINUTES=${{ vars.DATA_CLEANER_RUN_INTERVAL_MINUTES }}
+            export DATA_CLEANER_RETENTION_DAYS=${{ vars.DATA_CLEANER_RETENTION_DAYS }}
 
             export CORS_ALLOWED_ORIGINS=${{ vars.CORS_ALLOWED_ORIGINS }}
             export COMPOSE_PROFILES=${{ vars.DEPLOY_MONITORING == 'true' && 'monitoring' || '' }}
