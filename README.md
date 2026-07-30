@@ -5,8 +5,8 @@
 1. Access the deployed application:
 - **Frontend**: http://89.22.226.142:3000
 - **GraphQL Playground**: http://89.22.226.142:8084/graphql
-- **Prometheus**: http://89.22.226.142:9090/targets
-- **Grafana**: http://89.22.226.142:5000 (admin/admin)
+- **Prometheus** (if monitoring enabled): http://89.22.226.142:9090/targets
+- **Grafana** (if monitoring enabled): http://89.22.226.142:5000 (admin/admin)
 
 ### Running the Application
 
@@ -20,17 +20,22 @@ git clone <repository-url>
 cd MetersApp
 ```
 
-2. Start all services:
+2. Start all core services:
 ```bash
 docker compose up -d
 ```
 
-3. Access the application:
+3. (Optional) Start with Prometheus and Grafana monitoring:
+```bash
+docker compose --profile monitoring up -d
+```
+
+4. Access the application:
 - **Frontend**: http://localhost:3000
 - **GraphQL Playground**: http://localhost:8084/graphql
 - **RabbitMQ Management**: http://localhost:15672 (guest/guest)
-- **Prometheus**: http://localhost:9090/targets
-- **Grafana**: http://localhost:5000 (admin/admin)
+- **Prometheus** (if monitoring enabled): http://localhost:9090/targets
+- **Grafana** (if monitoring enabled): http://localhost:5000 (admin/admin)
 
 ### Stopping the Application
 ```bash
@@ -162,7 +167,9 @@ MetersApp/
 │   │   ├── pages/                    # Page components
 │   │   └── shared/                   # Utils, hooks, GraphQL client
 │   └── public/                       # Static assets
-├── docker-compose.yml                # Service orchestration
+├── docker-compose.yml                # Local service orchestration
+├── docker-compose.deploy.yml         # Production deployment orchestration
+├── prometheus.yml                    # Prometheus scrape configuration
 ├── .env                              # Environment configuration
 └── .github/workflows/                # CI/CD pipelines
 ```
@@ -173,8 +180,22 @@ The project includes GitHub Actions workflows:
 
 - **Backend Checks** - Build, test, and analyze backend code
 - **Frontend Checks** - Lint, type check, and build frontend
-- **Docker Images** - Build and push Docker images
+- **Deploy** - Build, push, and deploy Docker images to the server
 - **Sonar** - Code quality analysis
+
+### Deployment Configuration
+
+The deploy workflow supports the following GitHub repository variables:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DEPLOY_MONITORING` | Set to `true` to include Prometheus and Grafana in deployment | Disabled |
+| `VITE_API_BASE_URL` | Frontend GraphQL API URL | - |
+| `VITE_SENSORS_HUB_URL` | Frontend SignalR hub URL | - |
+| `WEAKAPP_REQUEST_INTERVAL` | Polling interval for WeakApp API | - |
+| `MIGRATE_DB_ON_STARTUP` | Run database migrations on startup | - |
+| `MIGRATION_MAX_RETRIES` | Maximum migration retry attempts | - |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | - |
 
 ## API Documentation
 
