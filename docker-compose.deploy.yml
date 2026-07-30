@@ -35,7 +35,7 @@ services:
       - backend
 
   data-ingestor:
-    image: ghcr.io/dendubina-org/meters-app-data-ingestor:latest
+    image: ghcr.io/ddubina2/meters-app-data-ingestor:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -53,7 +53,7 @@ services:
       - backend
 
   data-cleaner:
-    image: ghcr.io/dendubina-org/meters-app-data-cleaner:latest
+    image: ghcr.io/ddubina2/meters-app-data-cleaner:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -67,7 +67,7 @@ services:
       - backend
 
   data-processor:
-    image: ghcr.io/dendubina-org/meters-app-data-processor:latest
+    image: ghcr.io/ddubina2/meters-app-data-processor:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -85,7 +85,7 @@ services:
       - backend
 
   graphql-gateway:
-    image: ghcr.io/dendubina-org/meters-app-graph-ql-gateway:latest
+    image: ghcr.io/ddubina2/meters-app-graph-ql-gateway:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -101,7 +101,7 @@ services:
       - "8084:8084"
 
   notifications:
-    image: ghcr.io/dendubina-org/meters-app-notifications:latest
+    image: ghcr.io/ddubina2/meters-app-notifications:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -120,7 +120,7 @@ services:
       - "8085:8085"
 
   frontend:
-    image: ghcr.io/dendubina-org/meters-app-frontend:latest
+    image: ghcr.io/ddubina2/meters-app-frontend:latest
     restart: unless-stopped
     depends_on:
       - graphql-gateway
