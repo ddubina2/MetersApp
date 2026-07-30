@@ -5,10 +5,12 @@ namespace MetersApp.Shared.Extensions;
 
 public static class LoggerConfigurationExtensions
 {
-    public static LoggerConfiguration ConfigureMetersAppLogging(this LoggerConfiguration configuration)
+    public static LoggerConfiguration ConfigureMetersAppLogging(
+        this LoggerConfiguration configuration)
     {
-        var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-        var isDevelopment = env.Equals("Development", StringComparison.OrdinalIgnoreCase);
+        var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var isDevelopment = !string.IsNullOrWhiteSpace(env) &&
+                            env.Equals("Development", StringComparison.OrdinalIgnoreCase);
 
         var logger = configuration
             .Enrich.FromLogContext()
