@@ -24,6 +24,8 @@ public static class LoggerConfigurationExtensions
                 outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] [{SourceContext}] {Message:lj}{NewLine}{Exception}");
         }
 
-        return logger.WriteTo.Console();
+        return logger
+            .MinimumLevel.Is(LogEventLevel.Error)
+            .WriteTo.Console();
     }
 }
