@@ -7,7 +7,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY . .
 
-WORKDIR /src/Services/NotificationsService/Notifications.Api
+WORKDIR /src/Services/Notifications/Notifications.Api
 RUN dotnet build Notifications.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish

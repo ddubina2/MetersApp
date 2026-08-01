@@ -37,7 +37,7 @@ services:
   data-ingestor:
     build:
       context: ./Backend
-      dockerfile: Services/DataIngestorService/DataIngestor.Api/Dockerfile
+      dockerfile: Services/DataIngestor/DataIngestor.Api/Dockerfile
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -57,7 +57,7 @@ services:
   data-cleaner:
     build:
       context: ./Backend
-      dockerfile: Services/DataCleanerService/DataCleaner.Api/Dockerfile
+      dockerfile: Services/DataCleaner/DataCleaner.Api/Dockerfile
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -73,7 +73,7 @@ services:
   data-processor:
     build:
       context: ./Backend
-      dockerfile: Services/DataProcessorService/DataProcessor.Api/Dockerfile
+      dockerfile: Services/DataProcessor/DataProcessor.Api/Dockerfile
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -93,7 +93,7 @@ services:
   graphql-server:
     build:
       context: ./Backend
-      dockerfile: Services/GraphQLServerService/GraphQLServer.Api/Dockerfile
+      dockerfile: Services/GraphQLServer/GraphQLServer.Api/Dockerfile
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -111,7 +111,7 @@ services:
   notifications:
     build:
       context: ./Backend
-      dockerfile: Services/NotificationsService/Notifications.Api/Dockerfile
+      dockerfile: Services/Notifications/Notifications.Api/Dockerfile
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production

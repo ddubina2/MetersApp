@@ -7,7 +7,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY . .
 
-WORKDIR /src/Services/GraphQLServerService/GraphQLServer.Api
+WORKDIR /src/Services/GraphQLServer/GraphQLServer.Api
 RUN dotnet build GraphQLServer.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish

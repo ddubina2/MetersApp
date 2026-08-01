@@ -6,7 +6,7 @@
   WORKDIR /src
   COPY . .
 
-  WORKDIR /src/Services/DataCleanerService/DataCleaner.Api
+  WORKDIR /src/Services/DataCleaner/DataCleaner.Api
   RUN dotnet build DataCleaner.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/build
 
   FROM build AS publish

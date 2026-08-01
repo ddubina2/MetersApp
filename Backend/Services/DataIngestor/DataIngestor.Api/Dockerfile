@@ -6,7 +6,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY . .
 
-WORKDIR /src/Services/DataIngestorService/DataIngestor.Api
+WORKDIR /src/Services/DataIngestor/DataIngestor.Api
 RUN dotnet build DataIngestor.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish

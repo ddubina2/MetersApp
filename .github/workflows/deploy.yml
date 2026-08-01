@@ -30,7 +30,7 @@ jobs:
           TAG=${{ github.sha }}
           docker build \
             -t $IMAGE_NAME:$TAG \
-            -f Backend/Services/DataIngestorService/DataIngestor.Api/Dockerfile \
+            -f Backend/Services/DataIngestor/DataIngestor.Api/Dockerfile \
             Backend
           docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$TAG
@@ -42,7 +42,7 @@ jobs:
           TAG=${{ github.sha }}
           docker build \
             -t $IMAGE_NAME:$TAG \
-            -f Backend/Services/DataProcessorService/DataProcessor.Api/Dockerfile \
+            -f Backend/Services/DataProcessor/DataProcessor.Api/Dockerfile \
             Backend
           docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$TAG
@@ -54,7 +54,7 @@ jobs:
           TAG=${{ github.sha }}
           docker build \
             -t $IMAGE_NAME:$TAG \
-            -f Backend/Services/GraphQLServerService/GraphQLServer.Api/Dockerfile \
+            -f Backend/Services/GraphQLServer/GraphQLServer.Api/Dockerfile \
             Backend
           docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$TAG
@@ -66,7 +66,7 @@ jobs:
           TAG=${{ github.sha }}
           docker build \
             -t $IMAGE_NAME:$TAG \
-            -f Backend/Services/NotificationsService/Notifications.Api/Dockerfile \
+            -f Backend/Services/Notifications/Notifications.Api/Dockerfile \
             Backend
           docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$TAG
@@ -78,7 +78,7 @@ jobs:
           TAG=${{ github.sha }}
           docker build \
             -t $IMAGE_NAME:$TAG \
-            -f Backend/Services/DataCleanerService/DataCleaner.Api/Dockerfile \
+            -f Backend/Services/DataCleaner/DataCleaner.Api/Dockerfile \
             Backend
           docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$TAG

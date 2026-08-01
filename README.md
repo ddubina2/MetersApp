@@ -153,10 +153,10 @@ pnpm codegen
 MetersApp/
 ├── Backend/
 │   └── Services/
-│       ├── DataIngestorService/      # API polling & message publishing
-│       ├── DataProcessorService/     # Message consumption & data storage
-│       ├── GraphQLServerService/     # GraphQL API server
-│       ├── NotificationsService/     # SignalR real-time notifications
+│       ├── DataIngestor/      # API polling & message publishing
+│       ├── DataProcessor/     # Message consumption & data storage
+│       ├── GraphQLServer/     # GraphQL API server
+│       ├── Notifications/     # SignalR real-time notifications
 │       ├── Shared/                   # Common libraries (enums, messages)
 │       └── Tests/                    # Unit and integration tests
 ├── Frontend/                         # React + TypeScript SPA

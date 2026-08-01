@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\GraphQLServerService\GraphQLServer.Api\GraphQLServer.Api.csproj" />
+      <ProjectReference Include="..\..\..\GraphQLServer\GraphQLServer.Api\GraphQLServer.Api.csproj" />
     </ItemGroup>
 
 </Project>

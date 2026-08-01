@@ -17,7 +17,6 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="FluentAssertions" Version="8.10.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.10" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
         <PackageReference Include="Moq" Version="4.20.72" />
         <PackageReference Include="xunit" Version="2.9.3"/>
@@ -32,8 +31,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\DataProcessorService\DataProcessor.Core\DataProcessor.Core.csproj" />
-      <ProjectReference Include="..\..\..\DataProcessorService\DataProcessor.Data\DataProcessor.Data.csproj" />
+      <ProjectReference Include="..\..\..\Notifications\Notifications.Core\Notifications.Core.csproj" />
+      <ProjectReference Include="..\..\..\Notifications\Notifications.Api\Notifications.Api.csproj" />
     </ItemGroup>
 
 </Project>

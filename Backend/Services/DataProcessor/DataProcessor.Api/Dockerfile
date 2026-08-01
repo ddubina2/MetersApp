@@ -6,7 +6,7 @@
   WORKDIR /src
   COPY . .
 
-  WORKDIR /src/Services/DataProcessorService/DataProcessor.Api
+  WORKDIR /src/Services/DataProcessor/DataProcessor.Api
   RUN dotnet build DataProcessor.Api.csproj -c "$BUILD_CONFIGURATION" -o /app/build
 
   FROM build AS publish

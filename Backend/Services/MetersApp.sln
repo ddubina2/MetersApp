@@ -1,64 +1,64 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataIngestorService", "DataIngestorService", "{AE00C0A1-5010-4E98-9D0C-51C0FD450D37}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataIngestor", "DataIngestor", "{AE00C0A1-5010-4E98-9D0C-51C0FD450D37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIngestor.Api", "DataIngestorService\DataIngestor.Api\DataIngestor.Api.csproj", "{1CFF417A-44EC-422E-9F21-E5D26B258A6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIngestor.Api", "DataIngestor\DataIngestor.Api\DataIngestor.Api.csproj", "{1CFF417A-44EC-422E-9F21-E5D26B258A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIngestor.Core", "DataIngestorService\DataIngestor.Core\DataIngestor.Core.csproj", "{1FD55BC1-7208-4DF0-8C8E-BB0F1727DA99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIngestor.Core", "DataIngestor\DataIngestor.Core\DataIngestor.Core.csproj", "{1FD55BC1-7208-4DF0-8C8E-BB0F1727DA99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C98D3FD5-D845-4B1B-ACB4-DC05716B8004}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetersApp.Shared", "Shared\MetersApp.Shared\MetersApp.Shared.csproj", "{EB16AE67-F161-4EC6-A9F6-7AC5FDB5E7D6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProcessorService", "DataProcessorService", "{F2094B44-FD15-4BFE-939D-9913CC3DDDD7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProcessor", "DataProcessor", "{F2094B44-FD15-4BFE-939D-9913CC3DDDD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Api", "DataProcessorService\DataProcessor.Api\DataProcessor.Api.csproj", "{6BA46238-22B2-4614-962F-4F523A80241D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Api", "DataProcessor\DataProcessor.Api\DataProcessor.Api.csproj", "{6BA46238-22B2-4614-962F-4F523A80241D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Core", "DataProcessorService\DataProcessor.Core\DataProcessor.Core.csproj", "{E5E2CE81-7BD8-4CDB-99D0-2D46F2C28997}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Core", "DataProcessor\DataProcessor.Core\DataProcessor.Core.csproj", "{E5E2CE81-7BD8-4CDB-99D0-2D46F2C28997}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Data", "DataProcessorService\DataProcessor.Data\DataProcessor.Data.csproj", "{65DB8912-6CB5-47B1-9B7C-F2C670D2102F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Data", "DataProcessor\DataProcessor.Data\DataProcessor.Data.csproj", "{65DB8912-6CB5-47B1-9B7C-F2C670D2102F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQLServer", "GraphQLServer", "{D1D66336-EA89-4FEF-882E-37816568086C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Data", "GraphQLServerService\GraphQLServer.Data\GraphQLServer.Data.csproj", "{456062F3-B31A-4D3E-9ABD-5997139EF074}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Data", "GraphQLServer\GraphQLServer.Data\GraphQLServer.Data.csproj", "{456062F3-B31A-4D3E-9ABD-5997139EF074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Core", "GraphQLServerService\GraphQLServer.Core\GraphQLServer.Core.csproj", "{CE33C347-7858-4A1D-8C7C-C0F07CB8C485}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Core", "GraphQLServer\GraphQLServer.Core\GraphQLServer.Core.csproj", "{CE33C347-7858-4A1D-8C7C-C0F07CB8C485}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Api", "GraphQLServerService\GraphQLServer.Api\GraphQLServer.Api.csproj", "{6D4FE488-B473-4FB8-88CD-72726F630779}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Api", "GraphQLServer\GraphQLServer.Api\GraphQLServer.Api.csproj", "{6D4FE488-B473-4FB8-88CD-72726F630779}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationsService", "NotificationsService", "{4EAA87BA-8158-40F8-BA4C-31914EC3507B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{4EAA87BA-8158-40F8-BA4C-31914EC3507B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications.Api", "NotificationsService\Notifications.Api\Notifications.Api.csproj", "{F2226D52-F214-45E2-9E1A-04054033FB84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications.Api", "Notifications\Notifications.Api\Notifications.Api.csproj", "{F2226D52-F214-45E2-9E1A-04054033FB84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications.Core", "NotificationsService\Notifications.Core\Notifications.Core.csproj", "{FD8B4AAE-F634-448B-8493-236DD02D172D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications.Core", "Notifications\Notifications.Core\Notifications.Core.csproj", "{FD8B4AAE-F634-448B-8493-236DD02D172D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4A06FC47-C78E-47E4-9836-1691F416EC16}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataIngestorService", "DataIngestorService", "{8E6AA79B-658E-4334-B6D5-B9B5A3F87C47}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataIngestor", "DataIngestor", "{8E6AA79B-658E-4334-B6D5-B9B5A3F87C47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIngestor.Core.Tests", "Tests\DataIngestorService\DataIngestor.Core.Tests\DataIngestor.Core.Tests.csproj", "{2D857AF5-3EC8-432C-9695-C608D870EDDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIngestor.Core.Tests", "Tests\DataIngestor\DataIngestor.Core.Tests\DataIngestor.Core.Tests.csproj", "{2D857AF5-3EC8-432C-9695-C608D870EDDB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProcessorService", "DataProcessorService", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProcessor", "DataProcessor", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Core.Tests", "Tests\DataProcessorService\DataProcessor.Core.Tests\DataProcessor.Core.Tests.csproj", "{B2C3D4E5-F6A7-8901-BCDE-F23456789012}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Core.Tests", "Tests\DataProcessor\DataProcessor.Core.Tests\DataProcessor.Core.Tests.csproj", "{B2C3D4E5-F6A7-8901-BCDE-F23456789012}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQLServer", "GraphQLServer", "{30DF3E97-7BAD-460F-A163-E5A11C4DDE48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Api.IntegrationTests", "Tests\GraphQLServerService\GraphQLServer.Api.IntegrationTests\GraphQLServer.Api.IntegrationTests.csproj", "{F4195BF8-2671-4EED-BDC5-9BF782148F1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Api.IntegrationTests", "Tests\GraphQLServer\GraphQLServer.Api.IntegrationTests\GraphQLServer.Api.IntegrationTests.csproj", "{F4195BF8-2671-4EED-BDC5-9BF782148F1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Core.Tests", "Tests\GraphQLServerService\GraphQLServer.Core.Tests\GraphQLServer.Core.Tests.csproj", "{C3D4E5F6-A7B8-9012-CDEF-345678901234}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Core.Tests", "Tests\GraphQLServer\GraphQLServer.Core.Tests\GraphQLServer.Core.Tests.csproj", "{C3D4E5F6-A7B8-9012-CDEF-345678901234}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationsService", "NotificationsService", "{D4E5F6A7-B8C9-0123-DEFA-456789012345}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{D4E5F6A7-B8C9-0123-DEFA-456789012345}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications.Core.Tests", "Tests\NotificationsService\Notifications.Core.Tests\Notifications.Core.Tests.csproj", "{E5F6A7B8-C9D0-1234-EFAB-567890123456}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications.Core.Tests", "Tests\Notifications\Notifications.Core.Tests\Notifications.Core.Tests.csproj", "{E5F6A7B8-C9D0-1234-EFAB-567890123456}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataCleanerService", "DataCleanerService", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567891}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataCleaner", "DataCleaner", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567891}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleaner.Api", "DataCleanerService\DataCleaner.Api\DataCleaner.Api.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567892}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleaner.Api", "DataCleaner\DataCleaner.Api\DataCleaner.Api.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567892}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleaner.Core", "DataCleanerService\DataCleaner.Core\DataCleaner.Core.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567893}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleaner.Core", "DataCleaner\DataCleaner.Core\DataCleaner.Core.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleaner.Data", "DataCleanerService\DataCleaner.Data\DataCleaner.Data.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleaner.Data", "DataCleaner\DataCleaner.Data\DataCleaner.Data.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
