@@ -54,12 +54,15 @@ public static class Program
             });
 
             app.MapGet("/api/sensor-data/next-cleanup", async (
-                INextCleanupDateStorage storage,
+                ICleanupStatusStorage storage,
                 CancellationToken cancellationToken) =>
             {
-                var response = new NextCleanupResponse
+                var currentStatus = await storage.Get();
+
+                var response = new CleanupStatusResponse
                 {
-                    DateTime = await storage.Get(),
+                    LastCleaningResult = currentStatus.LastCleaningResult,
+                    NextCleanup = currentStatus.NextCleanupDate,
                 };
 
                 return Results.Ok(response);

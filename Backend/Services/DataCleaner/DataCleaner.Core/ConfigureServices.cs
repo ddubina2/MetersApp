@@ -18,7 +18,7 @@ public static class ConfigureServices
         services.AddHostedService<SensorDataCleanupBackgroundJob>();
 
         services.AddScoped<ISensorDataCleanupService, SensorDataCleanupService>();
-        services.AddScoped<INextCleanupDateStorage, CacheNextCleanupDateStorage>();
+        services.AddScoped<ICleanupStatusStorage, CacheCleanupStatusStorage>();
 
         return services;
     }

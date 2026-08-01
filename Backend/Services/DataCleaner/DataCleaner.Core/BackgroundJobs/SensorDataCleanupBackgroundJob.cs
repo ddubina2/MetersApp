@@ -1,6 +1,8 @@
 using DataCleaner.Core.Options;
 using DataCleaner.Core.Services.NextCleanupDateStorage;
+using DataCleaner.Core.Services.NextCleanupDateStorage.Models;
 using DataCleaner.Core.Services.SensorDataCleanup;
+using MetersApp.Shared.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -40,10 +42,15 @@ public class SensorDataCleanupBackgroundJob : BackgroundService
     {
         using var scope = _serviceProvider.CreateScope();
         var cleanupService = scope.ServiceProvider.GetRequiredService<ISensorDataCleanupService>();
-        var nextDateStorage = scope.ServiceProvider.GetRequiredService<INextCleanupDateStorage>();
+        var statusStorage = scope.ServiceProvider.GetRequiredService<ICleanupStatusStorage>();
         var minutes = TimeSpan.FromMinutes(_options.RunIntervalMinutes);
 
-        await nextDateStorage.Set(DateTime.UtcNow.Add(minutes));
+        var status = new CleanupStatus
+        {
+            LastCleaningResult = CleaningResult.NotPerformed,
+            NextCleanupDate = DateTime.UtcNow.Add(minutes),
+        };
+        await statusStorage.Set(status);
 
         using PeriodicTimer timer = new(minutes);
 
@@ -55,7 +62,13 @@ public class SensorDataCleanupBackgroundJob : BackgroundService
                 _logger.LogInformation("Deleting sensor data older than {OlderThan}", olderThan);
 
                 var result = await cleanupService.DeleteOldSensorDataAsync(olderThan, stoppingToken);
-                await nextDateStorage.Set(DateTime.UtcNow.Add(minutes));
+
+                var successStatus = new CleanupStatus
+                {
+                    LastCleaningResult = CleaningResult.Success,
+                    NextCleanupDate = DateTime.UtcNow.Add(minutes),
+                };
+                await statusStorage.Set(successStatus);
 
                 _logger.LogInformation("Sensor data cleanup completed successfully");
                 _logger.LogInformation("Air quality records deleted: {AirQualityDeletedCount}", result.AirQualityDeletedCount);
@@ -65,6 +78,13 @@ public class SensorDataCleanupBackgroundJob : BackgroundService
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while cleaning up old sensor data.");
+
+                var errorStatus = new CleanupStatus
+                {
+                    LastCleaningResult = CleaningResult.Failure,
+                    NextCleanupDate = DateTime.UtcNow.Add(minutes),
+                };
+                await statusStorage.Set(errorStatus);
             }
         }
     }
