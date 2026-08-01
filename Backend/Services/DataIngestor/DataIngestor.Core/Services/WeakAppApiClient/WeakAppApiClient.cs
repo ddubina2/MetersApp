@@ -1,11 +1,9 @@
 using System.Text.Json;
 using DataIngestor.Core.Interfaces;
-using DataIngestor.Core.Options;
 using DataIngestor.Core.Services.WeakAppApiClient.Models;
 using MetersApp.Shared.Enums;
 using MetersApp.Shared.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
 
