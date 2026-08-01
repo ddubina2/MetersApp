@@ -53,7 +53,7 @@ docker compose down --rmi all -v
 |---------|---------|
 | **DataIngestor** | Polls external WeakApp API and publishes sensor data to RabbitMQ |
 | **DataProcessor** | Consumes RabbitMQ messages, processes and stores data in PostgreSQL |
-| **GraphQLGateway** | Provides GraphQL API for querying historical sensor data |
+| **GraphQLServer** | Provides GraphQL API for querying historical sensor data |
 | **Notifications** | Real-time notifications via SignalR WebSockets |
 | **WeakAppApi** | External API providing sensor data (pre-built image) |
 
@@ -155,7 +155,7 @@ MetersApp/
 │   └── Services/
 │       ├── DataIngestorService/      # API polling & message publishing
 │       ├── DataProcessorService/     # Message consumption & data storage
-│       ├── GraphQLGatewayService/    # GraphQL API gateway
+│       ├── GraphQLServerService/     # GraphQL API server
 │       ├── NotificationsService/     # SignalR real-time notifications
 │       ├── Shared/                   # Common libraries (enums, messages)
 │       └── Tests/                    # Unit and integration tests

@@ -18,13 +18,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Core", "DataP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Data", "DataProcessorService\DataProcessor.Data\DataProcessor.Data.csproj", "{65DB8912-6CB5-47B1-9B7C-F2C670D2102F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQLGateway", "GraphQLGateway", "{D1D66336-EA89-4FEF-882E-37816568086C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQLServer", "GraphQLServer", "{D1D66336-EA89-4FEF-882E-37816568086C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLGateway.Data", "GraphQLGatewayService\GraphQLGateway.Data\GraphQLGateway.Data.csproj", "{456062F3-B31A-4D3E-9ABD-5997139EF074}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Data", "GraphQLServerService\GraphQLServer.Data\GraphQLServer.Data.csproj", "{456062F3-B31A-4D3E-9ABD-5997139EF074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLGateway.Core", "GraphQLGatewayService\GraphQLGateway.Core\GraphQLGateway.Core.csproj", "{CE33C347-7858-4A1D-8C7C-C0F07CB8C485}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Core", "GraphQLServerService\GraphQLServer.Core\GraphQLServer.Core.csproj", "{CE33C347-7858-4A1D-8C7C-C0F07CB8C485}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLGateway.Api", "GraphQLGatewayService\GraphQLGateway.Api\GraphQLGateway.Api.csproj", "{6D4FE488-B473-4FB8-88CD-72726F630779}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Api", "GraphQLServerService\GraphQLServer.Api\GraphQLServer.Api.csproj", "{6D4FE488-B473-4FB8-88CD-72726F630779}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationsService", "NotificationsService", "{4EAA87BA-8158-40F8-BA4C-31914EC3507B}"
 EndProject
@@ -42,11 +42,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProcessorService", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProcessor.Core.Tests", "Tests\DataProcessorService\DataProcessor.Core.Tests\DataProcessor.Core.Tests.csproj", "{B2C3D4E5-F6A7-8901-BCDE-F23456789012}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQLGateway", "GraphQLGateway", "{30DF3E97-7BAD-460F-A163-E5A11C4DDE48}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQLServer", "GraphQLServer", "{30DF3E97-7BAD-460F-A163-E5A11C4DDE48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLGateway.Api.IntegrationTests", "Tests\GraphQLGatewayService\GraphQLGateway.Api.IntegrationTests\GraphQLGateway.Api.IntegrationTests.csproj", "{F4195BF8-2671-4EED-BDC5-9BF782148F1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Api.IntegrationTests", "Tests\GraphQLServerService\GraphQLServer.Api.IntegrationTests\GraphQLServer.Api.IntegrationTests.csproj", "{F4195BF8-2671-4EED-BDC5-9BF782148F1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLGateway.Core.Tests", "Tests\GraphQLGatewayService\GraphQLGateway.Core.Tests\GraphQLGateway.Core.Tests.csproj", "{C3D4E5F6-A7B8-9012-CDEF-345678901234}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLServer.Core.Tests", "Tests\GraphQLServerService\GraphQLServer.Core.Tests\GraphQLServer.Core.Tests.csproj", "{C3D4E5F6-A7B8-9012-CDEF-345678901234}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationsService", "NotificationsService", "{D4E5F6A7-B8C9-0123-DEFA-456789012345}"
 EndProject

@@ -8,5 +8,5 @@ scrape_configs:
       - targets:
           - data-ingestor:8081
           - data-processor:8083
-          - graphql-gateway:8084
+          - graphql-server:8084
           - notifications:8085

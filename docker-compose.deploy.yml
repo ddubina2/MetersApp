@@ -69,8 +69,8 @@ services:
     networks:
       - backend
 
-  graphql-gateway:
-    image: ghcr.io/ddubina2/meters-app-graph-ql-gateway:latest
+  graphql-server:
+    image: ghcr.io/ddubina2/meters-app-graph-ql-server:latest
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -105,7 +105,7 @@ services:
     image: ghcr.io/ddubina2/meters-app-frontend:latest
     restart: unless-stopped
     depends_on:
-      - graphql-gateway
+      - graphql-server
       - notifications
     networks:
       - frontend
@@ -129,7 +129,7 @@ services:
       - data-ingestor
       - data-cleaner
       - data-processor
-      - graphql-gateway
+      - graphql-server
       - notifications
 
   grafana:

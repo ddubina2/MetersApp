@@ -48,13 +48,13 @@ jobs:
           docker push $IMAGE_NAME:$TAG
           docker push $IMAGE_NAME:latest
 
-      - name: Build and push GraphQL Gateway
+      - name: Build and push GraphQL Server
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-graph-ql-gateway
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/meters-app-graph-ql-server
           TAG=${{ github.sha }}
           docker build \
             -t $IMAGE_NAME:$TAG \
-            -f Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile \
+            -f Backend/Services/GraphQLServerService/GraphQLServer.Api/Dockerfile \
             Backend
           docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$TAG

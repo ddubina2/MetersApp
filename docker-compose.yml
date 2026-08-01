@@ -90,10 +90,10 @@ services:
     networks:
       - backend
 
-  graphql-gateway:
+  graphql-server:
     build:
       context: ./Backend
-      dockerfile: Services/GraphQLGatewayService/GraphQLGateway.Api/Dockerfile
+      dockerfile: Services/GraphQLServerService/GraphQLServer.Api/Dockerfile
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -158,7 +158,7 @@ services:
       - data-ingestor
       - data-cleaner
       - data-processor
-      - graphql-gateway
+      - graphql-server
       - notifications
 
   grafana:
