@@ -16,7 +16,8 @@
 
   COPY . .
   WORKDIR /src/Services/DataProcessor/DataProcessor.Api
-  RUN dotnet build DataProcessor.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
+  RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
+    dotnet build DataProcessor.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
       dotnet publish DataProcessor.Api.csproj --no-build -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
   FROM base AS final

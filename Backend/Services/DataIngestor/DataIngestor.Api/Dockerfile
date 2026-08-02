@@ -15,7 +15,8 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
 
 COPY . .
 WORKDIR /src/Services/DataIngestor/DataIngestor.Api
-RUN dotnet build DataIngestor.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
+    dotnet build DataIngestor.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
     dotnet publish DataIngestor.Api.csproj --no-build -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final

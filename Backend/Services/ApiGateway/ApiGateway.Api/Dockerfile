@@ -14,7 +14,8 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
 
 COPY . .
 WORKDIR /src/Services/ApiGateway/ApiGateway.Api
-RUN dotnet build ApiGateway.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
+    dotnet build ApiGateway.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
     dotnet publish ApiGateway.Api.csproj --no-build -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final

@@ -16,7 +16,8 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
 
 COPY . .
 WORKDIR /src/Services/GraphQLServer/GraphQLServer.Api
-RUN dotnet build GraphQLServer.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
+    dotnet build GraphQLServer.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
     dotnet publish GraphQLServer.Api.csproj --no-build -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final

@@ -15,7 +15,8 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
 
 COPY . .
 WORKDIR /src/Services/Notifications/Notifications.Api
-RUN dotnet build Notifications.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
+    dotnet build Notifications.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
     dotnet publish Notifications.Api.csproj --no-build -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final

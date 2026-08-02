@@ -16,7 +16,8 @@
 
   COPY . .
   WORKDIR /src/Services/DataCleaner/DataCleaner.Api
-  RUN dotnet build DataCleaner.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
+  RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
+    dotnet build DataCleaner.Api.csproj --no-restore -c "$BUILD_CONFIGURATION" && \
       dotnet publish DataCleaner.Api.csproj --no-build -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
   FROM base AS final
