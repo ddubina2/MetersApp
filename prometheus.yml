@@ -6,7 +6,9 @@ scrape_configs:
     metrics_path: /metrics
     static_configs:
       - targets:
+          - api-gateway:8080
           - data-ingestor:8081
+          - data-cleaner:8082
           - data-processor:8083
-          - graphql-gateway:8084
+          - graphql-server:8084
           - notifications:8085

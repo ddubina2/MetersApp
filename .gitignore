@@ -366,11 +366,11 @@ FodyWeavers.xsd
 # Jetbrains Rider cache/options directory
 .idea/
 
-Backend/Services/DataIngestorService/DataIngestor.Api/appsettings.Development.json
-Backend/Services/DataProcessorService/DataProcessor.Api/appsettings.Development.json
-Backend/Services/GraphQLGatewayService/GraphQLGateway.Api/appsettings.Development.json
-Backend/Services/NotificationsService/Notifications.Api/appsettings.Development.json
-Backend/Services/DataCleanerService/DataCleaner.Api/appsettings.Development.json
+Backend/Services/DataIngestor/DataIngestor.Api/appsettings.Development.json
+Backend/Services/DataProcessor/DataProcessor.Api/appsettings.Development.json
+Backend/Services/GraphQLServer/GraphQLServer.Api/appsettings.Development.json
+Backend/Services/Notifications/Notifications.Api/appsettings.Development.json
+Backend/Services/DataCleaner/DataCleaner.Api/appsettings.Development.json
 
 # Logs
 logs
