@@ -1,3 +1,5 @@
+name: metersapp
+
 services:
   postgres:
     image: postgres:18
@@ -7,7 +9,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - meters_app_postgres_data:/var/lib/postgresql
+      - postgres_data:/var/lib/postgresql
     networks:
       - backend
 
@@ -18,7 +20,7 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     volumes:
-      - meters_app_rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - backend
 
@@ -184,7 +186,7 @@ services:
       - backend
       - frontend
     volumes:
-      - meters_app_grafana-data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
     depends_on:
       - prometheus
 
@@ -195,6 +197,6 @@ networks:
     internal: false
 
 volumes:
-  meters_app_postgres_data:
-  meters_app_rabbitmq_data:
-  meters_app_grafana-data:
+  postgres_data:
+  rabbitmq_data:
+  grafana_data:
