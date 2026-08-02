@@ -54,7 +54,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifications.Core.Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{B2C3D4E5-F6A7-8901-BCDE-F23456789013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{B2C3D4E5-F6A7-8901-BCDE-F23456789014}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway.Api", "ApiGateway\ApiGateway.Api\ApiGateway.Api.csproj", "{B2C3D4E5-F6A7-8901-BCDE-F23456789014}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataCleaner", "DataCleaner", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567891}"
 EndProject

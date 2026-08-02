@@ -160,7 +160,8 @@ pnpm codegen
 MetersApp/
 ├── Backend/
 │   └── Services/
-│       ├── ApiGateway/        # YARP reverse proxy — frontend entry point
+│       ├── ApiGateway/
+│       │   └── ApiGateway.Api/  # YARP reverse proxy — frontend entry point
 │       ├── DataCleaner/       # Admin endpoints for sensor data cleanup
 │       ├── DataIngestor/      # API polling & message publishing
 │       ├── DataProcessor/     # Message consumption & data storage

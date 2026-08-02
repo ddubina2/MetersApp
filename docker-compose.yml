@@ -126,7 +126,7 @@ services:
   api-gateway:
     build:
       context: ./Backend
-      dockerfile: Services/ApiGateway/Dockerfile
+      dockerfile: Services/ApiGateway/ApiGateway.Api/Dockerfile
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production

@@ -3,7 +3,7 @@ using MetersApp.Shared.Middlewares;
 using MetersApp.Shared.Options;
 using Serilog;
 
-namespace ApiGateway;
+namespace ApiGateway.Api;
 
 public class Program
 {
