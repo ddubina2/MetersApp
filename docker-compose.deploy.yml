@@ -153,7 +153,7 @@ services:
       - backend
       - frontend
     volumes:
-      - grafana-data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
     depends_on:
       - prometheus
 
@@ -165,4 +165,4 @@ networks:
 
 volumes:
   rabbitmq_data:
-  grafana-data:
+  grafana_data:
