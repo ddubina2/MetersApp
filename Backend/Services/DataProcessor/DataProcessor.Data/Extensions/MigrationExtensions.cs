@@ -9,8 +9,8 @@ public static class MigrationExtensions
 {
     public static async Task MigrateDbAsync<TDbContext>(
         this IHost host,
-        int maxRetries = 5,
-        int delaySeconds = 5)
+        int maxRetries,
+        int delaySeconds)
         where TDbContext : DbContext
     {
         using var scope = host.Services.CreateScope();
