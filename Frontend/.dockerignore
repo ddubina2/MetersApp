@@ -6,4 +6,3 @@ dist
 codegen.ts
 *.md
 .prettier*
-vite.config.*
