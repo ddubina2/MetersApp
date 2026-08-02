@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8080
+      HTTP_PORTS: 8080
     depends_on:
       - postgres
       - rabbitmq
@@ -43,7 +43,7 @@ services:
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8081
+      HTTP_PORTS: 8081
       RabbitMqOptions__Host: ${RABBITMQ_HOST}
       RabbitMqOptions__UserName: ${RABBITMQ_USER}
       RabbitMqOptions__Password: ${RABBITMQ_PASSWORD}
@@ -63,7 +63,7 @@ services:
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8082
+      HTTP_PORTS: 8082
       ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       DataCleanerOptions__RunIntervalMinutes: ${DATA_CLEANER_RUN_INTERVAL_MINUTES}
       DataCleanerOptions__RetentionDays: ${DATA_CLEANER_RETENTION_DAYS}
@@ -79,7 +79,7 @@ services:
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8083
+      HTTP_PORTS: 8083
       ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       RabbitMqOptions__Host: ${RABBITMQ_HOST}
       RabbitMqOptions__UserName: ${RABBITMQ_USER}
@@ -99,7 +99,7 @@ services:
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8084
+      HTTP_PORTS: 8084
       ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
     depends_on:
       - postgres
@@ -114,7 +114,7 @@ services:
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8085
+      HTTP_PORTS: 8085
       RabbitMqOptions__Host: ${RABBITMQ_HOST}
       RabbitMqOptions__UserName: ${RABBITMQ_USER}
       RabbitMqOptions__Password: ${RABBITMQ_PASSWORD}
@@ -132,7 +132,7 @@ services:
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_URLS: http://+:8080
+      HTTP_PORTS: 8080
       CorsOptions__AllowedOrigins__0: ${CORS_ALLOWED_ORIGINS}
     depends_on:
       - graphql-server
