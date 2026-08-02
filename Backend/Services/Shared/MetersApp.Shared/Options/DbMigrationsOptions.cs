@@ -6,10 +6,9 @@ public class DbMigrationsOptions
 
     public int MaxRetries { get; set; }
 
-    private int _delaySeconds;
     public int DelaySeconds
     {
-        get => _delaySeconds > 0 ? _delaySeconds : 5;
-        set => _delaySeconds = value;
+        get => field > 0 ? field : 5;
+        set;
     }
 }
