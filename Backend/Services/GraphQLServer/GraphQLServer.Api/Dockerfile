@@ -11,7 +11,7 @@ COPY Services/GraphQLServer/GraphQLServer.Api/GraphQLServer.Api.csproj Services/
 COPY Services/GraphQLServer/GraphQLServer.Core/GraphQLServer.Core.csproj Services/GraphQLServer/GraphQLServer.Core/
 COPY Services/GraphQLServer/GraphQLServer.Data/GraphQLServer.Data.csproj Services/GraphQLServer/GraphQLServer.Data/
 COPY Services/Shared/MetersApp.Shared/MetersApp.Shared.csproj Services/Shared/MetersApp.Shared/
-RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
     dotnet restore Services/GraphQLServer/GraphQLServer.Api/GraphQLServer.Api.csproj
 
 COPY . .

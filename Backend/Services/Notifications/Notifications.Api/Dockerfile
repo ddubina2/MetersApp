@@ -10,7 +10,7 @@ COPY Services/Directory.Build.props .
 COPY Services/Notifications/Notifications.Api/Notifications.Api.csproj Services/Notifications/Notifications.Api/
 COPY Services/Notifications/Notifications.Core/Notifications.Core.csproj Services/Notifications/Notifications.Core/
 COPY Services/Shared/MetersApp.Shared/MetersApp.Shared.csproj Services/Shared/MetersApp.Shared/
-RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
     dotnet restore Services/Notifications/Notifications.Api/Notifications.Api.csproj
 
 COPY . .

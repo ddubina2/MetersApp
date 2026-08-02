@@ -11,7 +11,7 @@
   COPY Services/DataProcessor/DataProcessor.Core/DataProcessor.Core.csproj Services/DataProcessor/DataProcessor.Core/
   COPY Services/DataProcessor/DataProcessor.Data/DataProcessor.Data.csproj Services/DataProcessor/DataProcessor.Data/
   COPY Services/Shared/MetersApp.Shared/MetersApp.Shared.csproj Services/Shared/MetersApp.Shared/
-  RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+  RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
       dotnet restore Services/DataProcessor/DataProcessor.Api/DataProcessor.Api.csproj
 
   COPY . .

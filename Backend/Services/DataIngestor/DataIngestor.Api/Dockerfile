@@ -10,7 +10,7 @@ COPY Services/Directory.Build.props .
 COPY Services/DataIngestor/DataIngestor.Api/DataIngestor.Api.csproj Services/DataIngestor/DataIngestor.Api/
 COPY Services/DataIngestor/DataIngestor.Core/DataIngestor.Core.csproj Services/DataIngestor/DataIngestor.Core/
 COPY Services/Shared/MetersApp.Shared/MetersApp.Shared.csproj Services/Shared/MetersApp.Shared/
-RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
     dotnet restore Services/DataIngestor/DataIngestor.Api/DataIngestor.Api.csproj
 
 COPY . .

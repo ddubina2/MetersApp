@@ -11,7 +11,7 @@
   COPY Services/DataCleaner/DataCleaner.Core/DataCleaner.Core.csproj Services/DataCleaner/DataCleaner.Core/
   COPY Services/DataCleaner/DataCleaner.Data/DataCleaner.Data.csproj Services/DataCleaner/DataCleaner.Data/
   COPY Services/Shared/MetersApp.Shared/MetersApp.Shared.csproj Services/Shared/MetersApp.Shared/
-  RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+  RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
       dotnet restore Services/DataCleaner/DataCleaner.Api/DataCleaner.Api.csproj
 
   COPY . .

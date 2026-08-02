@@ -9,7 +9,7 @@ WORKDIR /src
 COPY Services/Directory.Build.props .
 COPY Services/ApiGateway/ApiGateway.Api/ApiGateway.Api.csproj Services/ApiGateway/ApiGateway.Api/
 COPY Services/Shared/MetersApp.Shared/MetersApp.Shared.csproj Services/Shared/MetersApp.Shared/
-RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages,sharing=locked \
     dotnet restore Services/ApiGateway/ApiGateway.Api/ApiGateway.Api.csproj
 
 COPY . .
