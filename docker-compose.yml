@@ -99,14 +99,11 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://+:8084
       ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
-      CorsOptions__AllowedOrigins__0: ${CORS_ALLOWED_ORIGINS}
     depends_on:
       - postgres
     networks:
       - backend
       - frontend
-    ports:
-      - "8084:8084"
 
   notifications:
     build:
@@ -119,15 +116,31 @@ services:
       RabbitMqOptions__Host: ${RABBITMQ_HOST}
       RabbitMqOptions__UserName: ${RABBITMQ_USER}
       RabbitMqOptions__Password: ${RABBITMQ_PASSWORD}
-      CorsOptions__AllowedOrigins__0: ${CORS_ALLOWED_ORIGINS}
     depends_on:
       - postgres
       - rabbitmq
     networks:
       - backend
       - frontend
+
+  api-gateway:
+    build:
+      context: ./Backend
+      dockerfile: Services/ApiGateway/Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      CorsOptions__AllowedOrigins__0: ${CORS_ALLOWED_ORIGINS}
+    depends_on:
+      - graphql-server
+      - notifications
+      - data-cleaner
+    networks:
+      - backend
+      - frontend
     ports:
-      - "8085:8085"
+      - "8080:8080"
 
   frontend:
     build:

@@ -4,7 +4,6 @@ using GraphQLServer.Core;
 using GraphQLServer.Data;
 using MetersApp.Shared.Extensions;
 using MetersApp.Shared.Middlewares;
-using MetersApp.Shared.Options;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -27,18 +26,6 @@ public class Program
                 builder.Environment,
                 "graphql-server",
                 "GraphQLServer.Metrics");
-
-            builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowFrontend", policy =>
-                {
-                    var corsOptions = builder.Configuration.GetSection(nameof(CorsOptions)).Get<CorsOptions>();
-                    policy.WithOrigins(corsOptions?.AllowedOrigins ?? [])
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
 
             builder.Services
                 .AddGraphQLServer()
@@ -66,7 +53,6 @@ public class Program
 
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseSerilogRequestLogging();
-            app.UseCors("AllowFrontend");
             app.MapGraphQL();
 
             if (app.Environment.IsProduction())

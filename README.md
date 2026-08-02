@@ -4,7 +4,9 @@
 
 1. Access the deployed application:
 - **Frontend**: http://89.22.226.142:3000
-- **GraphQL Playground**: http://89.22.226.142:8084/graphql
+- **API Gateway**: http://89.22.226.142:8080
+  - GraphQL Playground: http://89.22.226.142:8080/graphql
+  - SignalR Hub: ws://89.22.226.142:8080/hubs/sensors
 - **Prometheus** (if monitoring enabled): http://89.22.226.142:9090/targets
 - **Grafana** (if monitoring enabled): http://89.22.226.142:5000 (admin/admin)
 
@@ -32,7 +34,9 @@ docker compose --profile monitoring up -d
 
 4. Access the application:
 - **Frontend**: http://localhost:3000
-- **GraphQL Playground**: http://localhost:8084/graphql
+- **API Gateway**: http://localhost:8080
+  - GraphQL Playground: http://localhost:8080/graphql
+  - SignalR Hub: ws://localhost:8080/hubs/sensors
 - **RabbitMQ Management**: http://localhost:15672 (guest/guest)
 - **Prometheus** (if monitoring enabled): http://localhost:9090/targets
 - **Grafana** (if monitoring enabled): http://localhost:5000 (admin/admin)
@@ -51,8 +55,10 @@ docker compose down --rmi all -v
 
 | Service | Purpose |
 |---------|---------|
+| **ApiGateway** | YARP reverse proxy — single entry point for the frontend to all backend APIs |
 | **DataIngestor** | Polls external WeakApp API and publishes sensor data to RabbitMQ |
 | **DataProcessor** | Consumes RabbitMQ messages, processes and stores data in PostgreSQL |
+| **DataCleaner** | Provides admin HTTP endpoints for cleaning old sensor data |
 | **GraphQLServer** | Provides GraphQL API for querying historical sensor data |
 | **Notifications** | Real-time notifications via SignalR WebSockets |
 | **WeakAppApi** | External API providing sensor data (pre-built image) |
@@ -61,6 +67,7 @@ docker compose down --rmi all -v
 
 ### Backend (.NET 10)
 - **.NET 10.0** - Primary framework
+- **YARP** - Reverse proxy and API gateway
 - **MassTransit + RabbitMQ** - Message bus for async communication
 - **HotChocolate** - GraphQL server with pagination, filtering, sorting
 - **Entity Framework Core** - ORM with PostgreSQL provider
@@ -144,8 +151,8 @@ pnpm codegen
 2. **Message Publishing**: Sensor data is published to RabbitMQ as `ProcessSensorDataBatch` messages
 3. **Data Processing**: DataProcessor consumes messages and stores data in PostgreSQL
 4. **Event Broadcasting**: After storage, `NewSensorDataEvent` is published to RabbitMQ
-5. **Real-time Updates**: Notifications service broadcasts events to connected frontend clients via SignalR
-6. **Historical Queries**: Frontend queries historical data via GraphQL API
+5. **Real-time Updates**: Notifications service broadcasts events to connected frontend clients via SignalR (proxied through ApiGateway)
+6. **Historical Queries**: Frontend queries historical data via GraphQL API (proxied through ApiGateway)
 
 ## Project Structure
 
@@ -153,25 +160,27 @@ pnpm codegen
 MetersApp/
 ├── Backend/
 │   └── Services/
+│       ├── ApiGateway/        # YARP reverse proxy — frontend entry point
+│       ├── DataCleaner/       # Admin endpoints for sensor data cleanup
 │       ├── DataIngestor/      # API polling & message publishing
 │       ├── DataProcessor/     # Message consumption & data storage
 │       ├── GraphQLServer/     # GraphQL API server
 │       ├── Notifications/     # SignalR real-time notifications
-│       ├── Shared/                   # Common libraries (enums, messages)
-│       └── Tests/                    # Unit and integration tests
-├── Frontend/                         # React + TypeScript SPA
+│       ├── Shared/            # Common libraries (enums, messages, middleware)
+│       └── Tests/             # Unit and integration tests
+├── Frontend/                  # React + TypeScript SPA
 │   ├── src/
-│   │   ├── app/                      # App entry, router, providers
-│   │   ├── components/               # Reusable UI components
-│   │   ├── widgets/                  # Feature widgets
-│   │   ├── pages/                    # Page components
-│   │   └── shared/                   # Utils, hooks, GraphQL client
-│   └── public/                       # Static assets
-├── docker-compose.yml                # Local service orchestration
-├── docker-compose.deploy.yml         # Production deployment orchestration
-├── prometheus.yml                    # Prometheus scrape configuration
-├── .env                              # Environment configuration
-└── .github/workflows/                # CI/CD pipelines
+│   │   ├── app/               # App entry, router, providers
+│   │   ├── components/        # Reusable UI components
+│   │   ├── widgets/           # Feature widgets
+│   │   ├── pages/             # Page components
+│   │   └── shared/            # Utils, hooks, GraphQL client
+│   └── public/                # Static assets
+├── docker-compose.yml         # Local service orchestration
+├── docker-compose.deploy.yml  # Production deployment orchestration
+├── prometheus.yml             # Prometheus scrape configuration
+├── .env                       # Environment configuration
+└── .github/workflows/         # CI/CD pipelines
 ```
 
 ## CI/CD
@@ -190,14 +199,25 @@ The deploy workflow supports the following GitHub repository variables:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `DEPLOY_MONITORING` | Set to `true` to include Prometheus and Grafana in deployment | Disabled |
-| `VITE_API_BASE_URL` | Frontend GraphQL API URL | - |
-| `VITE_SENSORS_HUB_URL` | Frontend SignalR hub URL | - |
+| `VITE_API_BASE_URL` | Frontend GraphQL API URL | `http://localhost:8080/graphql` |
+| `VITE_SENSORS_HUB_URL` | Frontend SignalR hub URL | `http://localhost:8080/hubs/sensors` |
 | `WEAKAPP_REQUEST_INTERVAL` | Polling interval for WeakApp API | - |
 | `MIGRATE_DB_ON_STARTUP` | Run database migrations on startup | - |
 | `MIGRATION_MAX_RETRIES` | Maximum migration retry attempts | - |
-| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | - |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins (configured on ApiGateway) | - |
 
 ## API Documentation
+
+### Gateway Endpoints
+
+All frontend traffic goes through the **ApiGateway** on port `8080`:
+
+| Endpoint | Destination Service | Description |
+|----------|---------------------|-------------|
+| `/graphql` | GraphQLServer | HotChocolate GraphQL endpoint + Banana Cake Pop UI |
+| `/hubs/sensors` | Notifications | SignalR hub for real-time sensor updates |
+| `/api/sensor-data/cleanup` | DataCleaner | Admin endpoint to trigger data cleanup |
+| `/api/sensor-data/next-cleanup` | DataCleaner | Admin endpoint to check next cleanup schedule |
 
 ### GraphQL Queries
 
@@ -218,6 +238,6 @@ query GetAirQuality($locationId: LocationType!) {
 
 ### SignalR Hub
 
-Connect to the sensors hub at: `/hubs/sensors`
+Connect to the sensors hub through the gateway at: `/hubs/sensors`
 
 Messages are broadcast to all connected clients when new sensor data is available.

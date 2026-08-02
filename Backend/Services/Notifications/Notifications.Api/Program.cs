@@ -29,18 +29,6 @@ public static class Program
                 "Notifications.Metrics");
 
             builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
-            builder.Services.Configure<CorsOptions>(builder.Configuration.GetSection(nameof(CorsOptions)));
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowFrontend", policy =>
-                {
-                    var corsOptions = builder.Configuration.GetSection(nameof(CorsOptions)).Get<CorsOptions>();
-                    policy.WithOrigins(corsOptions?.AllowedOrigins ?? [])
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
 
             builder.Services.AddSignalR()
                 .AddJsonProtocol(options =>
@@ -74,7 +62,6 @@ public static class Program
 
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseSerilogRequestLogging();
-            app.UseCors("AllowFrontend");
             app.MapHub<SensorHub>("/hubs/sensors");
 
             if (app.Environment.IsProduction())
