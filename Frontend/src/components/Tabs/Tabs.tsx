@@ -38,10 +38,12 @@ export const Tabs: FC<TabsProps> = ({
   }, [currentTab]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+
     let keyHandled = false;
     const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(`[role="tab"][id^="tab-${tabListId}-"]`))
       .filter(link => !link.disabled);
     const currentIndex = tabs.findIndex(link => link.dataset.index === event.currentTarget.dataset.index);
+
     const focusTabAt = (index: number) => {
       const element = tabs[index];
       if (element)

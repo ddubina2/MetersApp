@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { twMerge } from 'tailwind-merge';
 import type { LineChartProps } from './types';
 
@@ -32,7 +32,6 @@ export const LineChart: FC<LineChartProps> = ({
             bottom: 5,
           }}
         >
-          <CartesianGrid vertical={false} stroke='#F3F4F6' strokeDasharray='0' />
           <defs>
             <linearGradient id='colorValue' x1='0' y1='0' x2='0' y2='1'>
               <stop offset='5%' stopColor='#7996E0' stopOpacity={0.4} />
