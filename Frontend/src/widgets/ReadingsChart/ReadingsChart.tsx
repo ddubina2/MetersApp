@@ -1,8 +1,8 @@
 import { LineChart } from '@components/LineChart';
 import type { LineChartData } from '@components/LineChart/types';
 import { LocationType } from '@shared/graphql/__generated__/graphql';
-import { SensorType, type SensorData } from '@shared/hooks/useSensorsHub';
-import { useSensorsHub } from '@shared/hooks/useSensorsHub';
+import { SensorType, type SensorData } from '@hooks/useSensorsHub';
+import { useSensorsHub } from '@hooks/useSensorsHub';
 import { toChartTime } from '@shared/utils/formatDateTime';
 import { Loadable } from '@widgets/Loadable/Loadable';
 import { useEffect, useState } from 'react';

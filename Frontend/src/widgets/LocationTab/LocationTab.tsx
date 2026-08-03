@@ -6,7 +6,7 @@ import type { AirQualityReadingDto, EnergyReadingDto, GetAirQualityReadingsQuery
 import { GET_AIR_QUALITY_READINGS } from '@shared/graphql/queries/getAirQuality';
 import { GET_ENERGY_READINGS } from '@shared/graphql/queries/getEnergy';
 import { GET_MOTION_READINGS } from '@shared/graphql/queries/getMotion';
-import { SensorType } from '@shared/hooks/useSensorsHub';
+import { SensorType } from '@hooks/useSensorsHub';
 import { toChartTime } from '@shared/utils/formatDateTime';
 import { ReadingsChart } from '@widgets/ReadingsChart';
 import { useMemo, useState, type FC } from 'react';
