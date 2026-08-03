@@ -5,6 +5,7 @@ import plugin from "tailwindcss/plugin";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   safelist: ["md:w-[27%]", "md:w-[43%]"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
