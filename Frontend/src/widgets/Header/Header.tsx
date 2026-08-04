@@ -1,7 +1,7 @@
 import { Toggle } from '@components/Toggle';
 import { Typography } from '@components/Typography';
 import { useTheme } from '@hooks/useTheme';
-import { useCleanupStatus } from '@hooks/useCleanupStatus';
+import { useCleanupStatus, type CleaningResult } from '@hooks/useCleanupStatus';
 import { twMerge } from 'tailwind-merge';
 import type { FC } from 'react';
 
@@ -9,6 +9,12 @@ const resultColorClass: Record<string, string> = {
   Success: 'bg-green-500',
   Failure: 'bg-red-500',
   NotPerformed: 'bg-gray-400',
+};
+
+const resultLabel: Record<CleaningResult, string> = {
+  Success: 'Succeeded',
+  Failure: 'Failed',
+  NotPerformed: 'Not performed',
 };
 
 export type HeaderProps = {
@@ -36,10 +42,10 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       />
       <div className='flex items-center gap-6'>
         <div className='flex items-center gap-2'>
-          <span className='select-none text-sm font-medium text-secondary'>
+          <span className='text-sm font-medium text-secondary'>
             Next cleanup:
           </span>
-          <span className='select-none text-sm font-bold tabular-nums text-regular'>
+          <span className='text-sm font-bold tabular-nums text-regular'>
             {isLoading ? '...' : timeRemaining}
           </span>
           <span
@@ -48,12 +54,12 @@ export const Header: FC<HeaderProps> = ({ className }) => {
               resultColorClass[lastResult]
             )}
           />
-          <span className='select-none text-xs text-secondary'>
-            {lastResult}
+          <span className='text-xs text-secondary'>
+            {resultLabel[lastResult]}
           </span>
         </div>
         <div className='flex items-center gap-2'>
-          <span className='select-none text-sm font-medium text-regular'>
+          <span className='text-sm font-medium text-regular'>
             {isDark ? 'Dark' : 'Light'}
           </span>
           <Toggle
