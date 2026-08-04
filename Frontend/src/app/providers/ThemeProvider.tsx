@@ -8,6 +8,7 @@ const getSystemTheme = (): Theme =>
 
 const getInitialTheme = (): Theme => {
   const saved = localStorage.getItem(STORAGE_KEY);
+
   if (saved === 'light' || saved === 'dark')
     return saved;
 

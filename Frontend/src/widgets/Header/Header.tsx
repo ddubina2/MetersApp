@@ -23,7 +23,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
   return (
     <header
       className={twMerge(
-        'flex items-center justify-between px-5 py-4',
+        'flex items-center justify-between px-5 py-2',
         'bg-raised border-b border-line',
         className
       )}

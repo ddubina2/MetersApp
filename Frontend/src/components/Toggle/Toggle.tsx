@@ -22,7 +22,7 @@ export const Toggle: FC<ToggleProps> = ({ checked, onChange, className }) => (
   >
     <span
       className={twMerge(
-        'absolute top-1 left-1 h-4 w-4 rounded-full bg-on-primary transition-transform duration-200 ease-in-out',
+        'absolute left-1 h-4 w-4 rounded-full bg-on-primary transition-transform duration-200 ease-in-out',
         checked ? 'translate-x-5' : 'translate-x-0'
       )}
     />

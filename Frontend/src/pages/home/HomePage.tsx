@@ -9,6 +9,7 @@ export const HomePage = () => {
       className='w-full'
       headerClassName='justify-center'
       buttonClassName='aria-selected:border-primary'
+      textClassName='font-semibold'
       items={Object.entries(LocationType)
         .filter(([, value]) => value !== LocationType.Unknown)
         .map(([key, value]) => ({
