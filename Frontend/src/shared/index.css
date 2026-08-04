@@ -2,14 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
+  :root {
+    color-scheme: light;
+
+    --color-regular: 10 12 17;
+    --color-primary: 0 98 155;
+    --color-primary-med: 22 98 152;
+    --color-primary-high: 0 79 128;
+    --color-secondary: 91 97 109;
+    --color-secondary-low: 140 146 156;
+    --color-error: 191 23 34;
+    --color-on-primary: 255 255 255;
+    --color-surface: 244 244 246;
+    --color-raised: 244 244 246;
+    --color-hover: 235 236 240;
+    --color-disabled-bg: 235 236 240;
+    --color-disabled-fg: 195 198 204;
+    --color-line: 195 198 204;
+    --color-line-strong: 221 223 228;
+
+    --chart-1: #7996E0;
+    --chart-2: #82ca9d;
+    --chart-3: #E0C879;
+    --chart-tick: #18181B;
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    --color-regular: 237 239 243;
+    --color-primary: 59 130 246;
+    --color-primary-med: 74 144 226;
+    --color-primary-high: 96 165 250;
+    --color-secondary: 140 146 156;
+    --color-secondary-low: 161 166 175;
+    --color-error: 248 113 113;
+    --color-on-primary: 11 17 32;
+    --color-surface: 18 20 26;
+    --color-raised: 28 31 39;
+    --color-hover: 38 43 53;
+    --color-disabled-bg: 38 43 53;
+    --color-disabled-fg: 91 97 109;
+    --color-line: 46 51 61;
+    --color-line-strong: 58 64 76;
+
+    --chart-1: #93A9EE;
+    --chart-2: #8FD8A7;
+    --chart-3: #EBD28E;
+    --chart-tick: #A1A6AF;
+  }
+
   [type="checkbox"],
   [type="radio"] {
-    @apply size-[18px] border-2 border-[#C3C6CC] text-[#166298]
-    hover:border-[#166298]
-    focus:outline-offset-0 focus:outline-[3px] focus:outline-[#DDDFE4] focus:ring-0 focus:ring-offset-0
+    @apply size-[18px] border-2 border-line text-primary-med
+    hover:border-primary-med
+    focus:outline-offset-0 focus:outline-[3px] focus:outline-line-strong focus:ring-0 focus:ring-offset-0
     checked:focus:outline-primary/25 a11y:checked:border-primary/25
-    a11y:border-[#0A0C11]
+    a11y:border-regular
     cursor-pointer;
   }
 
@@ -17,10 +67,24 @@
   input[type="password"]::-ms-reveal {
     display: none;
   }
+
+  input[type='text']:focus,
+  input[type='password']:focus,
+  input[type='email']:focus,
+  input[type='number']:focus,
+  textarea:focus
+  {
+    --tw-ring-color: rgb(var(--color-primary) / 24%);
+    border-color: rgb(var(--color-primary-med));
+  }
 }
 
 .button-shadow {
   @apply shadow-[inset_0px_-1px_3px_-1px_#0000001F,inset_0px_2px_3px_0px_#FFFFFF1F,0px_3px_3px_-1.5px_#0000000A,0px_1px_1px_-0.5px_#0000000A];
+}
+
+.dark .button-shadow {
+  @apply shadow-[inset_0px_-1px_3px_-1px_#0000004D,inset_0px_1px_2px_0px_#FFFFFF14,0px_3px_3px_-1.5px_#00000026,0px_1px_1px_-0.5px_#00000026];
 }
 
 .page-without-header {
@@ -35,18 +99,6 @@
   .no-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-  }
-}
-
-@layer base {
-  input[type='text']:focus,
-  input[type='password']:focus,
-  input[type='email']:focus,
-  input[type='number']:focus,
-  textarea:focus
-  {
-    --tw-ring-color: #00629B3D;
-    border-color: #166298;
   }
 }
 

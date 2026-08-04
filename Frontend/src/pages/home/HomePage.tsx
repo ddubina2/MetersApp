@@ -5,7 +5,7 @@ import { LocationTab } from '@widgets/LocationTab';
 export const HomePage = () => {
 
   return (
-    <div className='min-h-screen bg-[#F4F4F6] p-5'>
+    <div className='min-h-screen bg-surface p-5'>
       <Tabs
         className='w-full'
         headerClassName='justify-center'

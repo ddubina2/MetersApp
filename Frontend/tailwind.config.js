@@ -14,19 +14,39 @@ export default {
       },
       colors: {
         regular: {
-          DEFAULT: "#0A0C11",
+          DEFAULT: "rgb(var(--color-regular) / <alpha-value>)",
         },
         primary: {
-          DEFAULT: "#00629B",
-          med: "#166298",
-          high: "#004F80",
+          DEFAULT: "rgb(var(--color-primary) / <alpha-value>)",
+          med: "rgb(var(--color-primary-med) / <alpha-value>)",
+          high: "rgb(var(--color-primary-high) / <alpha-value>)",
         },
         secondary: {
-          DEFAULT: "#5B616D",
-          low: "#8C929C",
+          DEFAULT: "rgb(var(--color-secondary) / <alpha-value>)",
+          low: "rgb(var(--color-secondary-low) / <alpha-value>)",
         },
         error: {
-          DEFAULT: "#BF1722",
+          DEFAULT: "rgb(var(--color-error) / <alpha-value>)",
+        },
+        on: {
+          primary: "rgb(var(--color-on-primary) / <alpha-value>)",
+        },
+        surface: {
+          DEFAULT: "rgb(var(--color-surface) / <alpha-value>)",
+        },
+        raised: {
+          DEFAULT: "rgb(var(--color-raised) / <alpha-value>)",
+        },
+        hover: {
+          DEFAULT: "rgb(var(--color-hover) / <alpha-value>)",
+        },
+        disabled: {
+          bg: "rgb(var(--color-disabled-bg) / <alpha-value>)",
+          fg: "rgb(var(--color-disabled-fg) / <alpha-value>)",
+        },
+        line: {
+          DEFAULT: "rgb(var(--color-line) / <alpha-value>)",
+          strong: "rgb(var(--color-line-strong) / <alpha-value>)",
         },
       },
       letterSpacing: {

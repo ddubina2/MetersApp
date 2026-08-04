@@ -11,14 +11,16 @@ export const LineChart: FC<LineChartProps> = ({
 }) => {
 
   const COLORS = [
-    '#7996E0',
-    '#82ca9d',
-    '#E0C879'
+    'var(--chart-1)',
+    'var(--chart-2)',
+    'var(--chart-3)'
   ];
 
   const dataKeys = dataset[0]
   ? Object.keys(dataset[0]).filter(k => k !== 'name')
   : [];
+
+  const axisTick = { fill: 'var(--chart-tick)', fontSize: 12 };
 
   return (
     <div className={twMerge('h-[234px] w-[1000px] min-w-[200px]', className)} data-testid='line-chart-container'>
@@ -34,8 +36,8 @@ export const LineChart: FC<LineChartProps> = ({
         >
           <defs>
             <linearGradient id='colorValue' x1='0' y1='0' x2='0' y2='1'>
-              <stop offset='5%' stopColor='#7996E0' stopOpacity={0.4} />
-              <stop offset='95%' stopColor='#7996E0' stopOpacity={0} />
+              <stop offset='5%' stopColor='var(--chart-1)' stopOpacity={0.4} />
+              <stop offset='95%' stopColor='var(--chart-1)' stopOpacity={0} />
             </linearGradient>
           </defs>
           <Area
@@ -46,13 +48,13 @@ export const LineChart: FC<LineChartProps> = ({
             fill={withGradient ? 'url(#colorValue)' : 'transparent'}
           />
           <XAxis
-            tick={{ fill: '#18181B', fontSize: 12 }}
+            tick={axisTick}
             dataKey='name'
             axisLine={false}
             tickLine={false}
           />
           <YAxis
-            tick={{ fill: '#18181B', fontSize: 12 }}
+            tick={axisTick}
             domain={[0, 'dataMax']}
             minTickGap={0}
             type='number'
@@ -60,7 +62,22 @@ export const LineChart: FC<LineChartProps> = ({
             axisLine={false}
             tickLine={false}
           />
-          <Tooltip />
+          <Tooltip
+            content={({ active, payload, label }) => {
+              if (!active || !payload?.length) return null;
+
+              return (
+                <div className='rounded-lg border border-line bg-raised px-3 py-2 shadow-lg'>
+                  <p className='text-sm text-secondary'>{label}</p>
+                  {payload.map(entry => (
+                    <p key={`tooltip-${entry.dataKey}`} className='text-sm text-regular'>
+                      {entry.dataKey}: {entry.value}
+                    </p>
+                  ))}
+                </div>
+              );
+            }}
+          />
           {dataKeys.map((dataKey, index) => (
             <Line
               key={`${dataKey}-key`}

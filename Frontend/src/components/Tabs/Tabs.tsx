@@ -113,7 +113,7 @@ export const Tabs: FC<TabsProps> = ({
             data-completed={item.completed ? 'true' : 'false'}
             className={twMerge(
               `inline-block shrink-0 cursor-pointer rounded-t px-5 focus:outline-none 
-              focus-visible:bg-blue-100 disabled:cursor-not-allowed motion-safe:transition-colors 
+              focus-visible:bg-hover disabled:cursor-not-allowed motion-safe:transition-colors 
               ${disabled ? '' : 'aria-selected:border-b-[2px]'}`,
               buttonClassName
             )}

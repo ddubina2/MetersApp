@@ -21,7 +21,7 @@ export const Loadable: FC<PropsWithChildren<LoadableProps>> = ({
     const iconId = error ? 'warning' : 'loader';
     const iconClasses = twMerge(
       'size-6',
-      error ? 'text-red-500' : 'animate-spin',
+      error ? 'text-error' : 'animate-spin',
       iconClassName
     );
 
@@ -33,7 +33,7 @@ export const Loadable: FC<PropsWithChildren<LoadableProps>> = ({
         )}
       >
         <Icon id={iconId} className={iconClasses} />
-        {error ? <Typography text='Error' className='text-red-500' /> : null}
+        {error ? <Typography text='Error' className='text-error' /> : null}
       </div>
     );
   }
