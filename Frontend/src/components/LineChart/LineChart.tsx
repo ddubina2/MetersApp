@@ -66,10 +66,15 @@ export const LineChart: FC<LineChartProps> = ({
             content={({ active, payload, label }) => {
               if (!active || !payload?.length) return null;
 
+              const uniqueEntries = payload.filter(
+                (entry, index, entries) =>
+                  entries.findIndex(other => other.dataKey === entry.dataKey) === index
+              );
+
               return (
                 <div className='rounded-lg border border-line bg-raised px-3 py-2 shadow-lg'>
                   <p className='text-sm text-secondary'>{label}</p>
-                  {payload.map(entry => (
+                  {uniqueEntries.map(entry => (
                     <p key={`tooltip-${entry.dataKey}`} className='text-sm text-regular'>
                       {entry.dataKey}: {entry.value}
                     </p>
