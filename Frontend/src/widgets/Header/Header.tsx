@@ -26,11 +26,15 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         weight='bold'
         className='text-xl'
       />
-      <Toggle
-        checked={isDark}
-        onChange={toggleTheme}
-        label={isDark ? 'Dark' : 'Light'}
-      />
+      <div className='flex items-center gap-2'>
+        <span className='select-none text-sm font-medium text-regular'>
+          {isDark ? 'Dark' : 'Light'}
+        </span>
+        <Toggle
+          checked={isDark}
+          onChange={toggleTheme}
+        />
+      </div>
     </header>
   );
 };
