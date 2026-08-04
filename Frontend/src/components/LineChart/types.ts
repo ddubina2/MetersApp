@@ -8,4 +8,5 @@ export type LineChartProps = {
   withGradient?: boolean;
   dataset: LineChartData[];
   isAnimationActive?: boolean;
+  labels?: Record<string, string>;
 }

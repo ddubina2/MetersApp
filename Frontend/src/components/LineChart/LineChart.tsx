@@ -8,6 +8,7 @@ export const LineChart: FC<LineChartProps> = ({
   dataset,
   withGradient = false,
   isAnimationActive = true,
+  labels,
 }) => {
 
   const COLORS = [
@@ -72,7 +73,7 @@ export const LineChart: FC<LineChartProps> = ({
                   <p className='text-sm text-secondary'>{label}</p>
                   {payload.map(entry => (
                     <p key={`tooltip-${entry.dataKey}`} className='text-sm text-regular'>
-                      {entry.dataKey}: {entry.value}
+                      {labels?.[entry.dataKey] ?? entry.dataKey}: {entry.value}
                     </p>
                   ))}
                 </div>
@@ -83,6 +84,7 @@ export const LineChart: FC<LineChartProps> = ({
             <Line
               key={`${dataKey}-key`}
               isAnimationActive={isAnimationActive}
+              name={labels?.[dataKey] ?? dataKey}
               dataKey={dataKeys[index]}
               stroke={COLORS[index]}
               dot={false}

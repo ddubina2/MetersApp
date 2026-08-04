@@ -1,5 +1,5 @@
 import { LineChart } from '@components/LineChart';
-import type { LineChartData } from '@components/LineChart/types';
+import type { LineChartData, LineChartProps } from '@components/LineChart/types';
 import { LocationType } from '@shared/graphql/__generated__/graphql';
 import { SensorType, type SensorData } from '@hooks/useSensorsHub';
 import { useSensorsHub } from '@hooks/useSensorsHub';
@@ -14,6 +14,7 @@ type ReadingsChartProps<T> = {
   isError?: boolean;
   withGradient?: boolean;
   initialData?: T[];
+  labels?: LineChartProps['labels'];
 };
 
 export const ReadingsChart = <T, >({
@@ -24,6 +25,7 @@ export const ReadingsChart = <T, >({
   isError,
   mapToChart,
   withGradient,
+  labels,
 }: ReadingsChartProps<T> & { mapToChart: (reading: T) => LineChartData }) => {
   const [liveData, setLiveData] = useState<LineChartData[]>([]);
   const [isAnimationActive, setIsAnimationActive] = useState(true);
@@ -83,6 +85,7 @@ export const ReadingsChart = <T, >({
     <Loadable isLoading={isLoading} error={isError} containerClassName='min-h-[234px] min-w-[200px]'>
       <LineChart
         withGradient={withGradient}
+        labels={labels}
         className='w-full'
         dataset={[...liveData].reverse()}
         isAnimationActive={isAnimationActive}

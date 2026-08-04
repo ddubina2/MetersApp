@@ -92,6 +92,7 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
                 pm25: node.pm25,
                 humidity: node.humidity,
             })}
+        labels={{ co2: 'co-2', pm25: 'PM2.5', humidity: 'Humidity' }}
       />
 
       <Typography text='Motion' weight='bold' />
@@ -106,6 +107,7 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
                 name: toChartTime(node.timestamp),
                 motionDetected: node.motionDetected ? 1 : 0,
             })}
+        labels={{ motionDetected: 'Motion detected' }}
       />
 
       <Typography text='Energy' weight='bold' />
@@ -120,6 +122,7 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
                 name: toChartTime(node.timestamp),
                 energy: node.energy.toFixed(2),
             })}
+        labels={{ energy: 'Energy' }}
       />
     </div>
   );
