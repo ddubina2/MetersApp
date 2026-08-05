@@ -4,6 +4,7 @@
   },
   "header": {
     "title": "Meters App",
+    "languageSwitcher": "Язык",
     "nextCleanup": "Следующая очистка:",
     "loading": "...",
     "result": {

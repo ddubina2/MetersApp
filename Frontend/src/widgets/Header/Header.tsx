@@ -1,5 +1,6 @@
 import { Toggle } from '@components/Toggle';
 import { Typography } from '@components/Typography';
+import { LanguageSwitcher } from '@components/LanguageSwitcher';
 import { useTheme } from '@hooks/useTheme';
 import { useCleanupStatus, type CleaningResult } from '@hooks/useCleanupStatus';
 import { twMerge } from 'tailwind-merge';
@@ -61,6 +62,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
             {t(resultLabel[lastResult])}
           </span>
         </div>
+        <LanguageSwitcher />
         <div className='flex items-center gap-2'>
           <span className='text-sm font-medium text-regular'>
             {isDark ? t('header.theme.dark') : t('header.theme.light')}
