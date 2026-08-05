@@ -6,9 +6,10 @@ import type { AirQualityReadingDto, EnergyReadingDto, GetAirQualityReadingsQuery
 import { GET_AIR_QUALITY_READINGS } from '@shared/graphql/queries/getAirQuality';
 import { GET_ENERGY_READINGS } from '@shared/graphql/queries/getEnergy';
 import { GET_MOTION_READINGS } from '@shared/graphql/queries/getMotion';
-import { SensorType } from '@shared/hooks/useSensorsHub';
+import { SensorType } from '@hooks/useSensorsHub';
 import { toChartTime } from '@shared/utils/formatDateTime';
 import { ReadingsChart } from '@widgets/ReadingsChart';
+import { useTranslation } from 'react-i18next';
 import { useMemo, useState, type FC } from 'react';
 
 type LocationTabProps = {
@@ -20,6 +21,7 @@ const FETCH_POLICY: WatchQueryFetchPolicy = 'no-cache';
 const TIME_FILTERS = [1, 5, 10]; // in minutes
 
 export const LocationTab: FC<LocationTabProps> = ({ type }) => {
+  const { t } = useTranslation();
 
   const [currentTimeFilter, setCurrentTimeFilter] = useState(5); // in minutes
   const currentTimeStamp = useMemo(
@@ -72,14 +74,14 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
         {TIME_FILTERS.map((value) =>(
           <Button
             key={`time-filter-${value}`}
-            text={`${value} Min`}
+            text={t('location.timeFilter', { value })}
             intent={currentTimeFilter === value ? 'primary' : 'secondary'}
             onClick={() => setCurrentTimeFilter(value)}
             className='py-0'
           />
         ))}
       </div>
-      <Typography text='Air Quality' weight='bold' className='mt-2' />
+      <Typography text={t('location.sections.airQuality')} weight='bold' className='mt-2' />
       <ReadingsChart<AirQualityReadingDto>
         locationType={type}
         sensorType={SensorType.AirQuality}
@@ -92,9 +94,10 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
                 pm25: node.pm25,
                 humidity: node.humidity,
             })}
+        labels={{ co2: t('location.labels.co2'), pm25: t('location.labels.pm25'), humidity: t('location.labels.humidity') }}
       />
 
-      <Typography text='Motion' weight='bold' />
+      <Typography text={t('location.sections.motion')} weight='bold' />
       <ReadingsChart<MotionReadingDto>
         locationType={type}
         sensorType={SensorType.Motion}
@@ -106,9 +109,10 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
                 name: toChartTime(node.timestamp),
                 motionDetected: node.motionDetected ? 1 : 0,
             })}
+        labels={{ motionDetected: t('location.labels.motionDetected') }}
       />
 
-      <Typography text='Energy' weight='bold' />
+      <Typography text={t('location.sections.energy')} weight='bold' />
       <ReadingsChart<EnergyReadingDto>
         locationType={type}
         sensorType={SensorType.Energy}
@@ -120,6 +124,7 @@ export const LocationTab: FC<LocationTabProps> = ({ type }) => {
                 name: toChartTime(node.timestamp),
                 energy: node.energy.toFixed(2),
             })}
+        labels={{ energy: t('location.labels.energy') }}
       />
     </div>
   );

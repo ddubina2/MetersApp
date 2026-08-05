@@ -1,0 +1,45 @@
+{
+  "common": {
+    "error": "Error"
+  },
+  "header": {
+    "title": "Meters App",
+    "languageSwitcher": "Language",
+    "nextCleanup": "Next cleanup:",
+    "loading": "...",
+    "result": {
+      "success": "Succeeded",
+      "failure": "Failed",
+      "notPerformed": "Not performed"
+    },
+    "theme": {
+      "dark": "Dark",
+      "light": "Light"
+    }
+  },
+  "home": {
+    "tabs": {
+      "bedroom": "Bedroom",
+      "corridor": "Corridor",
+      "garage": "Garage",
+      "kitchen": "Kitchen",
+      "livingRoom": "Living Room",
+      "office": "Office"
+    }
+  },
+  "location": {
+    "timeFilter": "{{value}} Min",
+    "sections": {
+      "airQuality": "Air Quality",
+      "motion": "Motion",
+      "energy": "Energy"
+    },
+    "labels": {
+      "co2": "CO₂",
+      "pm25": "PM2.5",
+      "humidity": "Humidity",
+      "motionDetected": "Motion detected",
+      "energy": "Energy"
+    }
+  }
+}

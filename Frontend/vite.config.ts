@@ -10,6 +10,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@app': resolve(__dirname, './src/app'),
+      '@hooks': resolve(__dirname, './src/app/hooks'),
+      '@i18n': resolve(__dirname, './src/i18n/index.ts'),
       '@shared': resolve(__dirname, './src/shared'),
       '@components': resolve(__dirname, './src/components'),
       '@pages': resolve(__dirname, './src/pages'),

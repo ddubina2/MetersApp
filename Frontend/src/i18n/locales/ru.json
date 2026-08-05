@@ -1,0 +1,45 @@
+{
+  "common": {
+    "error": "Ошибка"
+  },
+  "header": {
+    "title": "Meters App",
+    "languageSwitcher": "Язык",
+    "nextCleanup": "Следующая очистка:",
+    "loading": "...",
+    "result": {
+      "success": "Успешно",
+      "failure": "Сбой",
+      "notPerformed": "Не выполнялась"
+    },
+    "theme": {
+      "dark": "Тёмная",
+      "light": "Светлая"
+    }
+  },
+  "home": {
+    "tabs": {
+      "bedroom": "Спальня",
+      "corridor": "Коридор",
+      "garage": "Гараж",
+      "kitchen": "Кухня",
+      "livingRoom": "Гостиная",
+      "office": "Офис"
+    }
+  },
+  "location": {
+    "timeFilter": "{{value}} мин",
+    "sections": {
+      "airQuality": "Качество воздуха",
+      "motion": "Движение",
+      "energy": "Энергия"
+    },
+    "labels": {
+      "co2": "CO₂",
+      "pm25": "PM2.5",
+      "humidity": "Влажность",
+      "motionDetected": "Движение обнаружено",
+      "energy": "Энергия"
+    }
+  }
+}
