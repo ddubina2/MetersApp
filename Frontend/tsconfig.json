@@ -13,6 +13,8 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@hooks/*": ["./src/app/hooks/*"],
+      "@i18n": ["./src/i18n/index.ts"],
+      "@i18n/*": ["./src/i18n/*"],
       "@pages/*": ["./src/pages/*"],
       "@processes/*": ["./src/processes/*"],
       "@shared/*": ["./src/shared/*"],

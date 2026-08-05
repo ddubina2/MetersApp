@@ -2,6 +2,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Icon } from '@components/Icon';
 import { Typography } from '@components/Typography';
+import { useTranslation } from 'react-i18next';
 
 type LoadableProps = {
   isLoading: boolean;
@@ -17,6 +18,8 @@ export const Loadable: FC<PropsWithChildren<LoadableProps>> = ({
   containerClassName,
   iconClassName,
 }) => {
+  const { t } = useTranslation();
+
   if (isLoading || error) {
     const iconId = error ? 'warning' : 'loader';
     const iconClasses = twMerge(
@@ -33,7 +36,7 @@ export const Loadable: FC<PropsWithChildren<LoadableProps>> = ({
         )}
       >
         <Icon id={iconId} className={iconClasses} />
-        {error ? <Typography text='Error' className='text-error' /> : null}
+        {error ? <Typography text={t('common.error')} className='text-error' /> : null}
       </div>
     );
   }

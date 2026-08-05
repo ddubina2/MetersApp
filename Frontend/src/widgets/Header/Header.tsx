@@ -3,6 +3,8 @@ import { Typography } from '@components/Typography';
 import { useTheme } from '@hooks/useTheme';
 import { useCleanupStatus, type CleaningResult } from '@hooks/useCleanupStatus';
 import { twMerge } from 'tailwind-merge';
+import { useTranslation } from 'react-i18next';
+import type { ParseKeys } from 'i18next';
 import type { FC } from 'react';
 
 const resultColorClass: Record<string, string> = {
@@ -11,10 +13,10 @@ const resultColorClass: Record<string, string> = {
   NotPerformed: 'bg-gray-400',
 };
 
-const resultLabel: Record<CleaningResult, string> = {
-  Success: 'Succeeded',
-  Failure: 'Failed',
-  NotPerformed: 'Not performed',
+const resultLabel: Record<CleaningResult, ParseKeys> = {
+  Success: 'header.result.success',
+  Failure: 'header.result.failure',
+  NotPerformed: 'header.result.notPerformed',
 };
 
 export type HeaderProps = {
@@ -22,6 +24,7 @@ export type HeaderProps = {
 };
 
 export const Header: FC<HeaderProps> = ({ className }) => {
+  const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const { timeRemaining, lastResult, isLoading } = useCleanupStatus();
   const isDark = theme === 'dark';
@@ -36,17 +39,17 @@ export const Header: FC<HeaderProps> = ({ className }) => {
     >
       <Typography
         tag='h1'
-        text='Meters App'
+        text={t('header.title')}
         weight='bold'
         className='text-xl'
       />
       <div className='flex items-center gap-6'>
         <div className='flex items-center gap-2'>
           <span className='text-sm font-medium text-secondary'>
-            Next cleanup:
+            {t('header.nextCleanup')}
           </span>
           <span className='text-sm font-bold tabular-nums text-regular'>
-            {isLoading ? '...' : timeRemaining}
+            {isLoading ? t('header.loading') : timeRemaining}
           </span>
           <span
             className={twMerge(
@@ -55,12 +58,12 @@ export const Header: FC<HeaderProps> = ({ className }) => {
             )}
           />
           <span className='text-xs text-secondary'>
-            {resultLabel[lastResult]}
+            {t(resultLabel[lastResult])}
           </span>
         </div>
         <div className='flex items-center gap-2'>
           <span className='text-sm font-medium text-regular'>
-            {isDark ? 'Dark' : 'Light'}
+            {isDark ? t('header.theme.dark') : t('header.theme.light')}
           </span>
           <Toggle
             checked={isDark}
